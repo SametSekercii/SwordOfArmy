@@ -7,10 +7,5 @@ public class GameManager : UnitySingleton<GameManager>
     public void SpendMoney(float value) => playerMoney -= value;
     public float GetMoneyValue() => playerMoney;
     public void EarnMoney(float value) => playerMoney += value;
-    [SerializeField] private GameObject rightHand;
-    private void Start()
-    {
-        rightHand = GameObject.FindWithTag("RightHand");
-    }
 
 }

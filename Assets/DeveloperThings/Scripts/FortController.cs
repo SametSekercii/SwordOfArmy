@@ -15,8 +15,6 @@ public class FortController : UnitySingleton<FortController>
     private float soldierCost;
     private int fortLevel = 1;
 
-    
-
     private void Start()
     {
         maxQueueSize = transform.GetChild(0).childCount;
@@ -28,8 +26,6 @@ public class FortController : UnitySingleton<FortController>
         }
         queueSize = 0;
         InvokeRepeating("BuyVikingSoldier", 10, 1);
-
-
 
 
     }
