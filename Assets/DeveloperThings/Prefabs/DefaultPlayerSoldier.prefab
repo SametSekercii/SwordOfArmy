@@ -3410,8 +3410,56 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5862642419372759096, guid: bdc00730fcb617f48aef849a770ac20c,
+        type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1.2238
+      objectReference: {fileID: 0}
+    - target: {fileID: 5862642419372759096, guid: bdc00730fcb617f48aef849a770ac20c,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 1.9
+      objectReference: {fileID: 0}
+    - target: {fileID: 5862642419372759096, guid: bdc00730fcb617f48aef849a770ac20c,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 5862642420833254760, guid: bdc00730fcb617f48aef849a770ac20c,
+        type: 3}
+      propertyPath: m_Type
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 5862642420833254760, guid: bdc00730fcb617f48aef849a770ac20c,
+        type: 3}
+      propertyPath: m_FillMethod
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5862642420833254760, guid: bdc00730fcb617f48aef849a770ac20c,
+        type: 3}
+      propertyPath: m_FillOrigin
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bdc00730fcb617f48aef849a770ac20c, type: 3}
+--- !u!1 &7408064590276234930 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4261495494568896962, guid: bdc00730fcb617f48aef849a770ac20c,
+    type: 3}
+  m_PrefabInstance: {fileID: 6768176780405925744}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1461433694770094847
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7408064590276234930}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6a559d36700269f4faa99894c5acd334, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!224 &7408064590276234942 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 4261495494568896974, guid: bdc00730fcb617f48aef849a770ac20c,
