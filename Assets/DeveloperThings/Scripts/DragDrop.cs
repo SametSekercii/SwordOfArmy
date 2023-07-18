@@ -82,7 +82,7 @@ public class DragDrop : MonoBehaviour
                     EquipmentController draggedEquipment = toDrag.GetComponent<EquipmentController>();
                     EquipmentSlot slot = toDrag.transform.parent.GetComponent<EquipmentSlot>();
                     slot.EmpySlot();
-                    hitInfo.transform.GetComponent<FortController>().EquipSoldier(draggedEquipment.item.name);
+                    hitInfo.transform.GetComponent<FortController>().EquipSoldier(draggedEquipment.item.name, draggedEquipment.item.value);
                     toDrag.transform.parent = FindObjectOfType<ObjectPooler>().transform;
                     toDrag.SetActive(false);
 

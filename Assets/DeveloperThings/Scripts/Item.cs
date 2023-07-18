@@ -7,7 +7,7 @@ public class Item : ScriptableObject
     public int id;
     public int itemLevel;
     public string itemName;
-    public int value;
+    public float value;
     public ItemType itemType;
     public enum ItemType
     {

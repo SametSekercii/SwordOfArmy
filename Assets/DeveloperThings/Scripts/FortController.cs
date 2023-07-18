@@ -67,10 +67,10 @@ public class FortController : MonoBehaviour
     public int GetQueueAmount() => queueSize;
     public Transform GetQueuePoint(int index) => queuePoints[index];
 
-    public void EquipSoldier(string itemName)
+    public void EquipSoldier(string itemName, float itemValue)
     {
         GameObject firstSoldier = soldiersInQueue[maxQueueSize - 1];
-        firstSoldier.GetComponent<SoldierController>().TakeUpArms(itemName);
+        firstSoldier.GetComponent<SoldierController>().TakeUpArms(itemName, itemValue);
         MoveTheQueue();
 
     }
@@ -106,7 +106,7 @@ public class FortController : MonoBehaviour
             yield return new WaitForSeconds(2);
             BuyVikingSoldier();
             yield return new WaitForSeconds(3);
-            EquipSoldier("Level5Equipment");
+            EquipSoldier("Level5Equipment", 50);
         }
 
 
