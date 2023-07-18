@@ -16,8 +16,14 @@ public class GameManager : UnitySingleton<GameManager>
         moneyText.text = Mathf.RoundToInt(playerMoney).ToString();
     }
 
-
-
+    public void unlimitedmoney()
+    {
+        playerMoney = 999999999;
+    }
+    public void limitedmoney()
+    {
+        playerMoney = 500;
+    }
 
 
 }
