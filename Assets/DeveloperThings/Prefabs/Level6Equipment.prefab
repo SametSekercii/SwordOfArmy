@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &3191127972152431371
+--- !u!1 &3563095830048603688
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,11 +8,11 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 6936839644130559349}
-  - component: {fileID: 4236178498044394659}
-  - component: {fileID: 1469548757458647525}
-  - component: {fileID: 3385461677884196799}
-  - component: {fileID: 4409134178650929460}
+  - component: {fileID: 5384934872916647380}
+  - component: {fileID: 7856183399272150955}
+  - component: {fileID: 7177209777449167607}
+  - component: {fileID: 3563095830048603690}
+  - component: {fileID: 3563095830048603689}
   m_Layer: 0
   m_Name: Level6Equipment
   m_TagString: Dragable
@@ -20,38 +20,38 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &6936839644130559349
+--- !u!4 &5384934872916647380
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3191127972152431371}
-  m_LocalRotation: {x: 0.33822605, y: -0.31738558, z: -0.12234214, w: 0.8774406}
-  m_LocalPosition: {x: -16.19, y: 4.66, z: 36.97629}
+  m_GameObject: {fileID: 3563095830048603688}
+  m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -0, y: 0, z: -3.371}
   m_LocalScale: {x: 3, y: 3, z: 3}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 31.057, y: -48.312, z: -30.082}
---- !u!33 &4236178498044394659
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!33 &7856183399272150955
 MeshFilter:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3191127972152431371}
-  m_Mesh: {fileID: -6685866393441441850, guid: ac2744035ff99de4383874f57bdfb1ab, type: 3}
---- !u!23 &1469548757458647525
+  m_GameObject: {fileID: 3563095830048603688}
+  m_Mesh: {fileID: -5872122062601920317, guid: 037271b1d574cac4f85f4ee83180f210, type: 3}
+--- !u!23 &7177209777449167607
 MeshRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3191127972152431371}
+  m_GameObject: {fileID: 3563095830048603688}
   m_Enabled: 1
-  m_CastShadows: 0
+  m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
   m_StaticShadowCaster: 0
@@ -85,29 +85,29 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!114 &3385461677884196799
+--- !u!65 &3563095830048603690
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3563095830048603688}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.7153701, y: 1.6048884, z: 0.18734476}
+  m_Center: {x: -0.08463785, y: -0.13998356, z: -0.013083562}
+--- !u!114 &3563095830048603689
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3191127972152431371}
+  m_GameObject: {fileID: 3563095830048603688}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8ea44adf56b10054798c2677883ea668, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   item: {fileID: 11400000, guid: 85fda09a20ed3e34e8d71f9d3a8bb44d, type: 2}
---- !u!65 &4409134178650929460
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3191127972152431371}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1.6004047, y: 0.18959475, z: 0.71729}
-  m_Center: {x: -0.048365384, y: -0.016314743, z: 0.9912848}
