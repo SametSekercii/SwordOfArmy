@@ -96,6 +96,7 @@ public class SoldierController : MonoBehaviour
                     if (hitInfo.transform.GetComponent<FortController>() != null)
                     {
                         hitInfo.transform.GetComponent<FortController>().TakeDamage(damage);
+                        if (transform.CompareTag("PlayerSoldier")) GameManager.Instance.EarnMoney(damage * 3);
 
                         Destroy(gameObject);
                     }
@@ -156,6 +157,7 @@ public class SoldierController : MonoBehaviour
             SoldierController enemy = enemyFromForward.GetComponent<SoldierController>();
             enemy.TakeDamage(damage);
         }
+        if (transform.CompareTag("PlayerSoldier")) GameManager.Instance.EarnMoney(damage * 3);
     }
     public void SetQueueNumber(int value) => queueNumber = value;
     public void IncreaseQueueNumber() => queueNumber++;

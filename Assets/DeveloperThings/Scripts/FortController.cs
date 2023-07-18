@@ -6,6 +6,7 @@ using UnityEngine.UI;
 
 public class FortController : MonoBehaviour
 {
+    private string[] equipmentNames = { "null", "Level1Equipment", "Level2Equipment", "Level3Equipment", "Level4Equipment", "Level5Equipment", "Level6Equipment" };
     private GameObject defaultBlueVikingSoldier;
     [SerializeField] private GameObject defaultBlueVikingSoldierPrefab;
     [SerializeField] private Transform spawnPoint;
@@ -15,11 +16,14 @@ public class FortController : MonoBehaviour
     private int queueSize;
     public Fort fort;
     private float health;
+    private float coolDown;
     public Image healthBar;
+    public Image coolDownBar;
 
 
     private void Start()
     {
+        coolDown = fort.coolDown;
         health = fort.health;
         healthBar.fillAmount = health / fort.health;
         maxQueueSize = transform.GetChild(0).childCount;
@@ -30,8 +34,17 @@ public class FortController : MonoBehaviour
             queuePoints[i] = transform.GetChild(0).GetChild(i);
         }
         queueSize = 0;
-        if (transform.CompareTag("EnemyFort")) StartCoroutine("EnemyBehaviour");
-        InvokeRepeating("BuyVikingSoldier", 3, 1);
+
+        if (transform.CompareTag("EnemyFort"))
+        {
+            StartCoroutine("EnemyFortSpawner");
+
+        }
+        if (transform.CompareTag("PlayerFort"))
+        {
+            StartCoroutine("PlayerFortBehaviour");
+        }
+
 
 
     }
@@ -59,8 +72,12 @@ public class FortController : MonoBehaviour
     public void EquipSoldier(string itemName, float itemValue)
     {
         GameObject firstSoldier = soldiersInQueue[maxQueueSize - 1];
-        firstSoldier.GetComponent<SoldierController>().TakeUpArms(itemName, itemValue);
-        MoveTheQueue();
+        if (firstSoldier != null)
+        {
+            firstSoldier.GetComponent<SoldierController>().TakeUpArms(itemName, itemValue);
+            MoveTheQueue();
+
+        }
 
     }
 
@@ -88,16 +105,81 @@ public class FortController : MonoBehaviour
         else return false;
     }
 
-    IEnumerator EnemyBehaviour()
+    IEnumerator EnemyEquiper()
     {
+        int counter = 3;
+
+
+        yield return new WaitForSeconds(Random.Range(4, 10));
+        if (counter > 0)
+        {
+            int rand = Random.Range(1, 4);
+            EquipSoldier(equipmentNames[rand], rand * 10);
+            yield return null;
+            counter--;
+
+        }
+        else
+        {
+            int rand = Random.Range(5, 6);
+            EquipSoldier(equipmentNames[rand], rand * 10);
+            yield return null;
+            counter = 3;
+
+        }
+        yield return null;
+
+
+
+
+
+    }
+    IEnumerator EnemyFortSpawner()
+    {
+
+
         while (true)
         {
-            yield return new WaitForSeconds(2);
-            BuyVikingSoldier();
-            yield return new WaitForSeconds(3);
-            EquipSoldier("Level5Equipment", 50);
+            float timer = coolDown;
+
+            if (queueSize < maxQueueSize)
+            {
+                while (timer > 0)
+                {
+
+                    yield return new WaitForSeconds(0.05f);
+                    timer -= 0.05f;
+                }
+                BuyVikingSoldier();
+                StartCoroutine("EnemyEquiper");
+
+            }
+
+
+            yield return null;
         }
 
+    }
+    IEnumerator PlayerFortBehaviour()
+    {
+
+        while (true)
+        {
+            float timer = coolDown;
+            if (queueSize < maxQueueSize)
+            {
+                while (timer > 0)
+                {
+                    coolDownBar.fillAmount = timer / coolDown;
+                    yield return new WaitForSeconds(0.05f);
+                    timer -= 0.05f;
+                }
+                BuyVikingSoldier();
+            }
+            else coolDownBar.fillAmount = timer / coolDown;
+
+            yield return null;
+        }
 
     }
     public void TakeDamage(float damage)

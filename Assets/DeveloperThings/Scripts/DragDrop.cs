@@ -77,7 +77,7 @@ public class DragDrop : MonoBehaviour
                     toDrag.transform.parent = hitInfo2.transform;
 
                 }
-                else if (Physics.Raycast(ray2, out RaycastHit hitInfo3, Mathf.Infinity) && hitInfo2.transform.gameObject.CompareTag("PlayerFort"))
+                else if (Physics.Raycast(ray2, out RaycastHit hitInfo3, Mathf.Infinity) && hitInfo2.transform.gameObject.CompareTag("PlayerFort") && hitInfo.transform.GetComponent<FortController>().CheckQueue())
                 {
                     EquipmentController draggedEquipment = toDrag.GetComponent<EquipmentController>();
                     EquipmentSlot slot = toDrag.transform.parent.GetComponent<EquipmentSlot>();
