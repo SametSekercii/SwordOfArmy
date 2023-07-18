@@ -7,9 +7,10 @@ public class SoldierController : MonoBehaviour
 {
     enum SoldierState { inQueue, inWar, Dead }
     enum EquipmentState { isArmed, isNotArmed }
+    private Animator anim;
     public Soldier soldier;
     public PathCreator queuePath;
-    private float moveSpeed;
+    private int moveSpeed;
     float distancetravelled;
     [SerializeField] private int queueNumber;
     private SoldierState state;
@@ -24,7 +25,8 @@ public class SoldierController : MonoBehaviour
 
     private void OnEnable()
     {
-        moveSpeed = soldier.moveSpeed;
+        moveSpeed = 0;
+        anim = transform.GetComponent<Animator>();
         equipmentState = EquipmentState.isNotArmed;
         state = SoldierState.inQueue;
         rightArm = transform.GetChild(0).GetChild(0).GetChild(2).GetChild(0).GetChild(0).GetChild(2).GetChild(0).GetChild(0).GetChild(0);
@@ -50,6 +52,9 @@ public class SoldierController : MonoBehaviour
     {
         while (state != SoldierState.Dead)
         {
+
+
+            anim.SetInteger("moveSpeed", moveSpeed);
             targetPos = soldierfort.GetQueuePoint(queueNumber);
             distancetravelled += moveSpeed * Time.deltaTime;
             transform.position = queuePath.path.GetPointAtDistance(distancetravelled);
@@ -64,7 +69,20 @@ public class SoldierController : MonoBehaviour
 
             if (state == SoldierState.inWar)
             {
-                moveSpeed = 4;
+
+                Ray ray = new Ray(eye.position, eye.TransformDirection(Vector3.forward));
+                Debug.DrawRay(eye.position, eye.TransformDirection(Vector3.forward) * 3f, Color.red);
+                if (Physics.Raycast(ray, out RaycastHit hitInfo, 3f))
+                {
+                    moveSpeed = 0;
+                    if (!hitInfo.transform.CompareTag(transform.tag))
+                    {
+
+                        anim.SetBool("isAttacking", true);
+                    }
+
+                }
+                else moveSpeed = soldier.moveSpeed;
             }
             yield return null;
 

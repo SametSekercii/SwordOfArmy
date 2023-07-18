@@ -25,6 +25,7 @@ public class FortController : MonoBehaviour
             queuePoints[i] = transform.GetChild(0).GetChild(i);
         }
         queueSize = 0;
+        if (transform.CompareTag("EnemyFort")) StartCoroutine("EnemyBehaviour");
         InvokeRepeating("BuyVikingSoldier", 3, 1);
 
 
@@ -96,5 +97,18 @@ public class FortController : MonoBehaviour
     {
         if (queueSize > 0) return true;
         else return false;
+    }
+
+    IEnumerator EnemyBehaviour()
+    {
+        while (true)
+        {
+            yield return new WaitForSeconds(2);
+            BuyVikingSoldier();
+            yield return new WaitForSeconds(3);
+            EquipSoldier("Level5Equipment");
+        }
+
+
     }
 }

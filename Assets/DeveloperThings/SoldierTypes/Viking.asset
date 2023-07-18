@@ -15,5 +15,5 @@ MonoBehaviour:
   id: 1
   health: 100
   damage: 40
-  moveSpeed: 3
+  moveSpeed: 4
   soldierType: 0

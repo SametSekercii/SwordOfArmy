@@ -1663,6 +1663,8 @@ GameObject:
   m_Component:
   - component: {fileID: 6773568679573493370}
   - component: {fileID: -8922275841418649604}
+  - component: {fileID: 1265355681}
+  - component: {fileID: 4912078610167556213}
   m_Layer: 0
   m_Name: DefaultPlayerSoldier
   m_TagString: PlayerSoldier
@@ -1711,6 +1713,39 @@ MonoBehaviour:
   soldier: {fileID: 11400000, guid: c7528443a69af3e4aa4e2d6378c75e15, type: 2}
   queuePath: {fileID: 0}
   queueNumber: 0
+--- !u!95 &1265355681
+Animator:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6146107820849810624}
+  m_Enabled: 1
+  m_Avatar: {fileID: 9000000, guid: 3bafa4cd40ab17144ba3be00d8108e42, type: 3}
+  m_Controller: {fileID: 9100000, guid: 2cede0db3e341df45b69aee1dcebef14, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!65 &4912078610167556213
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6146107820849810624}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1.5617838, y: 3.239819, z: 1}
+  m_Center: {x: -0.027857393, y: 1.1199095, z: -7.4962675e-11}
 --- !u!1 &6158615597075756810
 GameObject:
   m_ObjectHideFlags: 0
