@@ -94,7 +94,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 6773568679573493370}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!137 &4685535115903395225
 SkinnedMeshRenderer:
@@ -331,7 +331,7 @@ GameObject:
   - component: {fileID: 3870018556175589430}
   m_Layer: 0
   m_Name: lvl4Armor
-  m_TagString: Untagged
+  m_TagString: Level4Equipment
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -349,7 +349,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 6773568679573493370}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!137 &3870018556175589430
 SkinnedMeshRenderer:
@@ -489,7 +489,7 @@ GameObject:
   - component: {fileID: 6124579879721015948}
   m_Layer: 0
   m_Name: lvl5 Armor
-  m_TagString: Untagged
+  m_TagString: Level5Equipment
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -507,7 +507,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 6773568679573493370}
-  m_RootOrder: 5
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!137 &6124579879721015948
 SkinnedMeshRenderer:
@@ -635,6 +635,37 @@ Transform:
   m_Father: {fileID: 4069298793223995815}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &2085370886964624624
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3449822516914654478}
+  m_Layer: 0
+  m_Name: Eye
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3449822516914654478
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2085370886964624624}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 1.5, z: 0.5}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6773568679573493370}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2120387679678038259
 GameObject:
   m_ObjectHideFlags: 0
@@ -729,7 +760,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 6773568679573493370}
-  m_RootOrder: 9
+  m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!137 &3745483164080906540
 SkinnedMeshRenderer:
@@ -1125,7 +1156,7 @@ GameObject:
   - component: {fileID: 2881574780971960339}
   m_Layer: 0
   m_Name: lvl3Armor
-  m_TagString: Untagged
+  m_TagString: Level3Equipment
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1143,7 +1174,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 6773568679573493370}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!137 &2881574780971960339
 SkinnedMeshRenderer:
@@ -1283,7 +1314,7 @@ GameObject:
   - component: {fileID: 8515049962379999661}
   m_Layer: 0
   m_Name: lvl2 Armor
-  m_TagString: Untagged
+  m_TagString: Level2Equipment
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1301,7 +1332,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 6773568679573493370}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!137 &8515049962379999661
 SkinnedMeshRenderer:
@@ -1631,9 +1662,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6773568679573493370}
+  - component: {fileID: -8922275841418649604}
   m_Layer: 0
   m_Name: DefaultPlayerSoldier
-  m_TagString: Untagged
+  m_TagString: PlayerSoldier
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1651,6 +1683,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 2251585900139931232}
+  - {fileID: 3449822516914654478}
   - {fileID: 2127331689995764509}
   - {fileID: 7287679047434736877}
   - {fileID: 5460381581318713847}
@@ -1663,6 +1696,21 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 8.31, z: 0}
+--- !u!114 &-8922275841418649604
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6146107820849810624}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 99e06362dfd9cea41a5d9d747558a6a9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  soldier: {fileID: 11400000, guid: c7528443a69af3e4aa4e2d6378c75e15, type: 2}
+  queuePath: {fileID: 0}
+  queueNumber: 0
 --- !u!1 &6158615597075756810
 GameObject:
   m_ObjectHideFlags: 0
@@ -1947,7 +1995,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 6773568679573493370}
-  m_RootOrder: 7
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!137 &1576752449984073965
 SkinnedMeshRenderer:
@@ -2087,7 +2135,7 @@ GameObject:
   - component: {fileID: 5263122670431754559}
   m_Layer: 0
   m_Name: lvl6 Armor
-  m_TagString: Untagged
+  m_TagString: Level6Equipment
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2105,7 +2153,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 6773568679573493370}
-  m_RootOrder: 6
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!137 &5263122670431754559
 SkinnedMeshRenderer:
@@ -2458,7 +2506,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 6773568679573493370}
-  m_RootOrder: 8
+  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!137 &1209881467369275284
 SkinnedMeshRenderer:
@@ -2820,6 +2868,16 @@ PrefabInstance:
       propertyPath: m_Name
       value: kilic6
       objectReference: {fileID: 0}
+    - target: {fileID: 7232014822177655046, guid: 682d2c1b0b987ba4885517aed16480d6,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7232014822177655046, guid: 682d2c1b0b987ba4885517aed16480d6,
+        type: 3}
+      propertyPath: m_TagString
+      value: Level6Equipment
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 682d2c1b0b987ba4885517aed16480d6, type: 3}
 --- !u!4 &2284171567997233971 stripped
@@ -2839,6 +2897,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: kilic1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1059975912555176767, guid: 7bf8114fbf2ab474983cf32affde8933,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1059975912555176767, guid: 7bf8114fbf2ab474983cf32affde8933,
+        type: 3}
+      propertyPath: m_TagString
+      value: Level1Equipment
       objectReference: {fileID: 0}
     - target: {fileID: 2231314160698659909, guid: 7bf8114fbf2ab474983cf32affde8933,
         type: 3}
@@ -2914,6 +2982,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: kilic4
+      objectReference: {fileID: 0}
+    - target: {fileID: 3673039012803520828, guid: d1970095eae24714e913f25aea54f305,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3673039012803520828, guid: d1970095eae24714e913f25aea54f305,
+        type: 3}
+      propertyPath: m_TagString
+      value: Level4Equipment
       objectReference: {fileID: 0}
     - target: {fileID: 4940892378240564340, guid: d1970095eae24714e913f25aea54f305,
         type: 3}
@@ -3045,6 +3123,16 @@ PrefabInstance:
       propertyPath: m_Name
       value: kilic3
       objectReference: {fileID: 0}
+    - target: {fileID: 3239146744844575483, guid: 2f8fbccb94443034c84542a25fe55c21,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3239146744844575483, guid: 2f8fbccb94443034c84542a25fe55c21,
+        type: 3}
+      propertyPath: m_TagString
+      value: Level3Equipment
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2f8fbccb94443034c84542a25fe55c21, type: 3}
 --- !u!4 &5656777528028396268 stripped
@@ -3064,6 +3152,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: kilic2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2556607475053744292, guid: b5c2cd769737cac42b8fa7717323473e,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2556607475053744292, guid: b5c2cd769737cac42b8fa7717323473e,
+        type: 3}
+      propertyPath: m_TagString
+      value: Level2Equipment
       objectReference: {fileID: 0}
     - target: {fileID: 7834340299728652979, guid: b5c2cd769737cac42b8fa7717323473e,
         type: 3}
@@ -3194,6 +3292,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: kilic5
+      objectReference: {fileID: 0}
+    - target: {fileID: 851709397585686576, guid: bd03f39debd0f0142add3a4ab34a4024,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 851709397585686576, guid: bd03f39debd0f0142add3a4ab34a4024,
+        type: 3}
+      propertyPath: m_TagString
+      value: Level5Equipment
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bd03f39debd0f0142add3a4ab34a4024, type: 3}

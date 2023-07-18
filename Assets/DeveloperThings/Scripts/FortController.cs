@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
 
-public class FortController : UnitySingleton<FortController>
+public class FortController : MonoBehaviour
 {
     private GameObject defaultBlueVikingSoldier;
     [SerializeField] private GameObject defaultBlueVikingSoldierPrefab;
@@ -25,7 +25,7 @@ public class FortController : UnitySingleton<FortController>
             queuePoints[i] = transform.GetChild(0).GetChild(i);
         }
         queueSize = 0;
-        InvokeRepeating("BuyVikingSoldier", 10, 1);
+        InvokeRepeating("BuyVikingSoldier", 3, 1);
 
 
     }
@@ -66,20 +66,14 @@ public class FortController : UnitySingleton<FortController>
     public int GetQueueAmount() => queueSize;
     public Transform GetQueuePoint(int index) => queuePoints[index];
 
-    public void EquipSoldier(int itemId)
-    {
-
-
-        SendToWar();
-    }
-    private void SendToWar()
+    public void EquipSoldier(string itemName)
     {
         GameObject firstSoldier = soldiersInQueue[maxQueueSize - 1];
-        firstSoldier.GetComponent<SoldierController>().SetStateInWar();
+        firstSoldier.GetComponent<SoldierController>().TakeUpArms(itemName);
         MoveTheQueue();
 
-
     }
+
 
     private void MoveTheQueue()
     {

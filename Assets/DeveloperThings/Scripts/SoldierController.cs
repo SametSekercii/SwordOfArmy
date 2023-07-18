@@ -6,62 +6,102 @@ using PathCreation;
 public class SoldierController : MonoBehaviour
 {
     enum SoldierState { inQueue, inWar, Dead }
+    enum EquipmentState { isArmed, isNotArmed }
     public Soldier soldier;
     public PathCreator queuePath;
-    private float speed = 5;
+    private float moveSpeed;
     float distancetravelled;
-    private int queueNumber;
-    SoldierState state;
+    [SerializeField] private int queueNumber;
+    private SoldierState state;
+    private EquipmentState equipmentState;
+    private FortController soldierfort;
+    private Transform targetPos;
+    private Transform eye;
+    private Transform rightArm;
+    private GameObject equippedArmor;
+    private GameObject equippedSword;
+
 
     private void OnEnable()
     {
-        if (transform.gameObject.CompareTag("PlayerSoldier")) queuePath = GameObject.FindWithTag("PlayerFortPathCreator").GetComponent<PathCreator>();
+        moveSpeed = soldier.moveSpeed;
+        equipmentState = EquipmentState.isNotArmed;
         state = SoldierState.inQueue;
-        StartCoroutine("GetInQueue");
+        rightArm = transform.GetChild(0).GetChild(0).GetChild(2).GetChild(0).GetChild(0).GetChild(2).GetChild(0).GetChild(0).GetChild(0);
+        eye = transform.GetChild(1);
+        if (transform.CompareTag("PlayerSoldier"))
+        {
+            queuePath = GameObject.FindWithTag("PlayerFortPathCreator").GetComponent<PathCreator>();
+            soldierfort = GameObject.FindWithTag("PlayerFort").GetComponent<FortController>();
 
+
+        }
+        if (transform.CompareTag("EnemySoldier"))
+        {
+            queuePath = GameObject.FindWithTag("EnemyFortPathCreator").GetComponent<PathCreator>();
+            soldierfort = GameObject.FindWithTag("EnemyFort").GetComponent<FortController>();
+
+        }
+
+        StartCoroutine("GetInGame");
 
     }
-
-
-
-    public void SetQueueNumber(int value) => queueNumber = value;
-
-    IEnumerator GetInQueue()
+    IEnumerator GetInGame()
     {
-
-        while (state == SoldierState.inQueue)
+        while (state != SoldierState.Dead)
         {
-            Transform targetPos;
-            targetPos = FortController.Instance.GetQueuePoint(queueNumber);
-            if (Vector3.Distance(transform.position, targetPos.position) > 0.4f)
+            targetPos = soldierfort.GetQueuePoint(queueNumber);
+            distancetravelled += moveSpeed * Time.deltaTime;
+            transform.position = queuePath.path.GetPointAtDistance(distancetravelled);
+            transform.rotation = queuePath.path.GetRotationAtDistance(distancetravelled);
+
+            if (state == SoldierState.inQueue)
             {
-                distancetravelled += speed * Time.deltaTime;
-                transform.position = queuePath.path.GetPointAtDistance(distancetravelled);
-                transform.rotation = queuePath.path.GetRotationAtDistance(distancetravelled);
+                if (Vector3.Distance(transform.position, targetPos.position) > 0.4f) moveSpeed = 2;
+                else moveSpeed = 0;
+
             }
 
-
+            if (state == SoldierState.inWar)
+            {
+                moveSpeed = 4;
+            }
             yield return null;
+
         }
+
+
+
         yield return null;
 
     }
-    IEnumerator GoToWar()
+    public void TakeUpArms(string itemName)
     {
-        while (true)
+        for (int i = 0; i < transform.childCount; i++)
         {
-            Debug.Log("savaşıyor");
-            yield return null;
+            if (transform.GetChild(i).CompareTag(itemName))
+            {
+                transform.GetChild(i).gameObject.SetActive(true);
+                equippedArmor = transform.GetChild(i).gameObject;
+
+            }
+
+        }
+        for (int i = 0; i < rightArm.childCount; i++)
+        {
+            if (rightArm.GetChild(i).CompareTag(itemName))
+            {
+                rightArm.GetChild(i).gameObject.SetActive(true);
+                equippedSword = transform.GetChild(i).gameObject;
+            }
+
         }
 
-    }
-
-    public void SetStateInWar()
-    {
         state = SoldierState.inWar;
-        StartCoroutine("GoToWar");
+
 
     }
+    public void SetQueueNumber(int value) => queueNumber = value;
     public void IncreaseQueueNumber() => queueNumber++;
 
 }

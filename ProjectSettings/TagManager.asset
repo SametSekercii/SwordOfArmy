@@ -6,6 +6,18 @@ TagManager:
   tags:
   - EquipmentSlot
   - Dragable
+  - PlayerFortPathCreator
+  - PlayerSoldier
+  - EnemySoldier
+  - PlayerFort
+  - EnemyFortPathCreator
+  - Level1Equipment
+  - Level2Equipment
+  - Level3Equipment
+  - Level4Equipment
+  - Level5Equipment
+  - Level6Equipment
+  - EnemyFort
   layers:
   - Default
   - TransparentFX
