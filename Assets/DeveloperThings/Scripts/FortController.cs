@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
+using UnityEngine.UI;
 
 public class FortController : MonoBehaviour
 {
@@ -12,11 +13,15 @@ public class FortController : MonoBehaviour
     [SerializeField] private GameObject[] soldiersInQueue;
     private int maxQueueSize;
     private int queueSize;
-    private float soldierCost;
-    private int fortLevel = 1;
+    public Fort fort;
+    private float health;
+    public Image healthBar;
+
 
     private void Start()
     {
+        health = fort.health;
+        healthBar.fillAmount = health / fort.health;
         maxQueueSize = transform.GetChild(0).childCount;
         soldiersInQueue = new GameObject[maxQueueSize];
         queuePoints = new Transform[maxQueueSize];
@@ -30,14 +35,7 @@ public class FortController : MonoBehaviour
 
 
     }
-    private void OnEnable()
-    {
-        StartCoroutine("GainMoneyRegular");
-    }
-    private void OnDisable()
-    {
-        StopAllCoroutines();
-    }
+
     public void BuyVikingSoldier()
     {
         if (queueSize < maxQueueSize)
@@ -54,16 +52,7 @@ public class FortController : MonoBehaviour
 
     }
 
-    IEnumerator GainMoneyRegular()
 
-    {
-        while (true)
-        {
-            yield return new WaitForSeconds(1.5f);
-            GameManager.Instance.EarnMoney(5 * fortLevel);
-
-        }
-    }
     public int GetQueueAmount() => queueSize;
     public Transform GetQueuePoint(int index) => queuePoints[index];
 
@@ -110,5 +99,10 @@ public class FortController : MonoBehaviour
         }
 
 
+    }
+    public void TakeDamage(float damage)
+    {
+        health -= damage;
+        healthBar.fillAmount = health / fort.health;
     }
 }

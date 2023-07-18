@@ -95,6 +95,8 @@ public class SoldierController : MonoBehaviour
                     }
                     if (hitInfo.transform.GetComponent<FortController>() != null)
                     {
+                        hitInfo.transform.GetComponent<FortController>().TakeDamage(damage);
+
                         Destroy(gameObject);
                     }
 

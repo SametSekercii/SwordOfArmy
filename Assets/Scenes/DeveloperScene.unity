@@ -377,6 +377,27 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1698348435118919178, guid: e9dd7b5260dff164786e1326c1c4e521,
+        type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1698348435118919178, guid: e9dd7b5260dff164786e1326c1c4e521,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4785906085268116183, guid: e9dd7b5260dff164786e1326c1c4e521,
+        type: 3}
+      propertyPath: fort
+      value: 
+      objectReference: {fileID: 11400000, guid: c57c6c7ccbd695e4ea5d6ca730d381d9,
+        type: 2}
+    - target: {fileID: 4785906085268116183, guid: e9dd7b5260dff164786e1326c1c4e521,
+        type: 3}
+      propertyPath: healthBar
+      value: 
+      objectReference: {fileID: 3032364104776548145}
     - target: {fileID: 5773428153881926033, guid: e9dd7b5260dff164786e1326c1c4e521,
         type: 3}
       propertyPath: m_RootOrder
@@ -434,17 +455,56 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6343285221140771804, guid: e9dd7b5260dff164786e1326c1c4e521,
         type: 3}
-      propertyPath: defaultBlueVikingSoldierPrefab
+      propertyPath: fort
       value: 
-      objectReference: {fileID: 3290659265453217583, guid: 8801c05b3a1bfc44ca542c6bd9db4c18,
+      objectReference: {fileID: 11400000, guid: c57c6c7ccbd695e4ea5d6ca730d381d9,
+        type: 2}
+    - target: {fileID: 6343285221140771804, guid: e9dd7b5260dff164786e1326c1c4e521,
         type: 3}
+      propertyPath: healthBar
+      value: 
+      objectReference: {fileID: 3032364104776548144}
     - target: {fileID: 6581033379682009899, guid: e9dd7b5260dff164786e1326c1c4e521,
         type: 3}
       propertyPath: m_Name
       value: TestLevel
       objectReference: {fileID: 0}
+    - target: {fileID: 8794813082799954674, guid: e9dd7b5260dff164786e1326c1c4e521,
+        type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8794813082799954674, guid: e9dd7b5260dff164786e1326c1c4e521,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e9dd7b5260dff164786e1326c1c4e521, type: 3}
+--- !u!114 &3032364104776548144 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8794813082141507490, guid: e9dd7b5260dff164786e1326c1c4e521,
+    type: 3}
+  m_PrefabInstance: {fileID: 3032364104776548143}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &3032364104776548145 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1698348435471630785, guid: e9dd7b5260dff164786e1326c1c4e521,
+    type: 3}
+  m_PrefabInstance: {fileID: 3032364104776548143}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &7704981118349019612
 PrefabInstance:
   m_ObjectHideFlags: 0
