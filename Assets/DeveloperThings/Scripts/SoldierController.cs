@@ -10,7 +10,6 @@ public class SoldierController : MonoBehaviour
     private Animator anim;
     public Soldier soldier;
     public PathCreator queuePath;
-    private int moveSpeed;
     float distancetravelled;
     [SerializeField] private int queueNumber;
     private SoldierState state;
@@ -21,10 +20,15 @@ public class SoldierController : MonoBehaviour
     private Transform rightArm;
     private GameObject equippedArmor;
     private GameObject equippedSword;
+    private float health;
+    private int moveSpeed;
+    private float damage;
 
 
     private void OnEnable()
     {
+        health = soldier.health;
+        damage = soldier.damage;
         moveSpeed = 0;
         anim = transform.GetComponent<Animator>();
         equipmentState = EquipmentState.isNotArmed;
