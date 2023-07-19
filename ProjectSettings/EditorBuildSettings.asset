@@ -7,8 +7,11 @@ EditorBuildSettings:
   m_Scenes:
   - enabled: 0
     path: 
-    guid: 99c9720ab356a0642a771bea13969a05
-  - enabled: 1
+    guid: 00000000000000000000000000000000
+  - enabled: 0
     path: Assets/Scenes/DeveloperScene.unity
     guid: 647b7b58927b13f42871251e4e499d5a
+  - enabled: 1
+    path: Assets/Scenes/enes scene.unity
+    guid: ef991545b42fb9a4aac5b17d67fcd502
   m_configObjects: {}
