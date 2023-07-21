@@ -103,7 +103,7 @@ public class DragDrop : MonoBehaviour
     private void Merge(GameObject toMerge, GameObject toDrag, int newLevel)
     {
 
-        var newEquipment = ObjectPooler.Instance.getEquipmentFromPool(newLevel);
+        var newEquipment = ObjectPooler.Instance.GetEquipmentFromPool(newLevel);
         if (newEquipment != null)
         {
             newEquipment.transform.position = toMerge.transform.position;

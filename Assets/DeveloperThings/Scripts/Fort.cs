@@ -6,5 +6,6 @@ public class Fort : ScriptableObject
 {
     public float health;
     public float coolDown;
+    public int id;
 
 }

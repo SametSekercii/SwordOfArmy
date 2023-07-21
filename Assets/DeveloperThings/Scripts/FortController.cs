@@ -110,7 +110,7 @@ public class FortController : MonoBehaviour
         int counter = 3;
 
 
-        yield return new WaitForSeconds(Random.Range(4, 10));
+        yield return new WaitForSeconds(Random.Range(1, 3));
         if (counter > 0)
         {
             int rand = Random.Range(1, 4);
@@ -187,4 +187,6 @@ public class FortController : MonoBehaviour
         health -= damage;
         healthBar.fillAmount = health / fort.health;
     }
+
+    public int GetFortId() => fort.id;
 }

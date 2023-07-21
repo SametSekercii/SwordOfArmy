@@ -6,5 +6,7 @@ public class EquipmentController : UnitySingleton<EquipmentController>
 {
     public Item item;
 
-   
+    public int GetItemLevel() => item.itemLevel;
+
+
 }

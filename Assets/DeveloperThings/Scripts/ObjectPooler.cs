@@ -17,12 +17,28 @@ public class ObjectPooler : UnitySingleton<ObjectPooler>
     [SerializeField] private GameObject level4EquipmentPrefab;
     [SerializeField] private GameObject level5EquipmentPrefab;
     [SerializeField] private GameObject level6EquipmentPrefab;
+    /////////////////////////////////////
+    private List<GameObject> level1Tablets = new List<GameObject>();
+    private List<GameObject> level2Tablets = new List<GameObject>();
+    private List<GameObject> level3Tablets = new List<GameObject>();
+    private List<GameObject> level4Tablets = new List<GameObject>();
+    private List<GameObject> level5Tablets = new List<GameObject>();
+    private List<GameObject> level6Tablets = new List<GameObject>();
+    private int amountOfEachTablet = 10;
+    [SerializeField] private GameObject level1TabletPrefab;
+    [SerializeField] private GameObject level2TabletPrefab;
+    [SerializeField] private GameObject level3TabletPrefab;
+    [SerializeField] private GameObject level4TabletPrefab;
+    [SerializeField] private GameObject level5TabletPrefab;
+    [SerializeField] private GameObject level6TabletPrefab;
 
     void Awake()
     {
         CreateAllEquipmentPool();
+        CreateTabletsPool();
     }
 
+    #region Equipment Pool
     private void CreateAllEquipmentPool()
     {
         for (int i = 0; i < amountOfEachEquipment; i++)
@@ -69,27 +85,27 @@ public class ObjectPooler : UnitySingleton<ObjectPooler>
         }
     }
 
-    public GameObject getEquipmentFromPool(int level)
+    public GameObject GetEquipmentFromPool(int level)
     {
         switch (level)
         {
             case 1:
-                return getlevel1EquipmentFromPool();
+                return Getlevel1EquipmentFromPool();
             case 2:
-                return getlevel2EquipmentFromPool();
+                return Getlevel2EquipmentFromPool();
             case 3:
-                return getlevel3EquipmentFromPool();
+                return Getlevel3EquipmentFromPool();
             case 4:
-                return getlevel4EquipmentFromPool();
+                return Getlevel4EquipmentFromPool();
             case 5:
-                return getlevel5EquipmentFromPool();
+                return Getlevel5EquipmentFromPool();
             case 6:
-                return getlevel6EquipmentFromPool();
+                return Getlevel6EquipmentFromPool();
         }
         return null;
 
     }
-    public GameObject getlevel1EquipmentFromPool()
+    public GameObject Getlevel1EquipmentFromPool()
     {
         for (int i = 0; i < amountOfEachEquipment; i++)
         {
@@ -97,7 +113,7 @@ public class ObjectPooler : UnitySingleton<ObjectPooler>
         }
         return null;
     }
-    public GameObject getlevel2EquipmentFromPool()
+    public GameObject Getlevel2EquipmentFromPool()
     {
         for (int i = 0; i < amountOfEachEquipment; i++)
         {
@@ -105,7 +121,7 @@ public class ObjectPooler : UnitySingleton<ObjectPooler>
         }
         return null;
     }
-    public GameObject getlevel3EquipmentFromPool()
+    public GameObject Getlevel3EquipmentFromPool()
     {
         for (int i = 0; i < amountOfEachEquipment; i++)
         {
@@ -113,7 +129,7 @@ public class ObjectPooler : UnitySingleton<ObjectPooler>
         }
         return null;
     }
-    public GameObject getlevel4EquipmentFromPool()
+    public GameObject Getlevel4EquipmentFromPool()
     {
         for (int i = 0; i < amountOfEachEquipment; i++)
         {
@@ -121,7 +137,7 @@ public class ObjectPooler : UnitySingleton<ObjectPooler>
         }
         return null;
     }
-    public GameObject getlevel5EquipmentFromPool()
+    public GameObject Getlevel5EquipmentFromPool()
     {
         for (int i = 0; i < amountOfEachEquipment; i++)
         {
@@ -129,7 +145,7 @@ public class ObjectPooler : UnitySingleton<ObjectPooler>
         }
         return null;
     }
-    public GameObject getlevel6EquipmentFromPool()
+    public GameObject Getlevel6EquipmentFromPool()
     {
         for (int i = 0; i < amountOfEachEquipment; i++)
         {
@@ -137,5 +153,123 @@ public class ObjectPooler : UnitySingleton<ObjectPooler>
         }
         return null;
     }
+    #endregion
+    #region  LevelTablet Pool
+    private void CreateTabletsPool()
+    {
+        for (int i = 0; i < amountOfEachTablet; i++)
+        {
+            var level1Tablet = Instantiate(level1TabletPrefab);
+            level1Tablet.transform.SetParent(transform);
+            level1Tablet.SetActive(false);
+            level1Tablets.Add(level1Tablet);
+        }
+        for (int i = 0; i < amountOfEachTablet; i++)
+        {
+            var level2Tablet = Instantiate(level2TabletPrefab);
+            level2Tablet.transform.SetParent(transform);
+            level2Tablet.SetActive(false);
+            level2Tablets.Add(level2Tablet);
+        }
+        for (int i = 0; i < amountOfEachTablet; i++)
+        {
+            var level3Tablet = Instantiate(level3TabletPrefab);
+            level3Tablet.transform.SetParent(transform);
+            level3Tablet.SetActive(false);
+            level3Tablets.Add(level3Tablet);
+        }
+        for (int i = 0; i < amountOfEachTablet; i++)
+        {
+            var level4Tablet = Instantiate(level4TabletPrefab);
+            level4Tablet.transform.SetParent(transform);
+            level4Tablet.SetActive(false);
+            level4Tablets.Add(level4Tablet);
+        }
+        for (int i = 0; i < amountOfEachTablet; i++)
+        {
+            var level5Tablet = Instantiate(level5TabletPrefab);
+            level5Tablet.transform.SetParent(transform);
+            level5Tablet.SetActive(false);
+            level5Tablets.Add(level5Tablet);
+        }
+        for (int i = 0; i < amountOfEachTablet; i++)
+        {
+            var level6Tablet = Instantiate(level6TabletPrefab);
+            level6Tablet.transform.SetParent(transform);
+            level6Tablet.SetActive(false);
+            level6Tablets.Add(level6Tablet);
+        }
+    }
+    public GameObject GetTabletFromPool(int level)
+    {
+        switch (level)
+        {
+            case 1:
+                return Getlevel1TabletFromPool();
+            case 2:
+                return Getlevel2TabletFromPool();
+            case 3:
+                return Getlevel3TabletFromPool();
+            case 4:
+                return Getlevel4TabletFromPool();
+            case 5:
+                return Getlevel5TabletFromPool();
+            case 6:
+                return Getlevel6TabletFromPool();
+        }
+        return null;
+
+    }
+    public GameObject Getlevel1TabletFromPool()
+    {
+        for (int i = 0; i < amountOfEachTablet; i++)
+        {
+            if (!level1Tablets[i].activeSelf) return level1Tablets[i];
+        }
+        return null;
+    }
+    public GameObject Getlevel2TabletFromPool()
+    {
+        for (int i = 0; i < amountOfEachTablet; i++)
+        {
+            if (!level2Tablets[i].activeSelf) return level2Tablets[i];
+        }
+        return null;
+    }
+    public GameObject Getlevel3TabletFromPool()
+    {
+        for (int i = 0; i < amountOfEachTablet; i++)
+        {
+            if (!level3Tablets[i].activeSelf) return level3Tablets[i];
+        }
+        return null;
+    }
+    public GameObject Getlevel4TabletFromPool()
+    {
+        for (int i = 0; i < amountOfEachTablet; i++)
+        {
+            if (!level4Tablets[i].activeSelf) return level4Tablets[i];
+        }
+        return null;
+    }
+    public GameObject Getlevel5TabletFromPool()
+    {
+        for (int i = 0; i < amountOfEachTablet; i++)
+        {
+            if (!level5Tablets[i].activeSelf) return level5Tablets[i];
+        }
+        return null;
+    }
+    public GameObject Getlevel6TabletFromPool()
+    {
+        for (int i = 0; i < amountOfEachTablet; i++)
+        {
+            if (!level6Tablets[i].activeSelf) return level6Tablets[i];
+        }
+        return null;
+    }
+
+    #endregion
 }
+
 

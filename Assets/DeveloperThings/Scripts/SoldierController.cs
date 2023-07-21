@@ -8,6 +8,7 @@ public class SoldierController : MonoBehaviour
 {
     enum SoldierState { inQueue, inWar, Dead }
     enum EquipmentState { isArmed, isNotArmed }
+    [SerializeField] private bool inFort;
     private Animator anim;
     public Soldier soldier;
     public PathCreator queuePath;
@@ -32,6 +33,7 @@ public class SoldierController : MonoBehaviour
     private void OnEnable()
     {
 
+        inFort = true;
         health = soldier.health;
         damage = soldier.damage;
         moveSpeed = 0;
@@ -87,19 +89,13 @@ public class SoldierController : MonoBehaviour
                 if (Physics.Raycast(ray, out RaycastHit hitInfo, 3f))
                 {
                     moveSpeed = 0;
-                    if (!hitInfo.transform.CompareTag(transform.tag) && hitInfo.transform.GetComponent<FortController>() == null)
+                    if (!hitInfo.transform.CompareTag(transform.tag))
                     {
                         enemyFromForward = hitInfo.transform.gameObject;
 
                         anim.SetBool("isAttacking", true);
                     }
-                    if (hitInfo.transform.GetComponent<FortController>() != null)
-                    {
-                        hitInfo.transform.GetComponent<FortController>().TakeDamage(damage);
-                        if (transform.CompareTag("PlayerSoldier")) GameManager.Instance.EarnMoney(damage * 3);
 
-                        Destroy(gameObject);
-                    }
 
                 }
                 else
@@ -152,10 +148,21 @@ public class SoldierController : MonoBehaviour
     }
     public void GiveDamage()
     {
+        if (health <= 0) return;
+
         if (enemyFromForward != null)
         {
-            SoldierController enemy = enemyFromForward.GetComponent<SoldierController>();
-            enemy.TakeDamage(damage);
+            if (enemyFromForward.GetComponent<FortController>() != null)
+            {
+                enemyFromForward.GetComponent<FortController>().TakeDamage(damage);
+
+            }
+            if (enemyFromForward.GetComponent<SoldierController>() != null)
+            {
+                enemyFromForward.GetComponent<SoldierController>().TakeDamage(damage);
+
+            }
+
         }
         if (transform.CompareTag("PlayerSoldier")) GameManager.Instance.EarnMoney(damage * 3);
     }
@@ -168,6 +175,10 @@ public class SoldierController : MonoBehaviour
         healthBar.fillAmount = health / soldier.health;
 
 
+    }
+    private void OnTriggerExit(Collider other)
+    {
+        inFort = false;
     }
 
     public int GetFortId() => fortId;
