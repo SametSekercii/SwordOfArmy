@@ -9,7 +9,7 @@ public class EquipmentSlot : UnitySingleton<EquipmentSlot>
     private Collider col;
     [SerializeField] private SlotState state;
     private Transform slotPointTransform;
-    private int slotLevel = 4;
+    private int slotLevel = 1;
     private float slotCost;
     [SerializeField] private GameObject equipmentOnSLot;
     [SerializeField] private GameObject tabletOnSlot;
