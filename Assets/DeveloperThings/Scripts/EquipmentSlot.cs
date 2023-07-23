@@ -7,26 +7,40 @@ using TMPro;
 public class EquipmentSlot : UnitySingleton<EquipmentSlot>
 {
     enum SlotState { filled, empty }
+    [SerializeField] private MergeArea mergeArea;
     private Collider col;
-    [SerializeField] private SlotState state;
+    private SlotState state;
     private Transform slotPointTransform;
-    private int slotLevel = 1;
+    private int slotLevel;
     private float slotCost;
-    [SerializeField] private GameObject equipmentOnSLot;
-    [SerializeField] private GameObject tabletOnSlot;
-    [SerializeField] private TMP_Text costText;
-    [SerializeField] private GameObject slotCanvas;
+    private GameObject equipmentOnSLot;
+    private GameObject tabletOnSlot;
+    private TMP_Text costText;
+    private GameObject slotCanvas;
+    private GameObject slotLockCanvas;
+    private float purchaseCost = 1000;
 
 
 
     void Start()
     {
+        slotLevel = mergeArea.areaLevel;
         costText = transform.GetChild(1).GetChild(0).GetComponent<TMP_Text>();
         slotCanvas = transform.GetChild(1).gameObject;
         col = transform.GetComponent<Collider>();
         slotPointTransform = transform.GetChild(0).transform;
         slotCost = slotLevel * 100;
         costText.text = slotCost.ToString();
+        if (mergeArea.isSolded)
+        {
+            slotCanvas.SetActive(true);
+            slotLockCanvas.SetActive(false);
+        }
+        else
+        {
+            slotCanvas.SetActive(false);
+            slotLockCanvas.SetActive(true);
+        }
         CheckSlotState();
 
     }
@@ -48,6 +62,21 @@ public class EquipmentSlot : UnitySingleton<EquipmentSlot>
 
         }
         CheckSlotState();
+    }
+    public void BuySlot()
+    {
+        
+        GameManager.Instance.SpendMoney(purchaseCost);
+        if (mergeArea.isSolded)
+        {
+            slotCanvas.SetActive(true);
+            slotLockCanvas.SetActive(false);
+        }
+        else
+        {
+            slotCanvas.SetActive(false);
+            slotLockCanvas.SetActive(true);
+        }
     }
 
     public bool CheckSlotState()
@@ -112,6 +141,12 @@ public class EquipmentSlot : UnitySingleton<EquipmentSlot>
     {
         newEquipment.transform.position = slotPointTransform.position;
         newEquipment.transform.rotation = slotPointTransform.rotation;
+
+    }
+    public bool GetAreaLockState()
+    {
+        if (mergeArea.isSolded) return true;
+        else return false;
 
     }
 
