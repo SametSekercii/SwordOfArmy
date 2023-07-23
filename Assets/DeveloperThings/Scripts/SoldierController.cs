@@ -7,15 +7,15 @@ using UnityEngine.UI;
 public class SoldierController : MonoBehaviour
 {
     enum SoldierState { inQueue, inWar, Dead }
-    enum EquipmentState { isArmed, isNotArmed }
+
     [SerializeField] private bool inFort;
+    [SerializeField] private Transform[] coinPopUpSpots;
     private Animator anim;
     public Soldier soldier;
     public PathCreator queuePath;
     float distancetravelled;
     [SerializeField] private int queueNumber;
     private SoldierState state;
-    private EquipmentState equipmentState;
     private FortController soldierfort;
     private Transform targetPos;
     private Transform eye;
@@ -28,18 +28,20 @@ public class SoldierController : MonoBehaviour
     private GameObject enemyFromForward;
     private int fortId;
     public Image healthBar;
+    private float gainMoneyValue;
 
 
     private void OnEnable()
     {
 
+        coinPopUpSpots = new Transform[transform.GetChild(2).childCount];
         inFort = true;
         health = soldier.health;
         damage = soldier.damage;
+        gainMoneyValue = damage * 3;
         moveSpeed = 0;
         healthBar.fillAmount = health / soldier.health;
         anim = transform.GetComponent<Animator>();
-        equipmentState = EquipmentState.isNotArmed;
         state = SoldierState.inQueue;
         rightArm = transform.GetChild(0).GetChild(0).GetChild(2).GetChild(0).GetChild(0).GetChild(2).GetChild(0).GetChild(0).GetChild(0);
         eye = transform.GetChild(1);
@@ -48,6 +50,10 @@ public class SoldierController : MonoBehaviour
             queuePath = GameObject.FindWithTag("PlayerFortPathCreator").GetComponent<PathCreator>();
             soldierfort = GameObject.FindWithTag("PlayerFort").GetComponent<FortController>();
             fortId = 1;
+            for (int i = 0; i < transform.GetChild(2).childCount; i++)
+            {
+                coinPopUpSpots[i] = transform.GetChild(2).GetChild(i);
+            }
 
 
         }
@@ -164,7 +170,19 @@ public class SoldierController : MonoBehaviour
             }
 
         }
-        if (transform.CompareTag("PlayerSoldier")) GameManager.Instance.EarnMoney(damage * 3);
+        if (transform.CompareTag("PlayerSoldier"))
+        {
+            var coinPopUp = ObjectPooler.Instance.GetCoinPopUp();
+            if (coinPopUp != null)
+            {
+                coinPopUp.transform.position = coinPopUpSpots[Random.Range(0, 1)].position;
+                coinPopUp.SetActive(true);
+                coinPopUp.GetComponent<CoinMove>().SetCoinText(gainMoneyValue);
+
+            }
+
+            GameManager.Instance.EarnMoney(gainMoneyValue);
+        }
     }
     public void SetQueueNumber(int value) => queueNumber = value;
     public void IncreaseQueueNumber() => queueNumber++;

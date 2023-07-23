@@ -31,11 +31,18 @@ public class ObjectPooler : UnitySingleton<ObjectPooler>
     [SerializeField] private GameObject level4TabletPrefab;
     [SerializeField] private GameObject level5TabletPrefab;
     [SerializeField] private GameObject level6TabletPrefab;
+    /////////////////////////////////////
+    private List<GameObject> coinPopUps = new List<GameObject>();
+    private int amountOfCoin = 5;
+    [SerializeField] private GameObject animatedCoinPrefab;
+
+
 
     void Awake()
     {
         CreateAllEquipmentPool();
         CreateTabletsPool();
+        CreateCoinPopUpPool();
     }
 
     #region Equipment Pool
@@ -270,6 +277,28 @@ public class ObjectPooler : UnitySingleton<ObjectPooler>
     }
 
     #endregion
-}
+    #region  Coin PopUp Pool
+    private void CreateCoinPopUpPool()
+    {
+        for (int i = 0; i < amountOfCoin; i++)
+        {
+            var coin = Instantiate(animatedCoinPrefab);
+            coin.transform.SetParent(transform);
+            coin.SetActive(false);
+            coinPopUps.Add(coin);
+        }
+    }
 
+    public GameObject GetCoinPopUp()
+    {
+        for (int i = 0; i < amountOfCoin; i++)
+        {
+            if (!coinPopUps[i].activeSelf) return coinPopUps[i];
+        }
+        return null;
+    }
+
+
+    #endregion
+}
 

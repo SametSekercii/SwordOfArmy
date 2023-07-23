@@ -10,6 +10,7 @@ public class GameManager : UnitySingleton<GameManager>
     public void SpendMoney(float value) => playerMoney -= value;
     public float GetMoneyValue() => playerMoney;
     public void EarnMoney(float value) => playerMoney += value;
+    [SerializeField] private Transform iconTransform;
 
     private void Update()
     {
@@ -24,6 +25,7 @@ public class GameManager : UnitySingleton<GameManager>
     {
         playerMoney = 500;
     }
+    public Transform GetMoneyIconTransform() => iconTransform;
 
 
 }

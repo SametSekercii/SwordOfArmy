@@ -12,11 +12,11 @@ GameObject:
   - component: {fileID: 7704981119552228802}
   m_Layer: 0
   m_Name: EnemyWarPath
-  m_TagString: Untagged
+  m_TagString: EnemyFortPathCreator
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &7704981119552228803
 Transform:
   m_ObjectHideFlags: 0
@@ -24,7 +24,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7704981119552228801}
-  m_LocalRotation: {x: -0, y: -0.030063335, z: -0, w: 0.999548}
+  m_LocalRotation: {x: 0, y: -0.030067444, z: 0, w: 0.9995479}
   m_LocalPosition: {x: 7.74, y: 2.4595222, z: 0.63}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -94,11 +94,11 @@ MonoBehaviour:
       - {x: -13.823555, y: -0.18297155, z: 4.4079924}
       - {x: -13.460248, y: -0.18270779, z: 5.922321}
       - {x: -12.741604, y: -0.18218605, z: 8.917757}
-      - {x: -11.374994, y: -0.110208645, z: 13.416586}
+      - {x: -11.295647, y: -0.0871801, z: 13.347008}
       - {x: -9.304711, y: -0.0985713, z: 15.697569}
-      - {x: -7.864036, y: -0.09047306, z: 17.284866}
-      - {x: -5.338689, y: -0.097424805, z: 18.259048}
-      - {x: -2.813342, y: -0.104376554, z: 19.233232}
+      - {x: -8.13773, y: -0.10524822, z: 17.075344}
+      - {x: -6.09596, y: -0.14855659, z: 18.05892}
+      - {x: -4.0541906, y: -0.19186497, z: 19.042496}
       isClosed: 0
       space: 0
       controlMode: 3

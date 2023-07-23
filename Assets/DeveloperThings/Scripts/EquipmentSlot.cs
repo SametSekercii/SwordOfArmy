@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using TMPro;
 
 public class EquipmentSlot : UnitySingleton<EquipmentSlot>
@@ -14,12 +15,14 @@ public class EquipmentSlot : UnitySingleton<EquipmentSlot>
     [SerializeField] private GameObject equipmentOnSLot;
     [SerializeField] private GameObject tabletOnSlot;
     [SerializeField] private TMP_Text costText;
+    [SerializeField] private GameObject slotCanvas;
 
 
 
     void Start()
     {
         costText = transform.GetChild(1).GetChild(0).GetComponent<TMP_Text>();
+        slotCanvas = transform.GetChild(1).gameObject;
         col = transform.GetComponent<Collider>();
         slotPointTransform = transform.GetChild(0).transform;
         slotCost = slotLevel * 100;
@@ -54,7 +57,7 @@ public class EquipmentSlot : UnitySingleton<EquipmentSlot>
         {
 
             this.state = SlotState.filled;
-            costText.gameObject.SetActive(false);
+            slotCanvas.gameObject.SetActive(false);
             col.enabled = false;
             return true;
         }
@@ -62,7 +65,7 @@ public class EquipmentSlot : UnitySingleton<EquipmentSlot>
         {
 
             this.state = SlotState.empty;
-            costText.gameObject.SetActive(true);
+            slotCanvas.gameObject.SetActive(true);
 
             col.enabled = true;
 

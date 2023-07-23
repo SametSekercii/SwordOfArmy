@@ -123,7 +123,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e122b90ad2045524cb2a5f182585b87c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerMoney: 9999999
+  moneyText: {fileID: 0}
+  iconTransform: {fileID: 0}
 --- !u!1 &1897016911089478074
 GameObject:
   m_ObjectHideFlags: 0
@@ -168,15 +169,29 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9ade5ecfe62cb0c4ab81ab0bd3127912, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  level1EquipmentPrefab: {fileID: 3600880746208355692, guid: bd69fe3e554f864478c1fd5ee8a456be,
+  level1EquipmentPrefab: {fileID: 6778313682669556822, guid: 4733c49ec5607fd4fa5f34ab310a8127,
     type: 3}
-  level2EquipmentPrefab: {fileID: 2711053812307486333, guid: 893844c2753a17d48874b043f39390c1,
+  level2EquipmentPrefab: {fileID: 4230669882734156188, guid: 9e2f598a2a42aaf448b5f238f5a711d6,
     type: 3}
-  level3EquipmentPrefab: {fileID: 3585828674148843724, guid: ff7609c7a8b1fc0478abfff459bb1de7,
+  level3EquipmentPrefab: {fileID: 2109856123585976854, guid: 6db8723a6dd60fd4fb26aacf75661e4d,
     type: 3}
-  level4EquipmentPrefab: {fileID: 5001218177773466747, guid: df188ee649113074388db44f452516d4,
+  level4EquipmentPrefab: {fileID: 6169550945089817570, guid: ed3892737fc0d8e468cff60707c2b793,
     type: 3}
-  level5EquipmentPrefab: {fileID: 3483397915650834752, guid: 7d89d2ac35e6a114089b49693bb28385,
+  level5EquipmentPrefab: {fileID: 3609437622203953424, guid: 0b76f12202716a04cab84ac2023e210b,
     type: 3}
-  level6EquipmentPrefab: {fileID: 3563095830048603688, guid: 5b4984a5c6fac104280ea2f981a8e8ba,
+  level6EquipmentPrefab: {fileID: 1618289581620901848, guid: 432be0c6d53ad3a42bb5c8aa47405a1f,
+    type: 3}
+  level1TabletPrefab: {fileID: 8059860761921628234, guid: 8a448602a0c14bc4fa09f4eae20ce94e,
+    type: 3}
+  level2TabletPrefab: {fileID: 861121651712573719, guid: df14f5f829d06364aa5cbfdf65b28b8f,
+    type: 3}
+  level3TabletPrefab: {fileID: 4548486201406176553, guid: 261e707bd47a7a5478f5963d92d70a4e,
+    type: 3}
+  level4TabletPrefab: {fileID: 5711512020184185639, guid: 166417d04ca99944d87e3ef3a3f3e86e,
+    type: 3}
+  level5TabletPrefab: {fileID: 1292091955261730010, guid: 811820bfd48c2b7499e06aae56d9d3e5,
+    type: 3}
+  level6TabletPrefab: {fileID: 4808677751864674075, guid: d291864b35e792945bcad1b7ca10c8ef,
+    type: 3}
+  animatedCoinPrefab: {fileID: 6189285449146377980, guid: 8b208525a9d735a43a7527a72243ab93,
     type: 3}
