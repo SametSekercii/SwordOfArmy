@@ -123,8 +123,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e122b90ad2045524cb2a5f182585b87c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gameWinner: 0
   moneyText: {fileID: 0}
   iconTransform: {fileID: 0}
+  winPanel: {fileID: 0}
+  failPanel: {fileID: 0}
 --- !u!1 &1897016911089478074
 GameObject:
   m_ObjectHideFlags: 0
