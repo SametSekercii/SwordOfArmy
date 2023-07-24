@@ -198,7 +198,7 @@ Material:
     - _RampSmoothPoint: 0.5
     - _RampSmoothSpot: 0.5
     - _RampSmoothing: 1
-    - _RampThreshold: 0.01
+    - _RampThreshold: 0.478
     - _RampThresholdDir: 0.5
     - _RampThresholdOtherLights: 0.5
     - _RampThresholdPoint: 0.5
