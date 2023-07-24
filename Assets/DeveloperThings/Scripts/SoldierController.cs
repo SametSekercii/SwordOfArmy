@@ -70,7 +70,9 @@ public class SoldierController : MonoBehaviour
     }
     IEnumerator GetInGame()
     {
-        while (state != SoldierState.Dead)
+
+
+        while (state != SoldierState.Dead && !GameManager.Instance.IsGameOver())
         {
 
 
@@ -118,12 +120,21 @@ public class SoldierController : MonoBehaviour
                 }
             }
             yield return null;
-
         }
 
 
+        if (transform.CompareTag("PlayerSoldier") && GameManager.Instance.GetGameWinner() == GameManager.Winner.Player || transform.CompareTag("EnemySoldier") && GameManager.Instance.GetGameWinner() == GameManager.Winner.Enemy)
+        {
+            moveSpeed = 0;
+            anim.SetInteger("moveSpeed", moveSpeed);
+            anim.SetBool("isAttacking", false);
+            Debug.Log("seviniyor");
+        }
+        else Destroy(gameObject);
 
         yield return null;
+
+
 
     }
     public void TakeUpArms(string itemName, float itemValue)

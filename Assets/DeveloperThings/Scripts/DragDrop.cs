@@ -41,8 +41,9 @@ public class DragDrop : MonoBehaviour
                     if (hitInfo.transform.gameObject.CompareTag("EquipmentSlot"))
                     {
                         EquipmentSlot slot = hitInfo.transform.GetComponent<EquipmentSlot>();
-                        slot.BuyEquipment();
-
+                        MergeArea slotMergeArea = slot.GetMergeAreaInfo();
+                        if (slotMergeArea.isSolded) slot.BuyEquipment();
+                        else slot.BuySlot();
                     }
                 }
             }
@@ -69,12 +70,17 @@ public class DragDrop : MonoBehaviour
                 }
                 else if (Physics.Raycast(ray2, out RaycastHit hitInfo2, Mathf.Infinity) && hitInfo2.transform.gameObject.CompareTag("EquipmentSlot"))
                 {
-                    EquipmentSlot slot = toDrag.transform.parent.GetComponent<EquipmentSlot>();
-                    slot.EmpySlot();
-                    slot = hitInfo2.transform.GetComponent<EquipmentSlot>();
-                    slot.FillSlot(toDrag);
-                    slot.SetNewEquipmentTransform(toDrag);
-                    toDrag.transform.parent = hitInfo2.transform;
+                    EquipmentSlot slot = hitInfo2.transform.GetComponent<EquipmentSlot>();
+                    if (slot.GetMergeAreaInfo().isSolded)
+                    {
+                        slot = toDrag.transform.parent.GetComponent<EquipmentSlot>();
+                        slot.EmpySlot();
+                        slot = hitInfo2.transform.GetComponent<EquipmentSlot>();
+                        slot.FillSlot(toDrag);
+                        slot.SetNewEquipmentTransform(toDrag);
+                        toDrag.transform.parent = hitInfo2.transform;
+                    }
+                    else RelocateStartPos(toDrag);
 
                 }
                 else if (Physics.Raycast(ray2, out RaycastHit hitInfo3, Mathf.Infinity) && hitInfo2.transform.gameObject.CompareTag("PlayerFort") && hitInfo.transform.GetComponent<FortController>().CheckQueue())
@@ -88,10 +94,10 @@ public class DragDrop : MonoBehaviour
 
 
                 }
-                else
-                {
-                    RelocateStartPos(toDrag);
-                }
+                else RelocateStartPos(toDrag);
+
+
+
                 col.enabled = true;
                 isDrag = false;
                 toDrag = null;

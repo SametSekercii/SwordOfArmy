@@ -186,6 +186,14 @@ public class FortController : MonoBehaviour
     {
         health -= damage;
         healthBar.fillAmount = health / fort.health;
+        if (health <= 0)
+        {
+
+            if (transform.CompareTag("EnemyFort")) GameManager.Instance.gameWinner = GameManager.Winner.Player;
+            else GameManager.Instance.gameWinner = GameManager.Winner.Enemy;
+
+            GameManager.Instance.FinishGame();
+        }
     }
 
     public int GetFortId() => fort.id;

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using DG.Tweening;
 
 public class EquipmentSlot : UnitySingleton<EquipmentSlot>
 {
@@ -12,13 +13,18 @@ public class EquipmentSlot : UnitySingleton<EquipmentSlot>
     private SlotState state;
     private Transform slotPointTransform;
     private int slotLevel;
-    private float slotCost;
+
     private GameObject equipmentOnSLot;
     private GameObject tabletOnSlot;
     private TMP_Text costText;
+    private float slotCost;
+    private TMP_Text purchaseCostText;
+    private float purchaseCost = 5000;
     private GameObject slotCanvas;
-    private GameObject slotLockCanvas;
-    private float purchaseCost = 1000;
+    [SerializeField] private GameObject slotLockCanvas;
+
+    private float changeColorDuration = 0.5f;
+
 
 
 
@@ -27,19 +33,23 @@ public class EquipmentSlot : UnitySingleton<EquipmentSlot>
         slotLevel = mergeArea.areaLevel;
         costText = transform.GetChild(1).GetChild(0).GetComponent<TMP_Text>();
         slotCanvas = transform.GetChild(1).gameObject;
+        purchaseCostText = transform.GetChild(2).GetChild(0).GetComponent<TMP_Text>();
+        slotLockCanvas = transform.GetChild(2).gameObject;
         col = transform.GetComponent<Collider>();
         slotPointTransform = transform.GetChild(0).transform;
         slotCost = slotLevel * 100;
         costText.text = slotCost.ToString();
+        purchaseCostText.text = purchaseCost.ToString();
         if (mergeArea.isSolded)
         {
-            slotCanvas.SetActive(true);
             slotLockCanvas.SetActive(false);
+            slotCanvas.SetActive(true);
         }
         else
         {
-            slotCanvas.SetActive(false);
             slotLockCanvas.SetActive(true);
+            slotCanvas.SetActive(false);
+
         }
         CheckSlotState();
 
@@ -61,47 +71,94 @@ public class EquipmentSlot : UnitySingleton<EquipmentSlot>
             }
 
         }
+        else
+        {
+            for (int i = 0; i < transform.GetChild(1).childCount; i++)
+            {
+                if (transform.GetChild(1).GetChild(i).GetComponent<Image>() != null)
+                {
+                    Image image;
+                    image = transform.GetChild(1).GetChild(i).GetComponent<Image>();
+                    image.DOColor(Color.red, changeColorDuration).OnComplete(() => { image.DOColor(Color.white, changeColorDuration); });
+
+
+                }
+                if (transform.GetChild(1).GetChild(i).GetComponent<TMP_Text>() != null)
+                {
+                    TMP_Text text;
+                    text = transform.GetChild(1).GetChild(i).GetComponent<TMP_Text>();
+                    text.DOColor(Color.red, changeColorDuration).OnComplete(() => { text.DOColor(Color.white, changeColorDuration); });
+
+                }
+            }
+
+        }
         CheckSlotState();
     }
     public void BuySlot()
     {
-        
-        GameManager.Instance.SpendMoney(purchaseCost);
-        if (mergeArea.isSolded)
+        if (GameManager.Instance.GetMoneyValue() >= purchaseCost)
         {
-            slotCanvas.SetActive(true);
-            slotLockCanvas.SetActive(false);
+            GameManager.Instance.SpendMoney(purchaseCost);
+            mergeArea.isSolded = true;
+            CheckSlotState();
         }
         else
         {
-            slotCanvas.SetActive(false);
-            slotLockCanvas.SetActive(true);
+            for (int i = 0; i < transform.GetChild(2).childCount; i++)
+            {
+                if (transform.GetChild(2).GetChild(i).GetComponent<Image>() != null)
+                {
+                    Image image;
+                    image = transform.GetChild(2).GetChild(i).GetComponent<Image>();
+                    image.DOColor(Color.red, changeColorDuration).OnComplete(() => { image.DOColor(Color.white, changeColorDuration); });
+
+
+                }
+                if (transform.GetChild(2).GetChild(i).GetComponent<TMP_Text>() != null)
+                {
+                    TMP_Text text;
+                    text = transform.GetChild(2).GetChild(i).GetComponent<TMP_Text>();
+                    text.DOColor(Color.red, changeColorDuration).OnComplete(() => { text.DOColor(Color.white, changeColorDuration); });
+                }
+            }
+
         }
     }
 
     public bool CheckSlotState()
     {
 
-        if (equipmentOnSLot != null)
-        {
 
+        if (mergeArea.isSolded && equipmentOnSLot != null)
+        {
             this.state = SlotState.filled;
             slotCanvas.gameObject.SetActive(false);
+            slotLockCanvas.gameObject.SetActive(false);
             col.enabled = false;
             return true;
         }
-        else
+        else if (mergeArea.isSolded && equipmentOnSLot == null)
         {
-
             this.state = SlotState.empty;
             slotCanvas.gameObject.SetActive(true);
-
+            slotLockCanvas.gameObject.SetActive(false);
             col.enabled = true;
-
-
-
             return false;
         }
+        else if (!mergeArea.isSolded)
+        {
+            slotCanvas.gameObject.SetActive(false);
+            slotLockCanvas.gameObject.SetActive(true);
+            col.enabled = true;
+            return false;
+
+        }
+        else return false;
+
+
+
+
 
     }
     public void EmpySlot()
@@ -149,6 +206,7 @@ public class EquipmentSlot : UnitySingleton<EquipmentSlot>
         else return false;
 
     }
+    public MergeArea GetMergeAreaInfo() => mergeArea;
 
 
 

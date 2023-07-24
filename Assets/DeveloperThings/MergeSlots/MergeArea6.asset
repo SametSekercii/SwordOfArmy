@@ -9,9 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3785ce2beb7111843a211d3c5cf9e861, type: 3}
-  m_Name: Level1Fort
+  m_Script: {fileID: 11500000, guid: 378348b724785c8449fb7ee90b4daeae, type: 3}
+  m_Name: MergeArea6
   m_EditorClassIdentifier: 
-  health: 100
-  coolDown: 4
-  id: 1
+  areaLevel: 1
+  isSolded: 1
