@@ -63,9 +63,10 @@ public class EquipmentSlot : UnitySingleton<EquipmentSlot>
             if (equipment != null)
             {
                 equipment.transform.parent = transform;
-                SetNewEquipmentTransform(equipment);
+                equipment.transform.localScale = Vector3.zero;
                 FillSlot(equipment);
                 equipment.SetActive(true);
+                SetNewEquipmentTransform(equipment, false);
 
             }
 
@@ -173,13 +174,25 @@ public class EquipmentSlot : UnitySingleton<EquipmentSlot>
             tabletOnSlot.SetActive(false);
             tabletOnSlot = null;
         }
+
         equipmentOnSLot = equipment;
         CheckSlotState();
     }
-    public void SetNewEquipmentTransform(GameObject newEquipment)
+    public void SetNewEquipmentTransform(GameObject newEquipment, bool isSwap)
     {
-        newEquipment.transform.rotation = slotPointTransform.rotation;
-        newEquipment.transform.DOMove(slotPointTransform.position, 0.3f).SetEase(Ease.Linear);
+        if (isSwap)
+        {
+            newEquipment.transform.rotation = slotPointTransform.rotation;
+            newEquipment.transform.DOMove(slotPointTransform.position, 0.3f).SetEase(Ease.Linear);
+
+        }
+        else
+        {
+            newEquipment.transform.rotation = slotPointTransform.rotation;
+            newEquipment.transform.position = slotPointTransform.position;
+            newEquipment.transform.DOScale(new Vector3(0.014f, 0.014f, 0.014f), 0.4f);
+
+        }
 
     }
     public bool GetAreaLockState()

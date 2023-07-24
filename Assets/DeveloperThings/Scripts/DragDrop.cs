@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using DG.Tweening;
 
 public class DragDrop : MonoBehaviour
 {
@@ -77,7 +78,7 @@ public class DragDrop : MonoBehaviour
                         slot.EmpySlot();
                         slot = hitInfo2.transform.GetComponent<EquipmentSlot>();
                         slot.FillSlot(toDrag);
-                        slot.SetNewEquipmentTransform(toDrag);
+                        slot.SetNewEquipmentTransform(toDrag, true);
                         toDrag.transform.parent = hitInfo2.transform;
                     }
                     else RelocateStartPos(toDrag);
@@ -115,7 +116,9 @@ public class DragDrop : MonoBehaviour
             newEquipment.transform.position = toMerge.transform.position;
             newEquipment.transform.rotation = toMerge.transform.rotation;
             newEquipment.transform.parent = toMerge.transform.parent;
+            newEquipment.transform.localScale = Vector3.zero;
             newEquipment.SetActive(true);
+            newEquipment.transform.DOScale(new Vector3(0.014f, 0.014f, 0.014f), 0.4f);
         }
         EquipmentSlot slot = toDrag.transform.parent.GetComponent<EquipmentSlot>();
         slot.EmpySlot();
@@ -131,20 +134,19 @@ public class DragDrop : MonoBehaviour
     {
         Transform toMergeParent = toMerge.transform.parent;
         EquipmentSlot slot = toDrag.transform.parent.GetComponent<EquipmentSlot>();
-        slot.SetNewEquipmentTransform(toMerge);
+        slot.SetNewEquipmentTransform(toMerge, true);
         slot.FillSlot(toMerge);
         toMerge.transform.parent = toDrag.transform.parent;
         ///////////////////////////////
         slot = toMergeParent.GetComponent<EquipmentSlot>();
-        slot.SetNewEquipmentTransform(toDrag);
+        slot.SetNewEquipmentTransform(toDrag, true);
         slot.FillSlot(toDrag);
         toDrag.transform.parent = toMergeParent;
     }
     private void RelocateStartPos(GameObject toDrag)
     {
         EquipmentSlot slot = toDrag.transform.parent.GetComponent<EquipmentSlot>();
-        slot.SetNewEquipmentTransform(toDrag);
-
+        slot.SetNewEquipmentTransform(toDrag, true);
 
     }
 

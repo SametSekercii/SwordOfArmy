@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: MergeArea4
   m_EditorClassIdentifier: 
   areaLevel: 1
-  isSolded: 1
+  isSolded: 0
