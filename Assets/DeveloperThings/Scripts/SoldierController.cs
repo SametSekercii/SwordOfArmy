@@ -96,24 +96,36 @@ public class SoldierController : MonoBehaviour
                 Debug.DrawRay(eye.position, eye.TransformDirection(Vector3.forward) * 3f, Color.red);
                 if (Physics.Raycast(ray, out RaycastHit hitInfo, 3f))
                 {
-                    moveSpeed = 0;
-                    if (!hitInfo.transform.CompareTag(transform.tag))
+
+                    if (transform.CompareTag("PlayerSoldier"))
                     {
-                        enemyFromForward = hitInfo.transform.gameObject;
+                        if (hitInfo.transform.CompareTag("EnemySoldier") || hitInfo.transform.CompareTag("EnemyFort"))
+                        {
+                            moveSpeed = 0;
+                            enemyFromForward = hitInfo.transform.gameObject;
 
-                        anim.SetBool("isAttacking", true);
+                            anim.SetBool("isAttacking", true);
+
+                        }
+                        if (hitInfo.transform.CompareTag("PlayerSoldier")) moveSpeed = 0;
                     }
+                    if (transform.CompareTag("EnemySoldier"))
+                    {
+                        if (hitInfo.transform.CompareTag("PlayerSoldier") || hitInfo.transform.CompareTag("PlayerFort"))
+                        {
+                            moveSpeed = 0;
+                            enemyFromForward = hitInfo.transform.gameObject;
 
-
+                            anim.SetBool("isAttacking", true);
+                        }
+                        if (hitInfo.transform.CompareTag("EnemySoldier")) moveSpeed = 0;
+                    }
                 }
                 else
                 {
                     moveSpeed = soldier.moveSpeed;
                     anim.SetBool("isAttacking", false);
-
                 }
-
-
                 if (health <= 0)
                 {
                     Destroy(gameObject);
@@ -159,6 +171,7 @@ public class SoldierController : MonoBehaviour
 
         }
         damage += itemValue;
+        gainMoneyValue = damage * 3;
 
         state = SoldierState.inWar;
 
