@@ -12,6 +12,7 @@ public class EquipmentSlot : UnitySingleton<EquipmentSlot>
     private Collider col;
     private SlotState state;
     private Transform slotPointTransform;
+    [SerializeField] private Transform tabletPointTransform;
     private int slotLevel;
     private GameObject equipmentOnSLot;
     private GameObject tabletOnSlot;
@@ -34,6 +35,7 @@ public class EquipmentSlot : UnitySingleton<EquipmentSlot>
         slotCanvas = transform.GetChild(1).gameObject;
         purchaseCostText = transform.GetChild(2).GetChild(0).GetComponent<TMP_Text>();
         slotLockCanvas = transform.GetChild(2).gameObject;
+        tabletPointTransform = transform.GetChild(4);
         col = transform.GetComponent<Collider>();
         slotPointTransform = transform.GetChild(0).transform;
         slotCost = slotLevel * 100;
@@ -128,8 +130,25 @@ public class EquipmentSlot : UnitySingleton<EquipmentSlot>
 
     public bool CheckSlotState()
     {
+        if (equipmentOnSLot != null)
+        {
+            if (tabletOnSlot != null) tabletOnSlot.SetActive(false);
+            tabletOnSlot = null;
+            var tablet = ObjectPooler.Instance.GetTabletFromPool(equipmentOnSLot.GetComponent<EquipmentController>().GetItemLevel());
+            if (tablet != null)
+            {
+                tablet.transform.position = tabletPointTransform.position;
+                tablet.transform.rotation = tabletPointTransform.rotation;
+                tabletOnSlot = tablet;
+                tablet.SetActive(true);
+            }
+        }
+        else
+        {
+            if (tabletOnSlot != null) tabletOnSlot.SetActive(false);
+            tabletOnSlot = null;
 
-
+        }
         if (mergeArea.isSolded && equipmentOnSLot != null)
         {
             this.state = SlotState.filled;
@@ -155,11 +174,6 @@ public class EquipmentSlot : UnitySingleton<EquipmentSlot>
 
         }
         else return false;
-
-
-
-
-
     }
     public void EmpySlot()
     {
@@ -168,12 +182,12 @@ public class EquipmentSlot : UnitySingleton<EquipmentSlot>
     }
     public void FillSlot(GameObject equipment)
     {
-        if (tabletOnSlot != null)
-        {
-            tabletOnSlot.transform.parent = FindObjectOfType<ObjectPooler>().transform;
-            tabletOnSlot.SetActive(false);
-            tabletOnSlot = null;
-        }
+        // if (tabletOnSlot != null)
+        // {
+        //     tabletOnSlot.transform.parent = FindObjectOfType<ObjectPooler>().transform;
+        //     tabletOnSlot.SetActive(false);
+        //     tabletOnSlot = null;
+        // }
 
         equipmentOnSLot = equipment;
         CheckSlotState();
