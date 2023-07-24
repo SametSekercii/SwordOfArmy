@@ -18,6 +18,7 @@ TagManager:
   - Level5Equipment
   - Level6Equipment
   - EnemyFort
+  - NonUseEquipmentPoint
   layers:
   - Default
   - TransparentFX

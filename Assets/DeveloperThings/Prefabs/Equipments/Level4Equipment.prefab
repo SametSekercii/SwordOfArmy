@@ -997,8 +997,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1511622309101995244}
-  - component: {fileID: 2625970244128128774}
   - component: {fileID: -5780118206622307302}
+  - component: {fileID: 1359112441}
   m_Layer: 0
   m_Name: Level4Equipment
   m_TagString: Dragable
@@ -1024,19 +1024,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: -25.091, y: 0, z: 0}
---- !u!65 &2625970244128128774
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8032590128114332646}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 2.931788, y: 5.0394053, z: 1}
-  m_Center: {x: 0.49544215, y: 2.0196936, z: 0.0000004507317}
 --- !u!114 &-5780118206622307302
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1050,6 +1037,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   item: {fileID: 11400000, guid: e2a38d4513cfa544892eb3ba816c28f5, type: 2}
+  equipmentBase: {fileID: 0}
+--- !u!65 &1359112441
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8032590128114332646}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 4.19, y: 4, z: 1.75}
+  m_Center: {x: 0.2, y: 1.87, z: 0.5}
 --- !u!1 &8134935465051824667
 GameObject:
   m_ObjectHideFlags: 0

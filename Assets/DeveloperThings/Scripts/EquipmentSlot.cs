@@ -13,7 +13,6 @@ public class EquipmentSlot : UnitySingleton<EquipmentSlot>
     private SlotState state;
     private Transform slotPointTransform;
     private int slotLevel;
-
     private GameObject equipmentOnSLot;
     private GameObject tabletOnSlot;
     private TMP_Text costText;
@@ -21,7 +20,7 @@ public class EquipmentSlot : UnitySingleton<EquipmentSlot>
     private TMP_Text purchaseCostText;
     private float purchaseCost = 5000;
     private GameObject slotCanvas;
-    [SerializeField] private GameObject slotLockCanvas;
+    private GameObject slotLockCanvas;
 
     private float changeColorDuration = 0.5f;
 
@@ -163,13 +162,6 @@ public class EquipmentSlot : UnitySingleton<EquipmentSlot>
     }
     public void EmpySlot()
     {
-        if (tabletOnSlot != null)
-        {
-            tabletOnSlot.transform.parent = FindObjectOfType<ObjectPooler>().transform;
-            tabletOnSlot.SetActive(false);
-            tabletOnSlot = null;
-        }
-
         equipmentOnSLot = null;
         CheckSlotState();
     }
@@ -182,22 +174,12 @@ public class EquipmentSlot : UnitySingleton<EquipmentSlot>
             tabletOnSlot = null;
         }
         equipmentOnSLot = equipment;
-        var tablet = ObjectPooler.Instance.GetTabletFromPool(equipmentOnSLot.GetComponent<EquipmentController>().GetItemLevel());
-        if (tablet != null)
-        {
-            tablet.transform.position = transform.position;
-            tablet.transform.rotation = transform.rotation;
-            tablet.transform.parent = transform;
-            tabletOnSlot = tablet;
-            tablet.SetActive(true);
-
-        }
         CheckSlotState();
     }
     public void SetNewEquipmentTransform(GameObject newEquipment)
     {
-        newEquipment.transform.position = slotPointTransform.position;
         newEquipment.transform.rotation = slotPointTransform.rotation;
+        newEquipment.transform.DOMove(slotPointTransform.position, 0.3f).SetEase(Ease.Linear);
 
     }
     public bool GetAreaLockState()
