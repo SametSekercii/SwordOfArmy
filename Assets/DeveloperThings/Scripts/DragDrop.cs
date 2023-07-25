@@ -20,7 +20,7 @@ public class DragDrop : MonoBehaviour
     }
     void Update()
     {
-        if (!GameManager.Instance.IsGameOver())
+        if (!GameManager.Instance.IsGameOver() && GameManager.Instance.IsGameGoing())
         {
             if (Input.touchCount > 0)
             {
@@ -94,6 +94,8 @@ public class DragDrop : MonoBehaviour
                         hitInfo.transform.GetComponent<FortController>().EquipSoldier(draggedEquipment.item.name, draggedEquipment.item.value);
                         toDrag.transform.parent = FindObjectOfType<ObjectPooler>().transform;
                         toDrag.SetActive(false);
+                        TutorialManager.Instance.SetFirstEquipState(true);
+
 
 
                     }
@@ -131,6 +133,7 @@ public class DragDrop : MonoBehaviour
         toMerge.transform.parent = FindObjectOfType<ObjectPooler>().transform;
         toDrag.SetActive(false);
         toMerge.SetActive(false);
+        TutorialManager.Instance.SetFirstMergeState(true);
 
     }
     private void Swap(GameObject toMerge, GameObject toDrag)

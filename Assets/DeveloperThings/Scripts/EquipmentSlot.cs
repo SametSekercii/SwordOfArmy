@@ -216,6 +216,7 @@ public class EquipmentSlot : UnitySingleton<EquipmentSlot>
 
     }
     public MergeArea GetMergeAreaInfo() => mergeArea;
+    public float GetSlotCost() => slotCost;
 
 
 

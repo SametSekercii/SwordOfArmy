@@ -74,67 +74,66 @@ public class SoldierController : MonoBehaviour
 
         while (state != SoldierState.Dead && !GameManager.Instance.IsGameOver())
         {
-
-
-            anim.SetInteger("moveSpeed", moveSpeed);
-            targetPos = soldierfort.GetQueuePoint(queueNumber);
-            distancetravelled += moveSpeed * Time.deltaTime;
-            transform.position = queuePath.path.GetPointAtDistance(distancetravelled);
-            transform.rotation = queuePath.path.GetRotationAtDistance(distancetravelled);
-
-            if (state == SoldierState.inQueue)
+            if (GameManager.Instance.IsGameGoing())
             {
-                if (Vector3.Distance(transform.position, targetPos.position) > 0.4f) moveSpeed = 2;
-                else moveSpeed = 0;
+                anim.SetInteger("moveSpeed", moveSpeed);
+                targetPos = soldierfort.GetQueuePoint(queueNumber);
+                distancetravelled += moveSpeed * Time.deltaTime;
+                transform.position = queuePath.path.GetPointAtDistance(distancetravelled);
+                transform.rotation = queuePath.path.GetRotationAtDistance(distancetravelled);
 
-            }
+                if (state == SoldierState.inQueue)
+                {
+                    if (Vector3.Distance(transform.position, targetPos.position) > 0.4f) moveSpeed = 2;
+                    else moveSpeed = 0;
 
-            if (state == SoldierState.inWar)
-            {
+                }
 
-                Ray ray = new Ray(eye.position, eye.TransformDirection(Vector3.forward));
-                Debug.DrawRay(eye.position, eye.TransformDirection(Vector3.forward) * 3f, Color.red);
-                if (Physics.Raycast(ray, out RaycastHit hitInfo, 3f))
+                if (state == SoldierState.inWar)
                 {
 
-                    if (transform.CompareTag("PlayerSoldier"))
+                    Ray ray = new Ray(eye.position, eye.TransformDirection(Vector3.forward));
+                    Debug.DrawRay(eye.position, eye.TransformDirection(Vector3.forward) * 3f, Color.red);
+                    if (Physics.Raycast(ray, out RaycastHit hitInfo, 3f))
                     {
-                        if (hitInfo.transform.CompareTag("EnemySoldier") || hitInfo.transform.CompareTag("EnemyFort"))
+
+                        if (transform.CompareTag("PlayerSoldier"))
                         {
-                            moveSpeed = 0;
-                            enemyFromForward = hitInfo.transform.gameObject;
+                            if (hitInfo.transform.CompareTag("EnemySoldier") || hitInfo.transform.CompareTag("EnemyFort"))
+                            {
+                                moveSpeed = 0;
+                                enemyFromForward = hitInfo.transform.gameObject;
 
-                            anim.SetBool("isAttacking", true);
+                                anim.SetBool("isAttacking", true);
 
+                            }
+                            if (hitInfo.transform.CompareTag("PlayerSoldier")) moveSpeed = 0;
                         }
-                        if (hitInfo.transform.CompareTag("PlayerSoldier")) moveSpeed = 0;
+                        if (transform.CompareTag("EnemySoldier"))
+                        {
+                            if (hitInfo.transform.CompareTag("PlayerSoldier") || hitInfo.transform.CompareTag("PlayerFort"))
+                            {
+                                moveSpeed = 0;
+                                enemyFromForward = hitInfo.transform.gameObject;
+
+                                anim.SetBool("isAttacking", true);
+                            }
+                            if (hitInfo.transform.CompareTag("EnemySoldier")) moveSpeed = 0;
+                        }
                     }
-                    if (transform.CompareTag("EnemySoldier"))
+                    else
                     {
-                        if (hitInfo.transform.CompareTag("PlayerSoldier") || hitInfo.transform.CompareTag("PlayerFort"))
-                        {
-                            moveSpeed = 0;
-                            enemyFromForward = hitInfo.transform.gameObject;
-
-                            anim.SetBool("isAttacking", true);
-                        }
-                        if (hitInfo.transform.CompareTag("EnemySoldier")) moveSpeed = 0;
+                        moveSpeed = soldier.moveSpeed;
+                        anim.SetBool("isAttacking", false);
+                    }
+                    if (health <= 0)
+                    {
+                        Destroy(gameObject);
                     }
                 }
-                else
-                {
-                    moveSpeed = soldier.moveSpeed;
-                    anim.SetBool("isAttacking", false);
-                }
-                if (health <= 0)
-                {
-                    Destroy(gameObject);
-                }
+                yield return null;
             }
-            yield return null;
         }
-
-
         if (transform.CompareTag("PlayerSoldier") && GameManager.Instance.GetGameWinner() == GameManager.Winner.Player || transform.CompareTag("EnemySoldier") && GameManager.Instance.GetGameWinner() == GameManager.Winner.Enemy)
         {
             moveSpeed = 0;
@@ -145,8 +144,6 @@ public class SoldierController : MonoBehaviour
         else Destroy(gameObject);
 
         yield return null;
-
-
 
     }
     public void TakeUpArms(string itemName, float itemValue)

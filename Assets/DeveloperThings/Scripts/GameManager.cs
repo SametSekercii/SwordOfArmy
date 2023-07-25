@@ -15,22 +15,27 @@ public class GameManager : UnitySingleton<GameManager>
     private int playerLevel = 0;
     private int playerGoblet = 0;
     private bool isGameOver = false;
+    private bool isGameGoing = true;
     [SerializeField] private TMP_Text moneyText;
 
     [SerializeField] private Transform iconTransform;
 
     [SerializeField] private GameObject winPanel;
     [SerializeField] private GameObject failPanel;
-
+    private void OnEnable()
+    {
+        GameManager.loadGameData += LoadGameDatas;
+        GameManager.setGameData += SetGameDatas;
+    }
     private void Start()
     {
-        loadGameData += LoadGameDatas;
-        setGameData += SetGameDatas;
         gameData = new GameData();
         gameData = SaveSystem.Load(gameData);
         loadGameData?.Invoke();
         isGameOver = false;
+        isGameGoing = true;
     }
+
     private void SetGameDatas()
     {
         gameData.playerMoney = playerMoney;
@@ -61,7 +66,10 @@ public class GameManager : UnitySingleton<GameManager>
     }
     public Transform GetMoneyIconTransform() => iconTransform;
     public bool IsGameOver() => isGameOver;
+    public bool IsGameGoing() => isGameGoing;
     public Winner GetGameWinner() => gameWinner;
+    public void SetGameState(bool value) => isGameGoing = value;
+
 
     public void FinishGame()
     {
@@ -72,6 +80,7 @@ public class GameManager : UnitySingleton<GameManager>
     public void SpendMoney(float value) => playerMoney -= value;
     public float GetMoneyValue() => playerMoney;
     public void EarnMoney(float value) => playerMoney += value;
+    public int GetPlayerLevel() => playerLevel;
 
 
 }

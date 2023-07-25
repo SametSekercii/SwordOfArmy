@@ -138,24 +138,24 @@ public class FortController : MonoBehaviour
     {
 
 
-        while (true)
+        while (!GameManager.Instance.IsGameOver())
         {
-            float timer = coolDown;
-
-            if (queueSize < maxQueueSize)
+            if (GameManager.Instance.IsGameGoing())
             {
-                while (timer > 0)
+                float timer = coolDown;
+
+                if (queueSize < maxQueueSize)
                 {
+                    while (timer > 0)
+                    {
 
-                    yield return new WaitForSeconds(0.05f);
-                    timer -= 0.05f;
+                        yield return new WaitForSeconds(0.05f);
+                        timer -= 0.05f;
+                    }
+                    BuyVikingSoldier();
+                    StartCoroutine("EnemyEquiper");
                 }
-                BuyVikingSoldier();
-                StartCoroutine("EnemyEquiper");
-
             }
-
-
             yield return null;
         }
 
@@ -163,20 +163,25 @@ public class FortController : MonoBehaviour
     IEnumerator PlayerFortBehaviour()
     {
 
-        while (true)
+        while (!GameManager.Instance.IsGameOver())
         {
-            float timer = coolDown;
-            if (queueSize < maxQueueSize)
+            if (GameManager.Instance.IsGameGoing())
             {
-                while (timer > 0)
+                float timer = coolDown;
+                if (queueSize < maxQueueSize)
                 {
-                    coolDownBar.fillAmount = timer / coolDown;
-                    yield return new WaitForSeconds(0.05f);
-                    timer -= 0.05f;
+                    while (timer > 0)
+                    {
+                        coolDownBar.fillAmount = timer / coolDown;
+                        yield return new WaitForSeconds(0.05f);
+                        timer -= 0.05f;
+                    }
+                    BuyVikingSoldier();
                 }
-                BuyVikingSoldier();
+                else coolDownBar.fillAmount = timer / coolDown;
+
             }
-            else coolDownBar.fillAmount = timer / coolDown;
+
 
             yield return null;
         }
