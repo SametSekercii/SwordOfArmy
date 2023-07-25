@@ -1,0 +1,123 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &4331043875682675978
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4331043875682675972}
+  - component: {fileID: 4331043875682675973}
+  m_Layer: 0
+  m_Name: EnemyWarPath
+  m_TagString: EnemyFortPathCreator
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4331043875682675972
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4331043875682675978}
+  m_LocalRotation: {x: -0, y: 0.01182048, z: -0, w: 0.99993014}
+  m_LocalPosition: {x: 6.07, y: 2.1088119, z: -8.83}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 1.355, z: 0}
+--- !u!114 &4331043875682675973
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4331043875682675978}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8e5ac92bc18f545cc84cd886ece82b4d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  editorData:
+    _bezierPath:
+      points:
+      - {x: -9.718073, y: -0.007240534, z: -12.831475}
+      - {x: -10.120836, y: -0.005616342, z: -10.796234}
+      - {x: -10.5236, y: -0.0039921505, z: -8.760992}
+      - {x: -9.412209, y: 0.011059761, z: -7.621553}
+      - {x: -8.9828415, y: 0.016874813, z: -7.1813498}
+      - {x: -8.018023, y: 0.034173798, z: -7.446419}
+      - {x: -7.4031096, y: 0.03279996, z: -7.4533668}
+      - {x: -6.5036244, y: 0.030790333, z: -7.46353}
+      - {x: -5.1018467, y: -0.0029072016, z: -7.1248145}
+      - {x: -4.4707136, y: -0.012118816, z: -7.765726}
+      - {x: -3.9189157, y: -0.020172507, z: -8.326074}
+      - {x: -4.325989, y: -0.013918711, z: -9.552287}
+      - {x: -4.236794, y: -0.013679981, z: -10.333683}
+      - {x: -4.0530677, y: -0.013188237, z: -11.94323}
+      - {x: -4.856216, y: 0.00774932, z: -14.688507}
+      - {x: -3.5141826, y: -0.007240531, z: -15.595765}
+      - {x: -2.1811185, y: -0.022130199, z: -16.49696}
+      - {x: 0.55264294, y: -0.065458484, z: -15.532473}
+      - {x: 1.6031095, y: -0.07881184, z: -14.313549}
+      - {x: 2.6845655, y: -0.09255913, z: -13.058666}
+      - {x: 2.0920317, y: -0.09104595, z: -10.563803}
+      - {x: 2.1312447, y: -0.07881186, z: -8.907669}
+      - {x: 2.1663246, y: -0.06786721, z: -7.4260883}
+      - {x: 1.9296137, y: -0.018751975, z: -5.5365567}
+      - {x: 1.8881751, y: -0.0072405264, z: -4.0551443}
+      - {x: 1.6918745, y: 0.047290917, z: 2.962525}
+      - {x: 0.7284684, y: -0.19457287, z: 20.54312}
+      - {x: 1.2507598, y: 0.08334303, z: 21.35435}
+      - {x: 2.0501657, y: 0.50871396, z: 22.595997}
+      - {x: 5.58696, y: 0.0018046387, z: 23.238636}
+      - {x: 7.957482, y: -0.074652195, z: 22.89252}
+      isClosed: 0
+      space: 0
+      controlMode: 0
+      autoControlLength: 0.305
+      boundsUpToDate: 0
+      bounds:
+        m_Center: {x: 0, y: 0, z: 0}
+        m_Extent: {x: 0, y: 0, z: 0}
+      perAnchorNormalsAngle:
+      - 0
+      - 0
+      - 0
+      - 0
+      - 0
+      - 0
+      - 0
+      - 0
+      - 0
+      - 0
+      - 0
+      globalNormalsAngle: 83
+      flipNormals: 0
+    vertexPathUpToDate: 1
+    vertexPathMaxAngleError: 0.3
+    vertexPathMinVertexSpacing: 0.01
+    showTransformTool: 1
+    showPathBounds: 0
+    showPerSegmentBounds: 0
+    displayAnchorPoints: 1
+    displayControlPoints: 1
+    bezierHandleScale: 1
+    globalDisplaySettingsFoldout: 0
+    keepConstantHandleSize: 0
+    showNormalsInVertexMode: 0
+    showBezierPathInVertexMode: 0
+    showDisplayOptions: 0
+    showPathOptions: 1
+    showVertexPathDisplayOptions: 0
+    showVertexPathOptions: 1
+    showNormals: 1
+    showNormalsHelpInfo: 0
+    tabIndex: 0
+  initialized: 1

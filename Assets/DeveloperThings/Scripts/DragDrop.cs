@@ -20,90 +20,93 @@ public class DragDrop : MonoBehaviour
     }
     void Update()
     {
-        if (Input.touchCount > 0)
+        if (!GameManager.Instance.IsGameOver())
         {
-            Touch touch = Input.GetTouch(0);
-            if (touch.phase == TouchPhase.Began)
+            if (Input.touchCount > 0)
             {
-                Ray ray = cam.ScreenPointToRay(touch.position);
-                if (Physics.Raycast(ray, out RaycastHit hitInfo, Mathf.Infinity))
+                Touch touch = Input.GetTouch(0);
+                if (touch.phase == TouchPhase.Began)
                 {
-                    if (hitInfo.transform.gameObject.CompareTag("Dragable"))
+                    Ray ray = cam.ScreenPointToRay(touch.position);
+                    if (Physics.Raycast(ray, out RaycastHit hitInfo, Mathf.Infinity))
                     {
-                        toDrag = hitInfo.transform.gameObject;
-                        toDragStartPos = toDrag.transform;
-                        toDragY = toDragStartPos.position.y;
-                        col = toDrag.GetComponent<Collider>();
-                        col.enabled = false;
-                        offset = new Vector3(touch.position.x, touch.position.y, 0) - cam.WorldToScreenPoint(toDrag.transform.position);
-                        isDrag = true;
-                        StartCoroutine("SpinObject", toDrag);
-                    }
-                    if (hitInfo.transform.gameObject.CompareTag("EquipmentSlot"))
-                    {
-                        EquipmentSlot slot = hitInfo.transform.GetComponent<EquipmentSlot>();
-                        MergeArea slotMergeArea = slot.GetMergeAreaInfo();
-                        if (slotMergeArea.isSolded) slot.BuyEquipment();
-                        else slot.BuySlot();
+                        if (hitInfo.transform.gameObject.CompareTag("Dragable"))
+                        {
+                            toDrag = hitInfo.transform.gameObject;
+                            toDragStartPos = toDrag.transform;
+                            toDragY = toDragStartPos.position.y;
+                            col = toDrag.GetComponent<Collider>();
+                            col.enabled = false;
+                            offset = new Vector3(touch.position.x, touch.position.y, 0) - cam.WorldToScreenPoint(toDrag.transform.position);
+                            isDrag = true;
+                            StartCoroutine("SpinObject", toDrag);
+                        }
+                        if (hitInfo.transform.gameObject.CompareTag("EquipmentSlot"))
+                        {
+                            EquipmentSlot slot = hitInfo.transform.GetComponent<EquipmentSlot>();
+                            MergeArea slotMergeArea = slot.GetMergeAreaInfo();
+                            if (slotMergeArea.isSolded) slot.BuyEquipment();
+                            else slot.BuySlot();
+                        }
                     }
                 }
-            }
-            if (isDrag && touch.phase == TouchPhase.Moved)
-            {
-
-                toDrag.transform.position = cam.ScreenToWorldPoint(new Vector3(touch.position.x, touch.position.y, 0) - offset);
-                toDrag.transform.position = new Vector3(toDrag.transform.position.x, toDragY, toDrag.transform.position.z);
-
-            }
-            if (isDrag && touch.phase == TouchPhase.Ended)
-            {
-                Ray ray2 = cam.ScreenPointToRay(touch.position);
-                if (Physics.Raycast(ray2, out RaycastHit hitInfo, Mathf.Infinity) && hitInfo.transform.gameObject.CompareTag("Dragable"))
+                if (isDrag && touch.phase == TouchPhase.Moved)
                 {
-                    toMerge = hitInfo.transform.gameObject;
-                    EquipmentController toDragEquipment = toDrag.GetComponent<EquipmentController>();
-                    EquipmentController toMergeEquipment = toMerge.GetComponent<EquipmentController>();
-                    if (toDragEquipment.item.itemLevel == toMergeEquipment.item.itemLevel && toMergeEquipment.item.itemLevel != 6)
-                        Merge(toMerge, toDrag, toDragEquipment.item.itemLevel + 1);
-                    else if (toDragEquipment.item.itemLevel != toMergeEquipment.item.itemLevel || toMergeEquipment.item.itemLevel == 6)
-                        Swap(toMerge, toDrag);
+
+                    toDrag.transform.position = cam.ScreenToWorldPoint(new Vector3(touch.position.x, touch.position.y, 0) - offset);
+                    toDrag.transform.position = new Vector3(toDrag.transform.position.x, toDragY, toDrag.transform.position.z);
 
                 }
-                else if (Physics.Raycast(ray2, out RaycastHit hitInfo2, Mathf.Infinity) && hitInfo2.transform.gameObject.CompareTag("EquipmentSlot"))
+                if (isDrag && touch.phase == TouchPhase.Ended)
                 {
-                    EquipmentSlot slot = hitInfo2.transform.GetComponent<EquipmentSlot>();
-                    if (slot.GetMergeAreaInfo().isSolded)
+                    Ray ray2 = cam.ScreenPointToRay(touch.position);
+                    if (Physics.Raycast(ray2, out RaycastHit hitInfo, Mathf.Infinity) && hitInfo.transform.gameObject.CompareTag("Dragable"))
                     {
-                        slot = toDrag.transform.parent.GetComponent<EquipmentSlot>();
+                        toMerge = hitInfo.transform.gameObject;
+                        EquipmentController toDragEquipment = toDrag.GetComponent<EquipmentController>();
+                        EquipmentController toMergeEquipment = toMerge.GetComponent<EquipmentController>();
+                        if (toDragEquipment.item.itemLevel == toMergeEquipment.item.itemLevel && toMergeEquipment.item.itemLevel != 6)
+                            Merge(toMerge, toDrag, toDragEquipment.item.itemLevel + 1);
+                        else if (toDragEquipment.item.itemLevel != toMergeEquipment.item.itemLevel || toMergeEquipment.item.itemLevel == 6)
+                            Swap(toMerge, toDrag);
+
+                    }
+                    else if (Physics.Raycast(ray2, out RaycastHit hitInfo2, Mathf.Infinity) && hitInfo2.transform.gameObject.CompareTag("EquipmentSlot"))
+                    {
+                        EquipmentSlot slot = hitInfo2.transform.GetComponent<EquipmentSlot>();
+                        if (slot.GetMergeAreaInfo().isSolded)
+                        {
+                            slot = toDrag.transform.parent.GetComponent<EquipmentSlot>();
+                            slot.EmpySlot();
+                            slot = hitInfo2.transform.GetComponent<EquipmentSlot>();
+                            slot.FillSlot(toDrag);
+                            slot.SetNewEquipmentTransform(toDrag, true);
+                            toDrag.transform.parent = hitInfo2.transform;
+                        }
+                        else RelocateStartPos(toDrag);
+
+                    }
+                    else if (Physics.Raycast(ray2, out RaycastHit hitInfo3, Mathf.Infinity) && hitInfo2.transform.gameObject.CompareTag("PlayerFort") && hitInfo.transform.GetComponent<FortController>().CheckQueue())
+                    {
+                        EquipmentController draggedEquipment = toDrag.GetComponent<EquipmentController>();
+                        EquipmentSlot slot = toDrag.transform.parent.GetComponent<EquipmentSlot>();
                         slot.EmpySlot();
-                        slot = hitInfo2.transform.GetComponent<EquipmentSlot>();
-                        slot.FillSlot(toDrag);
-                        slot.SetNewEquipmentTransform(toDrag, true);
-                        toDrag.transform.parent = hitInfo2.transform;
+                        hitInfo.transform.GetComponent<FortController>().EquipSoldier(draggedEquipment.item.name, draggedEquipment.item.value);
+                        toDrag.transform.parent = FindObjectOfType<ObjectPooler>().transform;
+                        toDrag.SetActive(false);
+
+
                     }
                     else RelocateStartPos(toDrag);
 
+
+
+                    col.enabled = true;
+                    isDrag = false;
+                    toDrag = null;
+                    toMerge = null;
+                    StopAllCoroutines();
                 }
-                else if (Physics.Raycast(ray2, out RaycastHit hitInfo3, Mathf.Infinity) && hitInfo2.transform.gameObject.CompareTag("PlayerFort") && hitInfo.transform.GetComponent<FortController>().CheckQueue())
-                {
-                    EquipmentController draggedEquipment = toDrag.GetComponent<EquipmentController>();
-                    EquipmentSlot slot = toDrag.transform.parent.GetComponent<EquipmentSlot>();
-                    slot.EmpySlot();
-                    hitInfo.transform.GetComponent<FortController>().EquipSoldier(draggedEquipment.item.name, draggedEquipment.item.value);
-                    toDrag.transform.parent = FindObjectOfType<ObjectPooler>().transform;
-                    toDrag.SetActive(false);
-
-
-                }
-                else RelocateStartPos(toDrag);
-
-
-
-                col.enabled = true;
-                isDrag = false;
-                toDrag = null;
-                toMerge = null;
-                StopAllCoroutines();
             }
         }
     }
