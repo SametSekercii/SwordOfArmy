@@ -189,14 +189,14 @@ Material:
     - _RampBandsSmoothing: 0.1
     - _RampOffset: 0
     - _RampScale: 1
-    - _RampSmooth: 0.838
+    - _RampSmooth: 1
     - _RampSmoothAdd: 0.75
     - _RampSmoothDir: 0.5
     - _RampSmoothOtherLights: 0.5
     - _RampSmoothPoint: 0.5
     - _RampSmoothSpot: 0.5
     - _RampSmoothing: 0.407
-    - _RampThreshold: 0.05
+    - _RampThreshold: 0.57
     - _RampThresholdDir: 0.5
     - _RampThresholdOtherLights: 0.5
     - _RampThresholdPoint: 0.5
