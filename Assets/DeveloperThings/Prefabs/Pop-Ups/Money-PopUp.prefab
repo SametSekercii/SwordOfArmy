@@ -224,9 +224,9 @@ GameObject:
   - component: {fileID: 6189285449146377978}
   - component: {fileID: 6189285449146377981}
   - component: {fileID: 6189285449146377977}
-  - component: {fileID: 700329956}
+  - component: {fileID: 3801620231456066667}
   m_Layer: 5
-  m_Name: Coin-PopUp
+  m_Name: Money-PopUp
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -327,7 +327,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6a559d36700269f4faa99894c5acd334, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &700329956
+--- !u!114 &3801620231456066667
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -339,5 +339,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e1915b540c51376429ee385774c3b50b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  iconTransform: {fileID: 0}
+  moneyIconTransform: {fileID: 0}
   coinText: {fileID: 0}

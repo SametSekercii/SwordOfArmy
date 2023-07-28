@@ -6,9 +6,11 @@ public class TutorialManager : UnitySingleton<TutorialManager>
 {
     public GameObject tutorialCanvas;
     public GameObject firstBuyPanel;
-    public GameObject secondBuyPanel;
+    public GameObject firstEquipPanel;
+    public GameObject secondBuyFirstPanel;
+    public GameObject secondBuySecondPanel;
     public GameObject showMergePanel;
-    public GameObject showEquipPanel;
+    public GameObject secondEquipPanel;
     public GameObject firstBuyButton;
     public GameObject secondBuyButton;
     public EquipmentSlot slotForFirstBuy;
@@ -16,31 +18,16 @@ public class TutorialManager : UnitySingleton<TutorialManager>
     private bool is0LevelTutorialPlayed;
     private bool isFirstMergeComplete = false;
     private bool isFirstEquipComplete = false;
+    [SerializeField] private GameObject[] equipmentSlots;
 
-    private void SetGameDatas()
-    {
-        GameManager.gameData.is0LevelTutorialPlayed = is0LevelTutorialPlayed;
 
-    }
-    private void LoadGameDatas()
-    {
-        is0LevelTutorialPlayed = GameManager.gameData.is0LevelTutorialPlayed;
-    }
-    private void OnEnable()
-    {
-        GameManager.loadGameData += LoadGameDatas;
-        GameManager.setGameData += SetGameDatas;
-    }
-    private void OnDisable()
-    {
-        GameManager.loadGameData -= LoadGameDatas;
-        GameManager.setGameData -= SetGameDatas;
-
-    }
     private void Start()
     {
-        GameManager.loadGameData += LoadGameDatas;
-        GameManager.setGameData += SetGameDatas;
+        for (int i = 0; i < equipmentSlots.Length; i++)
+        {
+            equipmentSlots[i].GetComponent<Collider>().enabled = false;
+        }
+
         if (GameManager.Instance.GetPlayerLevel() == 0)
         {
             if (GameManager.Instance.GetMoneyValue() < slotForFirstBuy.GetSlotCost() + slotForSecondBuy.GetSlotCost())
@@ -48,7 +35,7 @@ public class TutorialManager : UnitySingleton<TutorialManager>
                 GameManager.Instance.EarnMoney(slotForFirstBuy.GetSlotCost());
                 GameManager.Instance.EarnMoney(slotForSecondBuy.GetSlotCost());
             }
-            GameManager.Instance.SetGameState(false);
+            GameManager.Instance.SetGameState(true);
             tutorialCanvas.SetActive(true);
             Start0LevelTutorial();
 
@@ -65,12 +52,13 @@ public class TutorialManager : UnitySingleton<TutorialManager>
     {
         slotForFirstBuy.BuyEquipment();
         firstBuyPanel.SetActive(false);
-        secondBuyPanel.SetActive(true);
+        GameManager.Instance.SetGameState(true);
+
     }
     public void BuySecondEquipment()
     {
         slotForSecondBuy.BuyEquipment();
-        secondBuyPanel.SetActive(false);
+        // secondBuyPanel.SetActive(false);
         showMergePanel.SetActive(true);
         StartCoroutine("ControlPlayerForEquipSystem");
     }
@@ -85,14 +73,14 @@ public class TutorialManager : UnitySingleton<TutorialManager>
         }
         isFirstMergeComplete = true;
         showMergePanel.SetActive(false);
-        showEquipPanel.SetActive(true);
+        // showEquipPanel.SetActive(true);
         while (!isFirstEquipComplete)
         {
             Debug.Log("Waiting for first equip");
             yield return null;
         }
         isFirstEquipComplete = true;
-        showEquipPanel.SetActive(false);
+        // showEquipPanel.SetActive(false);
         is0LevelTutorialPlayed = true;
         tutorialCanvas.SetActive(false);
 
@@ -103,6 +91,8 @@ public class TutorialManager : UnitySingleton<TutorialManager>
 
     public void SetFirstMergeState(bool value) => isFirstMergeComplete = value;
     public void SetFirstEquipState(bool value) => isFirstEquipComplete = value;
+    public bool GetFirstMergeState(bool value) => isFirstMergeComplete;
+    public bool GetFirstEquipState(bool value) => isFirstEquipComplete;
 
     #endregion
 

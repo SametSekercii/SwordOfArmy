@@ -32,9 +32,9 @@ public class ObjectPooler : UnitySingleton<ObjectPooler>
     [SerializeField] private GameObject level5TabletPrefab;
     [SerializeField] private GameObject level6TabletPrefab;
     /////////////////////////////////////
-    private List<GameObject> coinPopUps = new List<GameObject>();
-    private int amountOfCoin = 5;
-    [SerializeField] private GameObject animatedCoinPrefab;
+    private List<GameObject> moneyPopUps = new List<GameObject>();
+    private int amountOfMoney = 5;
+    [SerializeField] private GameObject animatedMoneyPrefab;
 
 
 
@@ -42,7 +42,7 @@ public class ObjectPooler : UnitySingleton<ObjectPooler>
     {
         CreateAllEquipmentPool();
         CreateTabletsPool();
-        CreateCoinPopUpPool();
+        CreateMoneyPopUpPool();
     }
 
     #region Equipment Pool
@@ -277,23 +277,23 @@ public class ObjectPooler : UnitySingleton<ObjectPooler>
     }
 
     #endregion
-    #region  Coin PopUp Pool
-    private void CreateCoinPopUpPool()
+    #region  Money PopUp Pool
+    private void CreateMoneyPopUpPool()
     {
-        for (int i = 0; i < amountOfCoin; i++)
+        for (int i = 0; i < amountOfMoney; i++)
         {
-            var coin = Instantiate(animatedCoinPrefab);
-            coin.transform.SetParent(transform);
-            coin.SetActive(false);
-            coinPopUps.Add(coin);
+            var money = Instantiate(animatedMoneyPrefab);
+            money.transform.SetParent(transform);
+            money.SetActive(false);
+            moneyPopUps.Add(money);
         }
     }
 
-    public GameObject GetCoinPopUp()
+    public GameObject GetMoneyPopUp()
     {
-        for (int i = 0; i < amountOfCoin; i++)
+        for (int i = 0; i < amountOfMoney; i++)
         {
-            if (!coinPopUps[i].activeSelf) return coinPopUps[i];
+            if (!moneyPopUps[i].activeSelf) return moneyPopUps[i];
         }
         return null;
     }

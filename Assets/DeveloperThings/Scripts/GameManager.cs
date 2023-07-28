@@ -17,8 +17,11 @@ public class GameManager : UnitySingleton<GameManager>
     private bool isGameOver = false;
     private bool isGameGoing = true;
     [SerializeField] private TMP_Text moneyText;
+    [SerializeField] private TMP_Text gobletText;
+    [SerializeField] private TMP_Text winPanelGobletText;
 
-    [SerializeField] private Transform iconTransform;
+    [SerializeField] private Transform moneyIconTransform;
+    [SerializeField] private Transform gobletIconTransform;
 
     [SerializeField] private GameObject winPanel;
     [SerializeField] private GameObject failPanel;
@@ -54,6 +57,7 @@ public class GameManager : UnitySingleton<GameManager>
         setGameData?.Invoke();
         SaveSystem.Save(gameData);
         moneyText.text = Mathf.RoundToInt(playerMoney).ToString();
+        gobletText.text = playerGoblet.ToString();
     }
 
     public void unlimitedmoney()
@@ -64,7 +68,8 @@ public class GameManager : UnitySingleton<GameManager>
     {
         playerMoney = 500;
     }
-    public Transform GetMoneyIconTransform() => iconTransform;
+    public Transform GetMoneyIconTransform() => moneyIconTransform;
+    public Transform GetGobletIconTransform() => gobletIconTransform;
     public bool IsGameOver() => isGameOver;
     public bool IsGameGoing() => isGameGoing;
     public Winner GetGameWinner() => gameWinner;
@@ -74,7 +79,14 @@ public class GameManager : UnitySingleton<GameManager>
     public void FinishGame()
     {
         isGameOver = true;
-        if (gameWinner == Winner.Player) winPanel.SetActive(true);
+        if (gameWinner == Winner.Player)
+        {
+            winPanel.SetActive(true);
+            playerGoblet += 90;
+            winPanelGobletText.text = 90.ToString();
+            WinRewardManager.Instance.StartRewardingGoblet(90);
+
+        }
         else failPanel.SetActive(true);
     }
     public void SpendMoney(float value) => playerMoney -= value;

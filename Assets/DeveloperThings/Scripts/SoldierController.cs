@@ -9,7 +9,7 @@ public class SoldierController : MonoBehaviour
     enum SoldierState { inQueue, inWar, Dead }
 
     [SerializeField] private bool inFort;
-    [SerializeField] private Transform[] coinPopUpSpots;
+    [SerializeField] private Transform[] moneyPopUpSpots;
     private Animator anim;
     public Soldier soldier;
     public PathCreator queuePath;
@@ -34,7 +34,7 @@ public class SoldierController : MonoBehaviour
     private void OnEnable()
     {
 
-        coinPopUpSpots = new Transform[transform.GetChild(2).childCount];
+        moneyPopUpSpots = new Transform[transform.GetChild(2).childCount];
         inFort = true;
         health = soldier.health;
         damage = soldier.damage;
@@ -52,7 +52,7 @@ public class SoldierController : MonoBehaviour
             fortId = 1;
             for (int i = 0; i < transform.GetChild(2).childCount; i++)
             {
-                coinPopUpSpots[i] = transform.GetChild(2).GetChild(i);
+                moneyPopUpSpots[i] = transform.GetChild(2).GetChild(i);
             }
 
 
@@ -193,12 +193,12 @@ public class SoldierController : MonoBehaviour
         }
         if (transform.CompareTag("PlayerSoldier"))
         {
-            var coinPopUp = ObjectPooler.Instance.GetCoinPopUp();
-            if (coinPopUp != null)
+            var moneyPopUp = ObjectPooler.Instance.GetMoneyPopUp();
+            if (moneyPopUp != null)
             {
-                coinPopUp.transform.position = coinPopUpSpots[Random.Range(0, 1)].position;
-                coinPopUp.SetActive(true);
-                coinPopUp.GetComponent<CoinMove>().SetCoinText(gainMoneyValue);
+                moneyPopUp.transform.position = moneyPopUpSpots[Random.Range(0, 1)].position;
+                moneyPopUp.SetActive(true);
+                moneyPopUp.GetComponent<MoneyMove>().SetMoneyText(gainMoneyValue);
 
             }
 
