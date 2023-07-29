@@ -23,6 +23,7 @@ public class SoldierController : MonoBehaviour
     private GameObject equippedArmor;
     private GameObject equippedSword;
     [SerializeField] private float health;
+    private float maxHealth;
     private int moveSpeed;
     [SerializeField] private float damage;
     private GameObject enemyFromForward;
@@ -36,11 +37,12 @@ public class SoldierController : MonoBehaviour
 
         moneyPopUpSpots = new Transform[transform.GetChild(2).childCount];
         inFort = true;
-        health = soldier.health;
+        maxHealth = soldier.health;
+        health = maxHealth;
         damage = soldier.damage;
         gainMoneyValue = damage * 3;
         moveSpeed = 0;
-        healthBar.fillAmount = health / soldier.health;
+        healthBar.fillAmount = health / maxHealth;
         anim = transform.GetComponent<Animator>();
         state = SoldierState.inQueue;
         rightArm = transform.GetChild(0).GetChild(0).GetChild(2).GetChild(0).GetChild(0).GetChild(2).GetChild(0).GetChild(0).GetChild(0);
@@ -128,11 +130,37 @@ public class SoldierController : MonoBehaviour
                     }
                     if (health <= 0)
                     {
+                        if (transform.CompareTag("EnemySoldier"))
+                        {
+                            if (GameManager.Instance.GetPlayerLevel() == 0)
+                            {
+                                Ray rayTutorial = new Ray(eye.position, eye.TransformDirection(Vector3.forward));
+                                Debug.DrawRay(eye.position, eye.TransformDirection(Vector3.forward) * 3f, Color.red);
+                                if (Physics.Raycast(ray, out RaycastHit hitInfoTutorial, 3f))
+                                {
+                                    Destroy(hitInfoTutorial.transform.gameObject);
+                                }
+
+                                TutorialManager.Instance.SetFirstEnemySoldierState(true);
+
+
+                            }
+
+                        }
+
                         Destroy(gameObject);
+                        yield return null;
                     }
                 }
                 yield return null;
             }
+            else
+            {
+                anim.SetBool("isAttacking", false);
+                moveSpeed = 0;
+                yield return null;
+            }
+
         }
         if (transform.CompareTag("PlayerSoldier") && GameManager.Instance.GetGameWinner() == GameManager.Winner.Player || transform.CompareTag("EnemySoldier") && GameManager.Instance.GetGameWinner() == GameManager.Winner.Enemy)
         {
@@ -168,6 +196,10 @@ public class SoldierController : MonoBehaviour
 
         }
         damage += itemValue;
+        maxHealth += itemValue + 5;
+        health = maxHealth;
+        healthBar.fillAmount = health / maxHealth;
+
         gainMoneyValue = damage * 3;
 
         state = SoldierState.inWar;
@@ -175,7 +207,6 @@ public class SoldierController : MonoBehaviour
     }
     public void GiveDamage()
     {
-        if (health <= 0) return;
 
         if (enemyFromForward != null)
         {
@@ -208,10 +239,29 @@ public class SoldierController : MonoBehaviour
     public void SetQueueNumber(int value) => queueNumber = value;
     public void IncreaseQueueNumber() => queueNumber++;
 
+
+    IEnumerator TakeDamageAnimated(float damage)
+    {
+        for (int i = 0; i < 5; i++)
+        {
+            health -= damage / 5;
+            healthBar.fillAmount = health / maxHealth;
+            yield return new WaitForSeconds(0.1f);
+
+        }
+
+    }
     public void TakeDamage(float damage)
     {
-        health -= damage;
-        healthBar.fillAmount = health / soldier.health;
+        AudioManager.Instance.PlaySFX2("HitSoldier");
+        var particle = ObjectPooler.Instance.GetHitParticlesFromPool();
+        if (particle != null)
+        {
+            particle.transform.position = transform.position;
+            particle.SetActive(true);
+
+        }
+        StartCoroutine("TakeDamageAnimated", damage);
 
 
     }

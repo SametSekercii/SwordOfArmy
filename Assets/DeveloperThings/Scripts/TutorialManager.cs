@@ -11,30 +11,27 @@ public class TutorialManager : UnitySingleton<TutorialManager>
     public GameObject secondBuySecondPanel;
     public GameObject showMergePanel;
     public GameObject secondEquipPanel;
-    public GameObject firstBuyButton;
-    public GameObject secondBuyButton;
     public EquipmentSlot slotForFirstBuy;
     public EquipmentSlot slotForSecondBuy;
     private bool is0LevelTutorialPlayed;
-    private bool isFirstMergeComplete = false;
     private bool isFirstEquipComplete = false;
+    private bool isFirstMergeComplete = false;
+    private bool isSecondEquipComplete = false;
+    private bool isFirstEnemySoldierDied = false;
     [SerializeField] private GameObject[] equipmentSlots;
 
 
     private void Start()
     {
-        for (int i = 0; i < equipmentSlots.Length; i++)
-        {
-            equipmentSlots[i].GetComponent<Collider>().enabled = false;
-        }
+
 
         if (GameManager.Instance.GetPlayerLevel() == 0)
         {
-            if (GameManager.Instance.GetMoneyValue() < slotForFirstBuy.GetSlotCost() + slotForSecondBuy.GetSlotCost())
+            for (int i = 0; i < equipmentSlots.Length; i++)
             {
-                GameManager.Instance.EarnMoney(slotForFirstBuy.GetSlotCost());
-                GameManager.Instance.EarnMoney(slotForSecondBuy.GetSlotCost());
+                equipmentSlots[i].GetComponent<Collider>().enabled = false;
             }
+
             GameManager.Instance.SetGameState(true);
             tutorialCanvas.SetActive(true);
             Start0LevelTutorial();
@@ -46,53 +43,105 @@ public class TutorialManager : UnitySingleton<TutorialManager>
 
     private void Start0LevelTutorial()
     {
+        GameManager.Instance.EarnMoney(slotForFirstBuy.GetSlotCost());
         firstBuyPanel.SetActive(true);
     }
     public void BuyFirstEquipment()
     {
+
         slotForFirstBuy.BuyEquipment();
+        AudioManager.Instance.PlaySFX("BuyEquipment");
         firstBuyPanel.SetActive(false);
-        GameManager.Instance.SetGameState(true);
+        firstEquipPanel.SetActive(true);
+        StartCoroutine("WaitForFirstMove");
 
     }
-    public void BuySecondEquipment()
+    IEnumerator WaitForFirstMove()
+    {
+        while (!isFirstEquipComplete)
+        {
+            if (GameManager.Instance.GetEquippedSoldier() > 0)
+            {
+                isFirstEquipComplete = true;
+                firstEquipPanel.SetActive(false);
+                slotForFirstBuy.GetComponent<Collider>().enabled = false;
+            }
+
+            yield return null;
+        }
+
+        while (!isFirstEnemySoldierDied)
+        {
+            yield return null;
+        }
+        GameManager.Instance.SetGameState(false);
+        secondBuyFirstPanel.SetActive(true);
+    }
+    public void SecondBuyFirstEquipment()
+    {
+        slotForFirstBuy.BuyEquipment();
+        AudioManager.Instance.PlaySFX("BuyEquipment");
+        secondBuyFirstPanel.SetActive(false);
+        secondBuySecondPanel.SetActive(true);
+    }
+    public void SecondBuySecondEquipment()
     {
         slotForSecondBuy.BuyEquipment();
-        // secondBuyPanel.SetActive(false);
+        AudioManager.Instance.PlaySFX("BuyEquipment");
+        secondBuySecondPanel.SetActive(false);
         showMergePanel.SetActive(true);
-        StartCoroutine("ControlPlayerForEquipSystem");
-    }
+        StartCoroutine("CheckMergeState");
 
-    IEnumerator ControlPlayerForEquipSystem()
+    }
+    IEnumerator CheckMergeState()
     {
+
         GameManager.Instance.SetGameState(true);
         while (!isFirstMergeComplete)
         {
-            Debug.Log("Waiting for first merge");
-            yield return null;
-        }
-        isFirstMergeComplete = true;
-        showMergePanel.SetActive(false);
-        // showEquipPanel.SetActive(true);
-        while (!isFirstEquipComplete)
-        {
-            Debug.Log("Waiting for first equip");
-            yield return null;
-        }
-        isFirstEquipComplete = true;
-        // showEquipPanel.SetActive(false);
-        is0LevelTutorialPlayed = true;
-        tutorialCanvas.SetActive(false);
+            if (GameManager.Instance.GetMergedEquipment() > 0)
+            {
+                isFirstMergeComplete = true;
+                showMergePanel.SetActive(false);
 
+            }
+            yield return null;
+        }
+        slotForFirstBuy.GetComponent<Collider>().enabled = false;
+        slotForSecondBuy.GetComponent<Collider>().enabled = false;
+        secondEquipPanel.SetActive(true);
+        while (!isSecondEquipComplete)
+        {
+            if (GameManager.Instance.GetEquippedSoldier() > 1)
+            {
+                isSecondEquipComplete = true;
+                secondEquipPanel.SetActive(false);
+            }
+            yield return null;
+        }
+        for (int i = 0; i < equipmentSlots.Length; i++)
+        {
+            equipmentSlots[i].GetComponent<Collider>().enabled = true;
+        }
+        GameManager.Instance.IncreaseLevel();
         yield return null;
 
 
     }
 
+
+
+
+
     public void SetFirstMergeState(bool value) => isFirstMergeComplete = value;
     public void SetFirstEquipState(bool value) => isFirstEquipComplete = value;
-    public bool GetFirstMergeState(bool value) => isFirstMergeComplete;
-    public bool GetFirstEquipState(bool value) => isFirstEquipComplete;
+    public void SetSecondEquipState(bool value) => isSecondEquipComplete = value;
+    public void SetFirstEnemySoldierState(bool value) => isFirstEnemySoldierDied = value;
+    public bool GetFirstMergeState() => isFirstMergeComplete;
+    public bool GetFirstEquipState() => isFirstEquipComplete;
+    public bool GetSecondEquipState() => isSecondEquipComplete;
+    public bool GetFirstEnemySoldierState() => isFirstEnemySoldierDied;
+
 
     #endregion
 

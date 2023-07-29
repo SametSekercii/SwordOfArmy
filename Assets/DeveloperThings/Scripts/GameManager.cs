@@ -12,10 +12,12 @@ public class GameManager : UnitySingleton<GameManager>
     public static event Action loadGameData;
     public Winner gameWinner;
     private float playerMoney = 0;
-    private int playerLevel = 0;
+    private int playerLevel = 1;
     private int playerGoblet = 0;
     private bool isGameOver = false;
     private bool isGameGoing = true;
+    [SerializeField] private int soldierEquipped = 0;
+    private int mergedEquipment = 0;
     [SerializeField] private TMP_Text moneyText;
     [SerializeField] private TMP_Text gobletText;
     [SerializeField] private TMP_Text winPanelGobletText;
@@ -89,10 +91,15 @@ public class GameManager : UnitySingleton<GameManager>
         }
         else failPanel.SetActive(true);
     }
+    public void IncreaseLevel() => playerLevel++;
     public void SpendMoney(float value) => playerMoney -= value;
     public float GetMoneyValue() => playerMoney;
     public void EarnMoney(float value) => playerMoney += value;
     public int GetPlayerLevel() => playerLevel;
+    public void IncreaseMergedEquipment() => mergedEquipment++;
+    public void IncreaseEquippedSoldier() => soldierEquipped++;
+    public int GetMergedEquipment() => mergedEquipment;
+    public int GetEquippedSoldier() => soldierEquipped;
 
 
 }

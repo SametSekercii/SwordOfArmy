@@ -45,7 +45,11 @@ public class DragDrop : MonoBehaviour
                         {
                             EquipmentSlot slot = hitInfo.transform.GetComponent<EquipmentSlot>();
                             MergeArea slotMergeArea = slot.GetMergeAreaInfo();
-                            if (slotMergeArea.isSolded) slot.BuyEquipment();
+                            if (slotMergeArea.isSolded)
+                            {
+                                AudioManager.Instance.PlaySFX("BuyEquipment");
+                                slot.BuyEquipment();
+                            }
                             else slot.BuySlot();
                         }
                     }
@@ -88,15 +92,13 @@ public class DragDrop : MonoBehaviour
                     }
                     else if (Physics.Raycast(ray2, out RaycastHit hitInfo3, Mathf.Infinity) && hitInfo2.transform.gameObject.CompareTag("PlayerFort") && hitInfo.transform.GetComponent<FortController>().CheckQueue())
                     {
+                        AudioManager.Instance.PlaySFX("Equip");
                         EquipmentController draggedEquipment = toDrag.GetComponent<EquipmentController>();
                         EquipmentSlot slot = toDrag.transform.parent.GetComponent<EquipmentSlot>();
                         slot.EmpySlot();
                         hitInfo.transform.GetComponent<FortController>().EquipSoldier(draggedEquipment.item.name, draggedEquipment.item.value);
                         toDrag.transform.parent = FindObjectOfType<ObjectPooler>().transform;
                         toDrag.SetActive(false);
-                        TutorialManager.Instance.SetFirstEquipState(true);
-
-
 
                     }
                     else RelocateStartPos(toDrag);
@@ -125,6 +127,13 @@ public class DragDrop : MonoBehaviour
             newEquipment.SetActive(true);
             newEquipment.transform.DOScale(new Vector3(0.014f, 0.014f, 0.014f), 0.4f);
         }
+        var particle = ObjectPooler.Instance.GetMergeEquipmentParticlesFromPool();
+        if (particle != null)
+        {
+            particle.transform.position = toMerge.transform.position;
+            particle.SetActive(true);
+
+        }
         EquipmentSlot slot = toDrag.transform.parent.GetComponent<EquipmentSlot>();
         slot.EmpySlot();
         slot = toMerge.transform.parent.GetComponent<EquipmentSlot>();
@@ -133,7 +142,8 @@ public class DragDrop : MonoBehaviour
         toMerge.transform.parent = FindObjectOfType<ObjectPooler>().transform;
         toDrag.SetActive(false);
         toMerge.SetActive(false);
-        TutorialManager.Instance.SetFirstMergeState(true);
+        GameManager.Instance.IncreaseMergedEquipment();
+        AudioManager.Instance.PlaySFX("Merge");
 
     }
     private void Swap(GameObject toMerge, GameObject toDrag)
@@ -153,6 +163,7 @@ public class DragDrop : MonoBehaviour
     {
         EquipmentSlot slot = toDrag.transform.parent.GetComponent<EquipmentSlot>();
         slot.SetNewEquipmentTransform(toDrag, true);
+        AudioManager.Instance.PlaySFX("FailDrop");
 
     }
 

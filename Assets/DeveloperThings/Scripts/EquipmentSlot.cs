@@ -69,8 +69,14 @@ public class EquipmentSlot : UnitySingleton<EquipmentSlot>
                 FillSlot(equipment);
                 equipment.SetActive(true);
                 SetNewEquipmentTransform(equipment, false);
-
             }
+            var particle = ObjectPooler.Instance.GetBuyEquipmentParticlesFromPool();
+            if (particle != null)
+            {
+                particle.transform.position = slotPointTransform.position;
+                particle.SetActive(true);
+            }
+
 
         }
         else

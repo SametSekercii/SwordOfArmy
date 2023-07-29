@@ -35,15 +35,34 @@ public class FortController : MonoBehaviour
         }
         queueSize = 0;
 
-        if (transform.CompareTag("EnemyFort"))
+        if (GameManager.Instance.GetPlayerLevel() > 0)
         {
-            StartCoroutine("EnemyFortSpawner");
+
+            if (transform.CompareTag("EnemyFort"))
+            {
+
+                StartCoroutine("EnemyFortSpawner");
+
+            }
+            if (transform.CompareTag("PlayerFort"))
+            {
+                StartCoroutine("PlayerFortBehaviour");
+            }
+        }
+        else
+        {
+            if (transform.CompareTag("EnemyFort"))
+            {
+                StartCoroutine("EnemyFortTutorial");
+
+            }
+            if (transform.CompareTag("PlayerFort"))
+            {
+                StartCoroutine("PlayerFortTutorial");
+            }
 
         }
-        if (transform.CompareTag("PlayerFort"))
-        {
-            StartCoroutine("PlayerFortBehaviour");
-        }
+
 
 
 
@@ -78,6 +97,10 @@ public class FortController : MonoBehaviour
             MoveTheQueue();
 
         }
+        if (GameManager.Instance.GetPlayerLevel() == 0 && transform.CompareTag("PlayerFort"))
+        {
+            GameManager.Instance.IncreaseEquippedSoldier();
+        }
 
     }
 
@@ -109,25 +132,38 @@ public class FortController : MonoBehaviour
     {
         int counter = 3;
 
-
-        yield return new WaitForSeconds(Random.Range(1, 3));
-        if (counter > 0)
+        if (GameManager.Instance.GetPlayerLevel() <= 1)
         {
-            int rand = Random.Range(1, 4);
-            EquipSoldier(equipmentNames[rand], rand * 10);
-            yield return null;
-            counter--;
+            yield return new WaitForSeconds(1);
+            EquipSoldier(equipmentNames[1], 1 * 10);
 
         }
         else
         {
-            int rand = Random.Range(5, 6);
-            EquipSoldier(equipmentNames[rand], rand * 10);
+            yield return new WaitForSeconds(1);
+            if (counter > 0)
+            {
+                int rand = Random.Range(1, 4);
+                EquipSoldier(equipmentNames[rand], rand * 10);
+                yield return null;
+                counter--;
+
+            }
+            else
+            {
+                int rand = Random.Range(5, 6);
+                EquipSoldier(equipmentNames[rand], rand * 10);
+                yield return null;
+                counter = 3;
+
+            }
             yield return null;
-            counter = 3;
+
 
         }
-        yield return null;
+
+
+
 
 
 
@@ -191,15 +227,53 @@ public class FortController : MonoBehaviour
     {
         health -= damage;
         healthBar.fillAmount = health / fort.health;
+        AudioManager.Instance.PlaySFX("HitFort");
+        var particle = ObjectPooler.Instance.GetHitParticlesFromPool();
+        if (particle != null)
+        {
+            particle.transform.position = transform.position;
+            particle.SetActive(true);
+
+        }
         if (health <= 0)
         {
 
             if (transform.CompareTag("EnemyFort")) GameManager.Instance.gameWinner = GameManager.Winner.Player;
             else GameManager.Instance.gameWinner = GameManager.Winner.Enemy;
-
+            AudioManager.Instance.PlaySFX("FortDown");
             GameManager.Instance.FinishGame();
         }
+
     }
 
-    public int GetFortId() => fort.id;
+    IEnumerator PlayerFortTutorial()
+    {
+        BuyVikingSoldier();
+        while (!TutorialManager.Instance.GetFirstMergeState())
+        {
+            yield return null;
+
+        }
+        BuyVikingSoldier();
+        StartCoroutine("PlayerFortBehaviour");
+
+    }
+    IEnumerator EnemyFortTutorial()
+    {
+        while (!TutorialManager.Instance.GetFirstEquipState())
+        {
+            yield return null;
+        }
+        BuyVikingSoldier();
+        yield return new WaitForSeconds(1.5f);
+        EquipSoldier(equipmentNames[1], 1 * 9f);
+        while (!TutorialManager.Instance.GetSecondEquipState())
+        {
+            yield return null;
+        }
+        BuyVikingSoldier();
+        EquipSoldier(equipmentNames[1], 1 * 10);
+        StartCoroutine("EnemyFortSpawner");
+
+    }
 }

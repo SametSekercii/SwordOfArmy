@@ -36,6 +36,15 @@ public class ObjectPooler : UnitySingleton<ObjectPooler>
     private int amountOfMoney = 5;
     [SerializeField] private GameObject animatedMoneyPrefab;
 
+    /////////////////////////////////////
+    private List<GameObject> buyEquipmentParticles = new List<GameObject>();
+    private List<GameObject> mergeEquipmentParticles = new List<GameObject>();
+    private List<GameObject> hitParticles = new List<GameObject>();
+    private int amountOfEachParticle = 5;
+    [SerializeField] private GameObject buyEquipmentParticlePrefab;
+    [SerializeField] private GameObject mergeEquipmentParticlePrefab;
+    [SerializeField] private GameObject hitParticlePrefab;
+
 
 
     void Awake()
@@ -43,6 +52,7 @@ public class ObjectPooler : UnitySingleton<ObjectPooler>
         CreateAllEquipmentPool();
         CreateTabletsPool();
         CreateMoneyPopUpPool();
+        CreateAllParticlePool();
     }
 
     #region Equipment Pool
@@ -299,6 +309,56 @@ public class ObjectPooler : UnitySingleton<ObjectPooler>
     }
 
 
+    #endregion
+    #region  Particles Pool
+    private void CreateAllParticlePool()
+    {
+        for (int i = 0; i < amountOfEachParticle; i++)
+        {
+            var particle = Instantiate(buyEquipmentParticlePrefab);
+            particle.transform.SetParent(transform);
+            particle.SetActive(false);
+            buyEquipmentParticles.Add(particle);
+        }
+        for (int i = 0; i < amountOfEachParticle; i++)
+        {
+            var particle = Instantiate(mergeEquipmentParticlePrefab);
+            particle.transform.SetParent(transform);
+            particle.SetActive(false);
+            mergeEquipmentParticles.Add(particle);
+        }
+        for (int i = 0; i < amountOfEachParticle; i++)
+        {
+            var particle = Instantiate(hitParticlePrefab);
+            particle.transform.SetParent(transform);
+            particle.SetActive(false);
+            hitParticles.Add(particle);
+        }
+    }
+    public GameObject GetMergeEquipmentParticlesFromPool()
+    {
+        for (int i = 0; i < amountOfEachParticle; i++)
+        {
+            if (!mergeEquipmentParticles[i].activeSelf) return mergeEquipmentParticles[i];
+        }
+        return null;
+    }
+    public GameObject GetBuyEquipmentParticlesFromPool()
+    {
+        for (int i = 0; i < amountOfEachParticle; i++)
+        {
+            if (!buyEquipmentParticles[i].activeSelf) return buyEquipmentParticles[i];
+        }
+        return null;
+    }
+    public GameObject GetHitParticlesFromPool()
+    {
+        for (int i = 0; i < amountOfEachParticle; i++)
+        {
+            if (!hitParticles[i].activeSelf) return hitParticles[i];
+        }
+        return null;
+    }
     #endregion
 }
 
