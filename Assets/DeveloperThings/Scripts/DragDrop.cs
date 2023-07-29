@@ -143,9 +143,8 @@ public class DragDrop : MonoBehaviour
         toDrag.SetActive(false);
         toMerge.SetActive(false);
         GameManager.Instance.IncreaseMergedEquipment();
-        AudioManager.Instance.sfxSource.volume = 0.5f;
         AudioManager.Instance.PlaySFX("Merge");
-        AudioManager.Instance.sfxSource.volume = 1f;
+
 
     }
     private void Swap(GameObject toMerge, GameObject toDrag)
@@ -160,6 +159,7 @@ public class DragDrop : MonoBehaviour
         slot.SetNewEquipmentTransform(toDrag, true);
         slot.FillSlot(toDrag);
         toDrag.transform.parent = toMergeParent;
+        AudioManager.Instance.PlaySFX("FailDrop");
     }
     private void RelocateStartPos(GameObject toDrag)
     {

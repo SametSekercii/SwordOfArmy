@@ -10,7 +10,9 @@ public class TutorialManager : UnitySingleton<TutorialManager>
     public GameObject secondBuyFirstPanel;
     public GameObject secondBuySecondPanel;
     public GameObject showMergePanel;
-    public GameObject secondEquipPanel;
+    public GameObject secondEquipPanel1;
+    public GameObject secondEquipPanel2;
+    private GameObject toClosePanel;
     public EquipmentSlot slotForFirstBuy;
     public EquipmentSlot slotForSecondBuy;
     private bool is0LevelTutorialPlayed;
@@ -96,6 +98,7 @@ public class TutorialManager : UnitySingleton<TutorialManager>
     IEnumerator CheckMergeState()
     {
 
+
         GameManager.Instance.SetGameState(true);
         while (!isFirstMergeComplete)
         {
@@ -109,13 +112,26 @@ public class TutorialManager : UnitySingleton<TutorialManager>
         }
         slotForFirstBuy.GetComponent<Collider>().enabled = false;
         slotForSecondBuy.GetComponent<Collider>().enabled = false;
-        secondEquipPanel.SetActive(true);
+
+        if (slotForFirstBuy.CheckSlotState())
+        {
+            secondEquipPanel1.SetActive(true);
+            toClosePanel = secondEquipPanel1;
+
+        }
+        if (slotForSecondBuy.CheckSlotState())
+        {
+            secondEquipPanel2.SetActive(true);
+            toClosePanel = secondEquipPanel2;
+
+        }
+
         while (!isSecondEquipComplete)
         {
             if (GameManager.Instance.GetEquippedSoldier() > 1)
             {
                 isSecondEquipComplete = true;
-                secondEquipPanel.SetActive(false);
+                toClosePanel.SetActive(false);
             }
             yield return null;
         }

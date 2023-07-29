@@ -2115,7 +2115,8 @@ MonoBehaviour:
   secondBuyFirstPanel: {fileID: 486194206}
   secondBuySecondPanel: {fileID: 1115535049}
   showMergePanel: {fileID: 1809673154}
-  secondEquipPanel: {fileID: 522493682}
+  secondEquipPanel1: {fileID: 522493682}
+  secondEquipPanel2: {fileID: 370160985}
   slotForFirstBuy: {fileID: 520511165}
   slotForSecondBuy: {fileID: 708991522}
   equipmentSlots:

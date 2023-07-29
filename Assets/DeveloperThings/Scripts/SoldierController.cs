@@ -253,7 +253,7 @@ public class SoldierController : MonoBehaviour
     }
     public void TakeDamage(float damage)
     {
-        // AudioManager.Instance.PlaySFX2("HitSoldier");
+        AudioManager.Instance.PlaySFX2("HitSoldier");
         var particle = ObjectPooler.Instance.GetHitParticlesFromPool();
         if (particle != null)
         {
