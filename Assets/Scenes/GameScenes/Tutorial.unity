@@ -708,7 +708,7 @@ RectTransform:
   m_GameObject: {fileID: 1115535049}
   m_LocalRotation: {x: 0.0000002980232, y: 0.0000005124455, z: 0.0000000047663202,
     w: -1}
-  m_LocalPosition: {x: 0, y: 0, z: -333}
+  m_LocalPosition: {x: 0, y: 0, z: 96}
   m_LocalScale: {x: 3.4172578, y: 2.4073222, z: 3.4172583}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -719,7 +719,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: -360, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -486, y: -1089}
+  m_AnchoredPosition: {x: -486, y: -1036}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1115535051
@@ -777,6 +777,21 @@ PrefabInstance:
         type: 3}
       propertyPath: m_RootOrder
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1742725562288419844, guid: e7fe1f789fab2c148a30740964c31add,
+        type: 3}
+      propertyPath: m_LocalScale.x
+      value: 3.8695643
+      objectReference: {fileID: 0}
+    - target: {fileID: 1742725562288419844, guid: e7fe1f789fab2c148a30740964c31add,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 3.8695643
+      objectReference: {fileID: 0}
+    - target: {fileID: 1742725562288419844, guid: e7fe1f789fab2c148a30740964c31add,
+        type: 3}
+      propertyPath: m_LocalScale.z
+      value: 3.8695643
       objectReference: {fileID: 0}
     - target: {fileID: 1742725562288419844, guid: e7fe1f789fab2c148a30740964c31add,
         type: 3}
@@ -3335,6 +3350,10 @@ PrefabInstance:
       propertyPath: musicSounds.Array.data[6].name
       value: BuyEquipment
       objectReference: {fileID: 0}
+    - target: {fileID: 893049804, guid: 500eac3120eb4db409abbe0a3728af75, type: 3}
+      propertyPath: m_Volume
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1897016910226419809, guid: 500eac3120eb4db409abbe0a3728af75,
         type: 3}
       propertyPath: m_Name
@@ -4925,7 +4944,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 442290, guid: ef2fdb9a8a7d35c448dae6d056e9b1e7, type: 3}
       propertyPath: m_RootOrder
-      value: 1
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 442290, guid: ef2fdb9a8a7d35c448dae6d056e9b1e7, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1.7910643
+      objectReference: {fileID: 0}
+    - target: {fileID: 442290, guid: ef2fdb9a8a7d35c448dae6d056e9b1e7, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1.7910643
+      objectReference: {fileID: 0}
+    - target: {fileID: 442290, guid: ef2fdb9a8a7d35c448dae6d056e9b1e7, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1.7910643
       objectReference: {fileID: 0}
     - target: {fileID: 442290, guid: ef2fdb9a8a7d35c448dae6d056e9b1e7, type: 3}
       propertyPath: m_LocalPosition.x

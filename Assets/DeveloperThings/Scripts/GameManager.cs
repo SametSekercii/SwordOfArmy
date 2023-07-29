@@ -12,7 +12,7 @@ public class GameManager : UnitySingleton<GameManager>
     public static event Action loadGameData;
     public Winner gameWinner;
     private float playerMoney = 0;
-    private int playerLevel = 1;
+    private int playerLevel = 0;
     private int playerGoblet = 0;
     private bool isGameOver = false;
     private bool isGameGoing = true;
@@ -35,7 +35,7 @@ public class GameManager : UnitySingleton<GameManager>
     private void Start()
     {
         gameData = new GameData();
-        gameData = SaveSystem.Load(gameData);
+        // gameData = SaveSystem.Load(gameData);
         loadGameData?.Invoke();
         isGameOver = false;
         isGameGoing = true;

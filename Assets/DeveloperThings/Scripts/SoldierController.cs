@@ -242,7 +242,7 @@ public class SoldierController : MonoBehaviour
 
     IEnumerator TakeDamageAnimated(float damage)
     {
-        for (int i = 0; i < 5; i++)
+        for (int i = 0; i < 3; i++)
         {
             health -= damage / 5;
             healthBar.fillAmount = health / maxHealth;
@@ -253,7 +253,7 @@ public class SoldierController : MonoBehaviour
     }
     public void TakeDamage(float damage)
     {
-        AudioManager.Instance.PlaySFX2("HitSoldier");
+        // AudioManager.Instance.PlaySFX2("HitSoldier");
         var particle = ObjectPooler.Instance.GetHitParticlesFromPool();
         if (particle != null)
         {
