@@ -10,7 +10,6 @@ public class EquipmentSlot : UnitySingleton<EquipmentSlot>
     enum SlotState { filled, empty }
     [SerializeField] private MergeArea mergeArea;
     private Collider col;
-    private SlotState state;
     private Transform slotPointTransform;
     [SerializeField] private Transform tabletPointTransform;
     private int slotLevel;
@@ -157,7 +156,6 @@ public class EquipmentSlot : UnitySingleton<EquipmentSlot>
         }
         if (mergeArea.isSolded && equipmentOnSLot != null)
         {
-            this.state = SlotState.filled;
             slotCanvas.gameObject.SetActive(false);
             slotLockCanvas.gameObject.SetActive(false);
             col.enabled = false;
@@ -165,7 +163,6 @@ public class EquipmentSlot : UnitySingleton<EquipmentSlot>
         }
         else if (mergeArea.isSolded && equipmentOnSLot == null)
         {
-            this.state = SlotState.empty;
             slotCanvas.gameObject.SetActive(true);
             slotLockCanvas.gameObject.SetActive(false);
             col.enabled = true;

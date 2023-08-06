@@ -127,7 +127,7 @@ public class DragDrop : MonoBehaviour
             newEquipment.SetActive(true);
             newEquipment.transform.DOScale(new Vector3(0.014f, 0.014f, 0.014f), 0.4f);
         }
-        var particle = ObjectPooler.Instance.GetMergeEquipmentParticlesFromPool();
+        var particle = ObjectPooler.Instance.GetMergeEffects(newLevel);
         if (particle != null)
         {
             particle.transform.position = toMerge.transform.position;

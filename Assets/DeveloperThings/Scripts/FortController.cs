@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
 using UnityEngine.UI;
+using RayFire;
 
 public class FortController : MonoBehaviour
 {
@@ -12,6 +13,7 @@ public class FortController : MonoBehaviour
     [SerializeField] private Transform spawnPoint;
     [SerializeField] private Transform[] queuePoints;
     [SerializeField] private GameObject[] soldiersInQueue;
+    [SerializeField] private GameObject[] rayFireElements;
     private int maxQueueSize;
     private int queueSize;
     public Fort fort;
@@ -23,6 +25,7 @@ public class FortController : MonoBehaviour
 
     private void Start()
     {
+        transform.GetComponent<MeshRenderer>().enabled = false;
         coolDown = fort.coolDown;
         health = fort.health;
         healthBar.fillAmount = health / fort.health;
@@ -79,15 +82,9 @@ public class FortController : MonoBehaviour
             queueSize++;
 
         }
-
-
-
     }
-
-
     public int GetQueueAmount() => queueSize;
     public Transform GetQueuePoint(int index) => queuePoints[index];
-
     public void EquipSoldier(string itemName, float itemValue)
     {
         GameObject firstSoldier = soldiersInQueue[maxQueueSize - 1];
@@ -103,8 +100,6 @@ public class FortController : MonoBehaviour
         }
 
     }
-
-
     private void MoveTheQueue()
     {
 
@@ -161,19 +156,9 @@ public class FortController : MonoBehaviour
 
 
         }
-
-
-
-
-
-
-
-
     }
     IEnumerator EnemyFortSpawner()
     {
-
-
         while (!GameManager.Instance.IsGameOver())
         {
             if (GameManager.Instance.IsGameGoing())
@@ -194,11 +179,9 @@ public class FortController : MonoBehaviour
             }
             yield return null;
         }
-
     }
     IEnumerator PlayerFortBehaviour()
     {
-
         while (!GameManager.Instance.IsGameOver())
         {
             if (GameManager.Instance.IsGameGoing())
@@ -217,16 +200,23 @@ public class FortController : MonoBehaviour
                 else coolDownBar.fillAmount = timer / coolDown;
 
             }
-
-
             yield return null;
         }
-
     }
     public void TakeDamage(float damage)
     {
-        health -= damage;
-        healthBar.fillAmount = health / fort.health;
+        StartCoroutine("TakeDamageAnimated", damage);
+    }
+    IEnumerator TakeDamageAnimated(float damage)
+    {
+        for (int i = 0; i < 3; i++)
+        {
+            health -= damage / 3;
+            healthBar.fillAmount = health / fort.health;
+            yield return new WaitForSeconds(0.03f);
+
+        }
+        Debug.Log(health);
         AudioManager.Instance.PlaySFX("HitFort");
         var particle = ObjectPooler.Instance.GetHitParticlesFromPool();
         if (particle != null)
@@ -235,28 +225,37 @@ public class FortController : MonoBehaviour
             particle.SetActive(true);
 
         }
-        if (health <= 0)
+        for (int i = 0; i < rayFireElements.Length; i++)
         {
+            rayFireElements[i].transform.localScale -= new Vector3(0.02f, 0.02f, 0.02f);
+
+        }
+        if (health <= 1)
+        {
+            for (int i = 0; i < rayFireElements.Length; i++)
+            {
+                rayFireElements[i].GetComponent<Rigidbody>().isKinematic = false;
+
+            }
+
 
             if (transform.CompareTag("EnemyFort")) GameManager.Instance.gameWinner = GameManager.Winner.Player;
             else GameManager.Instance.gameWinner = GameManager.Winner.Enemy;
             AudioManager.Instance.PlaySFX("FortDown");
             GameManager.Instance.FinishGame();
         }
-
     }
 
     IEnumerator PlayerFortTutorial()
     {
+
         BuyVikingSoldier();
         while (!TutorialManager.Instance.GetFirstMergeState())
         {
             yield return null;
-
         }
         BuyVikingSoldier();
         StartCoroutine("PlayerFortBehaviour");
-
     }
     IEnumerator EnemyFortTutorial()
     {

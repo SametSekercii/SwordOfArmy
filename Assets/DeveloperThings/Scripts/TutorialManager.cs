@@ -32,6 +32,7 @@ public class TutorialManager : UnitySingleton<TutorialManager>
             for (int i = 0; i < equipmentSlots.Length; i++)
             {
                 equipmentSlots[i].GetComponent<Collider>().enabled = false;
+                Debug.Log(equipmentSlots[i] + "kilitlendi");
             }
 
             GameManager.Instance.SetGameState(true);
@@ -45,18 +46,16 @@ public class TutorialManager : UnitySingleton<TutorialManager>
 
     private void Start0LevelTutorial()
     {
-        GameManager.Instance.EarnMoney(slotForFirstBuy.GetSlotCost());
+
         firstBuyPanel.SetActive(true);
     }
     public void BuyFirstEquipment()
     {
-
         slotForFirstBuy.BuyEquipment();
         AudioManager.Instance.PlaySFX("BuyEquipment");
         firstBuyPanel.SetActive(false);
         firstEquipPanel.SetActive(true);
         StartCoroutine("WaitForFirstMove");
-
     }
     IEnumerator WaitForFirstMove()
     {
@@ -78,9 +77,12 @@ public class TutorialManager : UnitySingleton<TutorialManager>
         }
         GameManager.Instance.SetGameState(false);
         secondBuyFirstPanel.SetActive(true);
+        GameManager.Instance.EarnMoney(slotForFirstBuy.GetSlotCost());
+        GameManager.Instance.EarnMoney(slotForSecondBuy.GetSlotCost());
     }
     public void SecondBuyFirstEquipment()
     {
+
         slotForFirstBuy.BuyEquipment();
         AudioManager.Instance.PlaySFX("BuyEquipment");
         secondBuyFirstPanel.SetActive(false);
@@ -88,6 +90,7 @@ public class TutorialManager : UnitySingleton<TutorialManager>
     }
     public void SecondBuySecondEquipment()
     {
+
         slotForSecondBuy.BuyEquipment();
         AudioManager.Instance.PlaySFX("BuyEquipment");
         secondBuySecondPanel.SetActive(false);

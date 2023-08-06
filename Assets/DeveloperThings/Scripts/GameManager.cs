@@ -12,7 +12,7 @@ public class GameManager : UnitySingleton<GameManager>
     public static event Action loadGameData;
     public Winner gameWinner;
     private float playerMoney = 0;
-    private int playerLevel = 0;
+    [SerializeField] private int playerLevel = 0;
     private int playerGoblet = 0;
     private bool isGameOver = false;
     private bool isGameGoing = true;
@@ -21,21 +21,27 @@ public class GameManager : UnitySingleton<GameManager>
     [SerializeField] private TMP_Text moneyText;
     [SerializeField] private TMP_Text gobletText;
     [SerializeField] private TMP_Text winPanelGobletText;
-
     [SerializeField] private Transform moneyIconTransform;
     [SerializeField] private Transform gobletIconTransform;
-
     [SerializeField] private GameObject winPanel;
     [SerializeField] private GameObject failPanel;
+    [SerializeField] private GameObject playerPathObject;
+    [SerializeField] private GameObject enemyPathObject;
+    [SerializeField] private GameObject playerFortObject;
+    [SerializeField] private GameObject enemyFortObject;
     private void OnEnable()
     {
-        GameManager.loadGameData += LoadGameDatas;
-        GameManager.setGameData += SetGameDatas;
+        loadGameData += LoadGameDatas;
+        setGameData += SetGameDatas;
+    }
+    private void Awake()
+    {
+        Application.targetFrameRate = 60;
     }
     private void Start()
     {
         gameData = new GameData();
-        // gameData = SaveSystem.Load(gameData);
+        //gameData = SaveSystem.Load(gameData);
         loadGameData?.Invoke();
         isGameOver = false;
         isGameGoing = true;
@@ -100,6 +106,10 @@ public class GameManager : UnitySingleton<GameManager>
     public void IncreaseEquippedSoldier() => soldierEquipped++;
     public int GetMergedEquipment() => mergedEquipment;
     public int GetEquippedSoldier() => soldierEquipped;
+    public GameObject GetPlayerPathObject() => playerPathObject;
+    public GameObject GetEnemyPathObject() => enemyPathObject;
+    public GameObject GetPlayerFortObject() => playerFortObject;
+    public GameObject GetEnemyFortObject() => enemyFortObject;
 
 
 }

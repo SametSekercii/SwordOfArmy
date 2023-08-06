@@ -187,8 +187,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2ef75c9e91df6c3409942a4539907f95, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gobletIconTransform: {fileID: 0}
-  gobletText: {fileID: 0}
 --- !u!1 &123588980
 GameObject:
   m_ObjectHideFlags: 0
@@ -452,8 +450,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2ef75c9e91df6c3409942a4539907f95, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gobletIconTransform: {fileID: 0}
-  gobletText: {fileID: 0}
 --- !u!1 &483542468
 GameObject:
   m_ObjectHideFlags: 0
@@ -701,8 +697,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2ef75c9e91df6c3409942a4539907f95, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gobletIconTransform: {fileID: 0}
-  gobletText: {fileID: 0}
 --- !u!1 &753442307
 GameObject:
   m_ObjectHideFlags: 0
@@ -754,8 +748,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2ef75c9e91df6c3409942a4539907f95, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gobletIconTransform: {fileID: 0}
-  gobletText: {fileID: 0}
 --- !u!1 &888769794
 GameObject:
   m_ObjectHideFlags: 0
@@ -807,8 +799,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2ef75c9e91df6c3409942a4539907f95, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gobletIconTransform: {fileID: 0}
-  gobletText: {fileID: 0}
 --- !u!1 &945670035
 GameObject:
   m_ObjectHideFlags: 0
@@ -1072,8 +1062,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2ef75c9e91df6c3409942a4539907f95, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gobletIconTransform: {fileID: 0}
-  gobletText: {fileID: 0}
 --- !u!1 &1185876388
 GameObject:
   m_ObjectHideFlags: 0
@@ -1261,7 +1249,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gobletPopUps: []
-  gobletIconTransform: {fileID: 0}
 --- !u!1 &1197774251
 GameObject:
   m_ObjectHideFlags: 0
@@ -1677,8 +1664,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2ef75c9e91df6c3409942a4539907f95, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gobletIconTransform: {fileID: 0}
-  gobletText: {fileID: 0}
 --- !u!1 &1839519471
 GameObject:
   m_ObjectHideFlags: 0
@@ -1806,8 +1791,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2ef75c9e91df6c3409942a4539907f95, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gobletIconTransform: {fileID: 0}
-  gobletText: {fileID: 0}
 --- !u!1 &1918578553
 GameObject:
   m_ObjectHideFlags: 0

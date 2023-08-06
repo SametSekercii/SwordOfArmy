@@ -50,7 +50,21 @@ MonoBehaviour:
   musicSlider: {fileID: 0}
   sfxSlider: {fileID: 0}
   musicSounds: []
-  sfxSounds: []
+  sfxSounds:
+  - name: Equip
+    clip: {fileID: 8300000, guid: 0c9e7657ed8e80a4ab0827a90af3d31c, type: 3}
+  - name: HitSoldier
+    clip: {fileID: 8300000, guid: 343dbca80b84aa44f827776fe37046c5, type: 3}
+  - name: HitFort
+    clip: {fileID: 8300000, guid: f72b8c94871997442a4d77d5a0e39c91, type: 3}
+  - name: FortDown
+    clip: {fileID: 8300000, guid: cbc99f54b9bd14e47bc51388f01fae83, type: 3}
+  - name: FailDrop
+    clip: {fileID: 8300000, guid: d6ae0c85c2833c14bb833b959bc67963, type: 3}
+  - name: Merge
+    clip: {fileID: 8300000, guid: 8ee16b8ddb1bd9c46848ba987674192e, type: 3}
+  - name: BuyEquipment
+    clip: {fileID: 8300000, guid: 987a3a1febbe04e4e9c6d97f55acb258, type: 3}
   musicSource: {fileID: 1929176573}
   sfxSource: {fileID: 893049804}
   sfxSource2: {fileID: 1886696289}
@@ -608,8 +622,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameWinner: 0
+  soldierEquipped: 0
   moneyText: {fileID: 0}
-  iconTransform: {fileID: 0}
+  gobletText: {fileID: 0}
+  winPanelGobletText: {fileID: 0}
+  moneyIconTransform: {fileID: 0}
+  gobletIconTransform: {fileID: 0}
   winPanel: {fileID: 0}
   failPanel: {fileID: 0}
 --- !u!1 &1897016911089478074
@@ -680,5 +698,19 @@ MonoBehaviour:
     type: 3}
   level6TabletPrefab: {fileID: 4814386077316996057, guid: d291864b35e792945bcad1b7ca10c8ef,
     type: 3}
-  animatedCoinPrefab: {fileID: 6189285449146377980, guid: 8b208525a9d735a43a7527a72243ab93,
+  animatedMoneyPrefab: {fileID: 6189285449146377980, guid: 8b208525a9d735a43a7527a72243ab93,
+    type: 3}
+  buyEquipmentParticlePrefab: {fileID: 187180, guid: 1ed56f4c486ff6141a344e5e5714e1b9,
+    type: 3}
+  mergeEquipmentLvl2ParticlePrefab: {fileID: 161470, guid: 9fcebea2794b44246b84eeef88f15f90,
+    type: 3}
+  mergeEquipmentLvl3ParticlePrefab: {fileID: 161470, guid: 44d4fba397f64ad438d7ba2be63be30a,
+    type: 3}
+  mergeEquipmentLvl4ParticlePrefab: {fileID: 161470, guid: 00f75c551b7d6454db3a1fa83ee0f702,
+    type: 3}
+  mergeEquipmentLvl5ParticlePrefab: {fileID: 161470, guid: ef634dd619d06a3448435c40f8342c56,
+    type: 3}
+  mergeEquipmentLvl6ParticlePrefab: {fileID: 161470, guid: ef2fdb9a8a7d35c448dae6d056e9b1e7,
+    type: 3}
+  hitParticlePrefab: {fileID: 1746145380865176480, guid: e7fe1f789fab2c148a30740964c31add,
     type: 3}

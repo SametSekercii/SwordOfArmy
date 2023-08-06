@@ -8,7 +8,7 @@ public class SoldierController : MonoBehaviour
 {
     enum SoldierState { inQueue, inWar, Dead }
 
-    [SerializeField] private bool inFort;
+
     [SerializeField] private Transform[] moneyPopUpSpots;
     private Animator anim;
     public Soldier soldier;
@@ -36,7 +36,6 @@ public class SoldierController : MonoBehaviour
     {
 
         moneyPopUpSpots = new Transform[transform.GetChild(2).childCount];
-        inFort = true;
         maxHealth = soldier.health;
         health = maxHealth;
         damage = soldier.damage;
@@ -49,8 +48,8 @@ public class SoldierController : MonoBehaviour
         eye = transform.GetChild(1);
         if (transform.CompareTag("PlayerSoldier"))
         {
-            queuePath = GameObject.FindWithTag("PlayerFortPathCreator").GetComponent<PathCreator>();
-            soldierfort = GameObject.FindWithTag("PlayerFort").GetComponent<FortController>();
+            queuePath = GameManager.Instance.GetPlayerPathObject().GetComponent<PathCreator>();
+            soldierfort = GameManager.Instance.GetPlayerFortObject().GetComponent<FortController>();
             fortId = 1;
             for (int i = 0; i < transform.GetChild(2).childCount; i++)
             {
@@ -61,8 +60,8 @@ public class SoldierController : MonoBehaviour
         }
         if (transform.CompareTag("EnemySoldier"))
         {
-            queuePath = GameObject.FindWithTag("EnemyFortPathCreator").GetComponent<PathCreator>();
-            soldierfort = GameObject.FindWithTag("EnemyFort").GetComponent<FortController>();
+            queuePath = GameManager.Instance.GetEnemyPathObject().GetComponent<PathCreator>();
+            soldierfort = GameManager.Instance.GetEnemyFortObject().GetComponent<FortController>();
             fortId = 2;
 
         }
@@ -244,7 +243,7 @@ public class SoldierController : MonoBehaviour
     {
         for (int i = 0; i < 3; i++)
         {
-            health -= damage / 5;
+            health -= damage / 3;
             healthBar.fillAmount = health / maxHealth;
             yield return new WaitForSeconds(0.1f);
 
@@ -265,11 +264,6 @@ public class SoldierController : MonoBehaviour
 
 
     }
-    private void OnTriggerExit(Collider other)
-    {
-        inFort = false;
-    }
-
     public int GetFortId() => fortId;
 
 }

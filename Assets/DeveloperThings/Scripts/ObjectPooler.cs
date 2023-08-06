@@ -38,11 +38,19 @@ public class ObjectPooler : UnitySingleton<ObjectPooler>
 
     /////////////////////////////////////
     private List<GameObject> buyEquipmentParticles = new List<GameObject>();
-    private List<GameObject> mergeEquipmentParticles = new List<GameObject>();
+    private List<GameObject> mergeEquipmentLvl2Particles = new List<GameObject>();
+    private List<GameObject> mergeEquipmentLvl3Particles = new List<GameObject>();
+    private List<GameObject> mergeEquipmentLvl4Particles = new List<GameObject>();
+    private List<GameObject> mergeEquipmentLvl5Particles = new List<GameObject>();
+    private List<GameObject> mergeEquipmentLvl6Particles = new List<GameObject>();
     private List<GameObject> hitParticles = new List<GameObject>();
     private int amountOfEachParticle = 5;
     [SerializeField] private GameObject buyEquipmentParticlePrefab;
-    [SerializeField] private GameObject mergeEquipmentParticlePrefab;
+    [SerializeField] private GameObject mergeEquipmentLvl2ParticlePrefab;
+    [SerializeField] private GameObject mergeEquipmentLvl3ParticlePrefab;
+    [SerializeField] private GameObject mergeEquipmentLvl4ParticlePrefab;
+    [SerializeField] private GameObject mergeEquipmentLvl5ParticlePrefab;
+    [SerializeField] private GameObject mergeEquipmentLvl6ParticlePrefab;
     [SerializeField] private GameObject hitParticlePrefab;
 
 
@@ -322,24 +330,102 @@ public class ObjectPooler : UnitySingleton<ObjectPooler>
         }
         for (int i = 0; i < amountOfEachParticle; i++)
         {
-            var particle = Instantiate(mergeEquipmentParticlePrefab);
-            particle.transform.SetParent(transform);
-            particle.SetActive(false);
-            mergeEquipmentParticles.Add(particle);
-        }
-        for (int i = 0; i < amountOfEachParticle; i++)
-        {
             var particle = Instantiate(hitParticlePrefab);
             particle.transform.SetParent(transform);
             particle.SetActive(false);
             hitParticles.Add(particle);
         }
+        for (int i = 0; i < amountOfEachParticle; i++)
+        {
+            var particle = Instantiate(mergeEquipmentLvl2ParticlePrefab);
+            particle.transform.SetParent(transform);
+            particle.SetActive(false);
+            mergeEquipmentLvl2Particles.Add(particle);
+        }
+        for (int i = 0; i < amountOfEachParticle; i++)
+        {
+            var particle = Instantiate(mergeEquipmentLvl3ParticlePrefab);
+            particle.transform.SetParent(transform);
+            particle.SetActive(false);
+            mergeEquipmentLvl3Particles.Add(particle);
+        }
+        for (int i = 0; i < amountOfEachParticle; i++)
+        {
+            var particle = Instantiate(mergeEquipmentLvl4ParticlePrefab);
+            particle.transform.SetParent(transform);
+            particle.SetActive(false);
+            mergeEquipmentLvl4Particles.Add(particle);
+        }
+        for (int i = 0; i < amountOfEachParticle; i++)
+        {
+            var particle = Instantiate(mergeEquipmentLvl5ParticlePrefab);
+            particle.transform.SetParent(transform);
+            particle.SetActive(false);
+            mergeEquipmentLvl5Particles.Add(particle);
+        }
+        for (int i = 0; i < amountOfEachParticle; i++)
+        {
+            var particle = Instantiate(mergeEquipmentLvl6ParticlePrefab);
+            particle.transform.SetParent(transform);
+            particle.SetActive(false);
+            mergeEquipmentLvl6Particles.Add(particle);
+        }
     }
-    public GameObject GetMergeEquipmentParticlesFromPool()
+
+    public GameObject GetMergeEffects(int lvl)
+    {
+        switch (lvl)
+        {
+            case 2:
+                return GetMergeLvl2EquipmentParticlesFromPool();
+            case 3:
+                return GetMergeLvl3EquipmentParticlesFromPool();
+            case 4:
+                return GetMergeLvl4EquipmentParticlesFromPool();
+            case 5:
+                return GetMergeLvl5EquipmentParticlesFromPool();
+            case 6:
+                return GetMergeLvl6EquipmentParticlesFromPool();
+        }
+        return null;
+    }
+    public GameObject GetMergeLvl2EquipmentParticlesFromPool()
     {
         for (int i = 0; i < amountOfEachParticle; i++)
         {
-            if (!mergeEquipmentParticles[i].activeSelf) return mergeEquipmentParticles[i];
+            if (!mergeEquipmentLvl2Particles[i].activeSelf) return mergeEquipmentLvl2Particles[i];
+        }
+        return null;
+    }
+    public GameObject GetMergeLvl3EquipmentParticlesFromPool()
+    {
+        for (int i = 0; i < amountOfEachParticle; i++)
+        {
+            if (!mergeEquipmentLvl3Particles[i].activeSelf) return mergeEquipmentLvl3Particles[i];
+        }
+        return null;
+    }
+    public GameObject GetMergeLvl4EquipmentParticlesFromPool()
+    {
+        for (int i = 0; i < amountOfEachParticle; i++)
+        {
+            if (!mergeEquipmentLvl4Particles[i].activeSelf) return mergeEquipmentLvl4Particles[i];
+        }
+        return null;
+    }
+    public GameObject GetMergeLvl5EquipmentParticlesFromPool()
+    {
+        for (int i = 0; i < amountOfEachParticle; i++)
+        {
+            if (!mergeEquipmentLvl5Particles[i].activeSelf) return mergeEquipmentLvl5Particles[i];
+        }
+        return null;
+    }
+    public GameObject GetMergeLvl6EquipmentParticlesFromPool()
+    {
+        for (int i = 0; i < amountOfEachParticle; i++)
+        {
+            if (!mergeEquipmentLvl6Particles[i].activeSelf) return mergeEquipmentLvl6Particles[i];
         }
         return null;
     }
