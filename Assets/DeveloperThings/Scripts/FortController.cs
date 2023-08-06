@@ -55,7 +55,6 @@ public class FortController : MonoBehaviour
         }
         else
         {
-            Debug.Log(GameManager.Instance.GetPlayerLevel());
             if (transform.CompareTag("EnemyFort"))
             {
                 StartCoroutine("EnemyFortTutorial");
