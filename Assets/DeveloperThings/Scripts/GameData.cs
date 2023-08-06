@@ -13,7 +13,7 @@ public class GameData
     public GameData()
     {
         playerMoney = 100;
-        playerLevel = 0;
+        playerLevel = 1;
         playerGoblet = 0;
         is0LevelTutorialPlayed = false;
 

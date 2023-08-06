@@ -8,11 +8,11 @@ public class GameManager : UnitySingleton<GameManager>
 {
     public enum Winner { Player, Enemy }
     public static GameData gameData;
-    public static event Action setGameData;
-    public static event Action loadGameData;
+    public static event Action SetGameData;
+    public static event Action LoadGameData;
     public Winner gameWinner;
     private float playerMoney = 0;
-    [SerializeField] private int playerLevel = 0;
+    private int playerLevel = 0;
     private int playerGoblet = 0;
     private bool isGameOver = false;
     private bool isGameGoing = true;
@@ -31,8 +31,8 @@ public class GameManager : UnitySingleton<GameManager>
     [SerializeField] private GameObject enemyFortObject;
     private void OnEnable()
     {
-        loadGameData += LoadGameDatas;
-        setGameData += SetGameDatas;
+        LoadGameData += LoadGameDatas;
+        SetGameData += SetGameDatas;
     }
     private void Awake()
     {
@@ -42,7 +42,7 @@ public class GameManager : UnitySingleton<GameManager>
     {
         gameData = new GameData();
         //gameData = SaveSystem.Load(gameData);
-        loadGameData?.Invoke();
+        LoadGameData?.Invoke();
         isGameOver = false;
         isGameGoing = true;
     }
@@ -62,7 +62,7 @@ public class GameManager : UnitySingleton<GameManager>
 
     private void Update()
     {
-        setGameData?.Invoke();
+        SetGameData?.Invoke();
         SaveSystem.Save(gameData);
         moneyText.text = Mathf.RoundToInt(playerMoney).ToString();
         gobletText.text = playerGoblet.ToString();
