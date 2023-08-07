@@ -9,6 +9,6 @@ EditorBuildSettings:
     path: 
     guid: 00000000000000000000000000000000
   - enabled: 1
-    path: Assets/Scenes/GameScenes/Tutorial.unity
+    path: Assets/Scenes/GameScenes/Level1(Tutorial).unity
     guid: 708d8421d2b86a84cabe48942316ddb6
   m_configObjects: {}
