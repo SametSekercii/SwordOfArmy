@@ -40,7 +40,7 @@ public class FortController : MonoBehaviour
 
         if (GameManager.Instance.GetPlayerLevel() > 0)
         {
-            Debug.Log(GameManager.Instance.GetPlayerLevel());
+            
 
             if (transform.CompareTag("EnemyFort"))
             {
@@ -217,7 +217,6 @@ public class FortController : MonoBehaviour
             yield return new WaitForSeconds(0.03f);
 
         }
-        Debug.Log(health);
         AudioManager.Instance.PlaySFX("HitFort");
         var particle = ObjectPooler.Instance.GetHitParticlesFromPool();
         if (particle != null)

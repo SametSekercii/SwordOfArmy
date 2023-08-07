@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using System;
+using UnityEngine.SceneManagement;
 public class GameManager : UnitySingleton<GameManager>
 {
     public enum Winner { Player, Enemy }
@@ -13,6 +14,7 @@ public class GameManager : UnitySingleton<GameManager>
     public Winner gameWinner;
     private float playerMoney = 0;
     private int playerLevel = 0;
+    private int currentScene;
     private int playerGoblet = 0;
     private bool isGameOver = false;
     private bool isGameGoing = true;
@@ -43,6 +45,7 @@ public class GameManager : UnitySingleton<GameManager>
         gameData = new GameData();
         //gameData = SaveSystem.Load(gameData);
         LoadGameData?.Invoke();
+        // SceneManager.LoadScene(currentScene);
         isGameOver = false;
         isGameGoing = true;
     }
@@ -52,12 +55,14 @@ public class GameManager : UnitySingleton<GameManager>
         gameData.playerMoney = playerMoney;
         gameData.playerLevel = playerLevel;
         gameData.playerGoblet = playerGoblet;
+        gameData.currentScene = currentScene;
     }
     private void LoadGameDatas()
     {
         playerMoney = gameData.playerMoney;
         playerLevel = gameData.playerLevel;
         playerGoblet = gameData.playerGoblet;
+        currentScene = gameData.currentScene;
     }
 
     private void Update()
@@ -66,16 +71,11 @@ public class GameManager : UnitySingleton<GameManager>
         SaveSystem.Save(gameData);
         moneyText.text = Mathf.RoundToInt(playerMoney).ToString();
         gobletText.text = playerGoblet.ToString();
+        currentScene = SceneManager.GetActiveScene().buildIndex;
+
     }
 
-    public void unlimitedmoney()
-    {
-        playerMoney = 999999999;
-    }
-    public void limitedmoney()
-    {
-        playerMoney = 500;
-    }
+
     public Transform GetMoneyIconTransform() => moneyIconTransform;
     public Transform GetGobletIconTransform() => gobletIconTransform;
     public bool IsGameOver() => isGameOver;
@@ -110,6 +110,14 @@ public class GameManager : UnitySingleton<GameManager>
     public GameObject GetEnemyPathObject() => enemyPathObject;
     public GameObject GetPlayerFortObject() => playerFortObject;
     public GameObject GetEnemyFortObject() => enemyFortObject;
+    public void unlimitedmoney()
+    {
+        playerMoney = 999999999;
+    }
+    public void limitedmoney()
+    {
+        playerMoney = 500;
+    }
 
 
 }

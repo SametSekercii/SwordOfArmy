@@ -97,6 +97,7 @@ public class SoldierController : MonoBehaviour
                     Debug.DrawRay(eye.position, eye.TransformDirection(Vector3.forward) * 3f, Color.red);
                     if (Physics.Raycast(ray, out RaycastHit hitInfo, 3f))
                     {
+                        
 
                         if (transform.CompareTag("PlayerSoldier"))
                         {

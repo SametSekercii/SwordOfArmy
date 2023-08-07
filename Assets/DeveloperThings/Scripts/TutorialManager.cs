@@ -32,9 +32,7 @@ public class TutorialManager : UnitySingleton<TutorialManager>
             for (int i = 0; i < equipmentSlots.Length; i++)
             {
                 equipmentSlots[i].GetComponent<Collider>().enabled = false;
-                Debug.Log(equipmentSlots[i] + "kilitlendi");
             }
-
             GameManager.Instance.SetGameState(true);
             tutorialCanvas.SetActive(true);
             Start0LevelTutorial();
