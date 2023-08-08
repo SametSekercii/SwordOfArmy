@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Viking
   m_EditorClassIdentifier: 
   id: 1
-  health: 75
-  damage: 10
+  health: 100
+  damage: 0
   moveSpeed: 6
   soldierType: 0

@@ -7,7 +7,6 @@ using RayFire;
 
 public class FortController : MonoBehaviour
 {
-    private string[] equipmentNames = { "null", "Level1Equipment", "Level2Equipment", "Level3Equipment", "Level4Equipment", "Level5Equipment", "Level6Equipment" };
     private GameObject defaultBlueVikingSoldier;
     [SerializeField] private GameObject defaultBlueVikingSoldierPrefab;
     [SerializeField] private Transform spawnPoint;
@@ -21,10 +20,13 @@ public class FortController : MonoBehaviour
     private float coolDown;
     public Image healthBar;
     public Image coolDownBar;
+    private int equippedCounter;
+    private int equippedCounterMax;
 
 
     private void Start()
     {
+        SetDifficultyCounter();
         transform.GetComponent<MeshRenderer>().enabled = false;
         coolDown = fort.coolDown;
         health = fort.health;
@@ -40,7 +42,7 @@ public class FortController : MonoBehaviour
 
         if (GameManager.Instance.GetPlayerLevel() > 0)
         {
-            
+
 
             if (transform.CompareTag("EnemyFort"))
             {
@@ -86,12 +88,12 @@ public class FortController : MonoBehaviour
     }
     public int GetQueueAmount() => queueSize;
     public Transform GetQueuePoint(int index) => queuePoints[index];
-    public void EquipSoldier(string itemName, float itemValue)
+    public void EquipSoldier(string itemName, float itemDamage, float itemHealth)
     {
         GameObject firstSoldier = soldiersInQueue[maxQueueSize - 1];
         if (firstSoldier != null)
         {
-            firstSoldier.GetComponent<SoldierController>().TakeUpArms(itemName, itemValue);
+            firstSoldier.GetComponent<SoldierController>().TakeUpArms(itemName, itemDamage, itemHealth);
             MoveTheQueue();
 
         }
@@ -123,37 +125,111 @@ public class FortController : MonoBehaviour
         if (queueSize > 0) return true;
         else return false;
     }
+    private void SetDifficultyCounter()
+    {
+        int difficultyTier = GameManager.Instance.GetDifficultyTier();
+        if (difficultyTier == 1)
+        {
+            equippedCounter = 6;
+            equippedCounterMax = equippedCounter;
+        }
+        if (difficultyTier == 2)
+        {
+            equippedCounter = 6;
+            equippedCounterMax = equippedCounter;
+        }
+        if (difficultyTier == 3)
+        {
+            equippedCounter = 3;
+            equippedCounterMax = equippedCounter;
+        }
+
+    }
 
     IEnumerator EnemyEquiper()
     {
-        int counter = 3;
 
+        GameObject[] items = GameManager.Instance.GetAllItemTypes();
+        int difficultyTier = GameManager.Instance.GetDifficultyTier();
+        Item item;
+        yield return new WaitForSeconds(0.5f);
         if (GameManager.Instance.GetPlayerLevel() <= 1)
         {
-            yield return new WaitForSeconds(1);
-            EquipSoldier(equipmentNames[1], 1 * 10);
+            item = items[1].GetComponent<EquipmentController>().item;
+
+            EquipSoldier(item.itemName, item.damage, item.health);
 
         }
         else
         {
-            yield return new WaitForSeconds(1);
-            if (counter > 0)
+            if (difficultyTier == 1)
             {
-                int rand = Random.Range(1, 4);
-                EquipSoldier(equipmentNames[rand], rand * 10);
-                yield return null;
-                counter--;
 
+
+                if (equippedCounter > 0)
+                {
+                    int rand = Random.Range(1, 3);
+                    item = items[rand].GetComponent<EquipmentController>().item;
+                    EquipSoldier(item.itemName, item.damage, item.health);
+                    yield return null;
+                    equippedCounter--;
+                }
+                else
+                {
+                    item = items[3].GetComponent<EquipmentController>().item;
+                    EquipSoldier(item.itemName, item.damage, item.health);
+                    yield return null;
+                    equippedCounter = equippedCounterMax;
+
+                }
+                yield return null;
             }
-            else
+            if (difficultyTier == 2)
             {
-                int rand = Random.Range(5, 6);
-                EquipSoldier(equipmentNames[rand], rand * 10);
-                yield return null;
-                counter = 3;
 
+
+                if (equippedCounter > 0)
+                {
+                    int rand = Random.Range(2, 5);
+                    item = items[rand].GetComponent<EquipmentController>().item;
+                    EquipSoldier(item.itemName, item.damage, item.health);
+                    yield return null;
+                    equippedCounter--;
+
+                }
+                else
+                {
+                    item = items[4].GetComponent<EquipmentController>().item;
+                    EquipSoldier(item.itemName, item.damage, item.health);
+                    yield return null;
+                    equippedCounter = equippedCounterMax;
+
+                }
+                yield return null;
             }
-            yield return null;
+            if (difficultyTier == 3)
+            {
+
+                if (equippedCounter > 0)
+                {
+                    int rand = Random.Range(3, 6);
+                    item = items[rand].GetComponent<EquipmentController>().item;
+                    EquipSoldier(item.itemName, item.damage, item.health);
+                    yield return null;
+                    equippedCounter--;
+
+                }
+                else
+                {
+                    int rand = Random.Range(5, 7);
+                    item = items[rand].GetComponent<EquipmentController>().item;
+                    EquipSoldier(item.itemName, item.damage, item.health);
+                    yield return null;
+                    equippedCounter = equippedCounterMax;
+
+                }
+                yield return null;
+            }
 
 
         }
@@ -259,19 +335,22 @@ public class FortController : MonoBehaviour
     }
     IEnumerator EnemyFortTutorial()
     {
+        Item item;
+        GameObject[] items = GameManager.Instance.GetAllItemTypes();
+        item = items[1].GetComponent<EquipmentController>().item;
         while (!TutorialManager.Instance.GetFirstEquipState())
         {
             yield return null;
         }
         BuyVikingSoldier();
         yield return new WaitForSeconds(1.5f);
-        EquipSoldier(equipmentNames[1], 1 * 9f);
+        EquipSoldier(item.itemName, item.damage, item.health);
         while (!TutorialManager.Instance.GetSecondEquipState())
         {
             yield return null;
         }
         BuyVikingSoldier();
-        EquipSoldier(equipmentNames[1], 1 * 10);
+        EquipSoldier(item.itemName, item.damage, item.health);
         StartCoroutine("EnemyFortSpawner");
 
     }

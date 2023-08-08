@@ -12,8 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7c5558419818820499afa70f5aabab7a, type: 3}
   m_Name: Level4Equipment
   m_EditorClassIdentifier: 
+  itemType: 0
   id: 4
   itemLevel: 4
   itemName: Level4Equipment
-  value: 30
-  itemType: 0
+  damage: 150
+  health: 175

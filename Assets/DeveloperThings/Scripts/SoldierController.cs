@@ -39,7 +39,6 @@ public class SoldierController : MonoBehaviour
         maxHealth = soldier.health;
         health = maxHealth;
         damage = soldier.damage;
-        gainMoneyValue = damage * 3;
         moveSpeed = 0;
         healthBar.fillAmount = health / maxHealth;
         anim = transform.GetComponent<Animator>();
@@ -98,13 +97,14 @@ public class SoldierController : MonoBehaviour
                     if (Physics.Raycast(ray, out RaycastHit hitInfo, 3f))
                     {
 
+                        enemyFromForward = hitInfo.transform.gameObject;
 
                         if (transform.CompareTag("PlayerSoldier"))
                         {
                             if (hitInfo.transform.CompareTag("EnemySoldier") || hitInfo.transform.CompareTag("EnemyFort"))
                             {
                                 moveSpeed = 0;
-                                enemyFromForward = hitInfo.transform.gameObject;
+
 
                                 anim.SetBool("isAttacking", true);
 
@@ -116,7 +116,7 @@ public class SoldierController : MonoBehaviour
                             if (hitInfo.transform.CompareTag("PlayerSoldier") || hitInfo.transform.CompareTag("PlayerFort"))
                             {
                                 moveSpeed = 0;
-                                enemyFromForward = hitInfo.transform.gameObject;
+
 
                                 anim.SetBool("isAttacking", true);
                             }
@@ -128,7 +128,7 @@ public class SoldierController : MonoBehaviour
                         moveSpeed = soldier.moveSpeed;
                         anim.SetBool("isAttacking", false);
                     }
-                    if (health <= 0)
+                    if (health <= 1)
                     {
                         if (transform.CompareTag("EnemySoldier"))
                         {
@@ -174,7 +174,7 @@ public class SoldierController : MonoBehaviour
         yield return null;
 
     }
-    public void TakeUpArms(string itemName, float itemValue)
+    public void TakeUpArms(string itemName, float itemDamage, float itemHealth)
     {
         for (int i = 0; i < transform.childCount; i++)
         {
@@ -195,13 +195,11 @@ public class SoldierController : MonoBehaviour
             }
 
         }
-        damage += itemValue;
-        maxHealth += itemValue + 15;
+        damage += itemDamage;
+        gainMoneyValue = damage * 4f;
+        maxHealth += itemHealth;
         health = maxHealth;
         healthBar.fillAmount = health / maxHealth;
-
-        gainMoneyValue = damage * 3;
-
         state = SoldierState.inWar;
 
     }
@@ -233,7 +231,7 @@ public class SoldierController : MonoBehaviour
 
             }
 
-            GameManager.Instance.EarnMoney(gainMoneyValue);
+            
         }
     }
     public void SetQueueNumber(int value) => queueNumber = value;

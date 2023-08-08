@@ -9,6 +9,7 @@ public class MoneyMove : MonoBehaviour
     [SerializeField] private Transform moneyIconTransform;
     [SerializeField] private TMP_Text moneyText;
     private Vector3 startedScale;
+    private float gainMoneyValue;
 
     private Camera mainCamera;
 
@@ -25,13 +26,18 @@ public class MoneyMove : MonoBehaviour
     private void StartMove()
     {
         transform.DOScale(new Vector3(0.8f, 0.8f, 0.8f), 1.5f);
-        transform.DOMove(moneyIconTransform.position, 1.5f).OnComplete(() =>
+        transform.DOMove(moneyIconTransform.position, 1f).OnComplete(() =>
         {
             transform.DOScale(startedScale, 1.5f);
+            GameManager.Instance.EarnMoneyAnim(gainMoneyValue);
             gameObject.SetActive(false);
         });
 
     }
-    public void SetMoneyText(float value) => moneyText.text = value.ToString();
+    public void SetMoneyText(float value)
+    {
+        gainMoneyValue = value;
+        moneyText.text = value.ToString();
+    }
 
 }

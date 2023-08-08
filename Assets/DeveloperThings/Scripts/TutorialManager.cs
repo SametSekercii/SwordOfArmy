@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using DG.Tweening;
 
 public class TutorialManager : UnitySingleton<TutorialManager>
 {
@@ -12,6 +13,7 @@ public class TutorialManager : UnitySingleton<TutorialManager>
     public GameObject showMergePanel;
     public GameObject secondEquipPanel1;
     public GameObject secondEquipPanel2;
+    public GameObject levelCanvas;
     private GameObject toClosePanel;
     public EquipmentSlot slotForFirstBuy;
     public EquipmentSlot slotForSecondBuy;
@@ -49,6 +51,7 @@ public class TutorialManager : UnitySingleton<TutorialManager>
     }
     public void BuyFirstEquipment()
     {
+        GameManager.Instance.EarnMoney(slotForFirstBuy.GetSlotCost());
         slotForFirstBuy.BuyEquipment();
         AudioManager.Instance.PlaySFX("BuyEquipment");
         firstBuyPanel.SetActive(false);
@@ -141,6 +144,7 @@ public class TutorialManager : UnitySingleton<TutorialManager>
             equipmentSlots[i].GetComponent<Collider>().enabled = true;
         }
         GameManager.Instance.IncreaseLevel();
+        levelCanvas.transform.DOScale(new Vector3(3f, 3f, 3f), 0.3f);
         yield return null;
 
 

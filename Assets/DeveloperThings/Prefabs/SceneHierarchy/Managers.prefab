@@ -995,6 +995,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameWinner: 0
+  allItemTypes:
+  - {fileID: 0}
+  - {fileID: 4703616782611093628, guid: 87344c6be348d6d46a6c004ce5c11773, type: 3}
+  - {fileID: 8960375503878140130, guid: f8975f34a3d98e7478201eab82d0bae3, type: 3}
+  - {fileID: 527275313999675965, guid: c18cbd596e80b244782dc02651e52222, type: 3}
+  - {fileID: 8032590128114332646, guid: afc8c1c0caef19e48a76ff127cbbace1, type: 3}
+  - {fileID: 7523748991288710698, guid: 901a20048daf2b9499bf863e1945a895, type: 3}
+  - {fileID: 8645897974495773415, guid: 81a750c3afc0dc24abb77f72622b3597, type: 3}
   soldierEquipped: 0
   moneyText: {fileID: 0}
   gobletText: {fileID: 0}
