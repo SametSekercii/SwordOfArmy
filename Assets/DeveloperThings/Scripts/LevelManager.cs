@@ -25,10 +25,7 @@ public class LevelManager : MonoBehaviour
             Destroy(gameObject);
         }
     }
-    private void Start()
-    {
-        LoadLastScene();
-    }
+
     public async void LoadScene(int sceneIndex)
     {
         var scene = SceneManager.LoadSceneAsync(sceneIndex);
@@ -47,12 +44,6 @@ public class LevelManager : MonoBehaviour
         // loaderCanvas.SetActive(false);
 
     }
-    void LoadLastScene()
-    {
-        int lastSceneIndex = GameManager.Instance.GetLastScene();
-        if (lastSceneIndex != 0)
-            LoadScene(GameManager.Instance.GetLastScene());
 
-    }
 
 }

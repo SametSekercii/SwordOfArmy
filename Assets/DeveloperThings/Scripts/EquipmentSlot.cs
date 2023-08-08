@@ -37,7 +37,7 @@ public class EquipmentSlot : MonoBehaviour
         tabletPointTransform = transform.GetChild(4);
         col = transform.GetComponent<Collider>();
         slotPointTransform = transform.GetChild(0).transform;
-        slotCost = slotLevel * 300;
+        slotCost = slotLevel * 150;
         costText.text = slotCost.ToString();
         purchaseCostText.text = purchaseCost.ToString();
         if (mergeArea.isSolded)

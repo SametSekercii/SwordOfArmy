@@ -9,13 +9,13 @@ public class ButtonManager : MonoBehaviour
 
     public void FailButton()
     {
-        int failedLevelSceneIndex = GameManager.Instance.GetLastScene();
+        int failedLevelSceneIndex = SceneManager.GetActiveScene().buildIndex;
         SceneManager.LoadScene(failedLevelSceneIndex);
     }
     public void NextLevelButton()
     {
 
-        int currentLevelSceneIndex = GameManager.Instance.GetLastScene();
+        int currentLevelSceneIndex = SceneManager.GetActiveScene().buildIndex;
         if (GameManager.Instance.GetPlayerLevel() >= 10)
         {
             int rand = Random.Range(1, 9);
@@ -26,9 +26,21 @@ public class ButtonManager : MonoBehaviour
                     rand = Random.Range(1, 9);
                 }
             }
+
+
             SceneManager.LoadScene(rand);
+            GameManager.Instance.SetLastScene(SceneManager.GetSceneByBuildIndex(rand).buildIndex);
+
+
         }
-        else SceneManager.LoadScene(currentLevelSceneIndex + 1);
+        else
+        {
+
+
+            SceneManager.LoadScene(currentLevelSceneIndex + 1);
+            GameManager.Instance.SetLastScene(SceneManager.GetSceneByBuildIndex(currentLevelSceneIndex + 1).buildIndex);
+
+        }
         GameManager.Instance.IncreaseLevel();
 
 

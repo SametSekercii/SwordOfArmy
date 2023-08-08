@@ -50,10 +50,15 @@ public class GameManager : UnitySingleton<GameManager>
     }
     private void Start()
     {
+
         gameData = new GameData();
         gameData = SaveSystem.Load(gameData);
         LoadGameData?.Invoke();
         if (SceneManager.GetActiveScene().buildIndex != lastScene) SceneManager.LoadScene(lastScene);
+        if (playerMoney < 300)
+        {
+            playerMoney = 300;
+        }
         isGameOver = false;
         isGameGoing = true;
     }
@@ -79,8 +84,9 @@ public class GameManager : UnitySingleton<GameManager>
         SaveSystem.Save(gameData);
         moneyText.text = Mathf.RoundToInt(playerMoney).ToString();
         gobletText.text = playerGoblet.ToString();
+        //lastScene = SceneManager.GetActiveScene().buildIndex;
         levelText.text = "LEVEL" + playerLevel.ToString();
-        lastScene = SceneManager.GetActiveScene().buildIndex;
+
 
 
     }
@@ -127,6 +133,8 @@ public class GameManager : UnitySingleton<GameManager>
     public bool IsGameGoing() => isGameGoing;
     public Winner GetGameWinner() => gameWinner;
     public void SetGameState(bool value) => isGameGoing = value;
+    public void SetLastScene(int value) => lastScene = value;
+    public int GetLastScene() => lastScene;
     public void IncreaseLevel() => playerLevel++;
     public void SpendMoney(float value) => playerMoney -= value;
     public float GetMoneyValue() => playerMoney;
@@ -137,7 +145,7 @@ public class GameManager : UnitySingleton<GameManager>
     public void IncreaseEquippedSoldier() => soldierEquipped++;
     public int GetMergedEquipment() => mergedEquipment;
     public int GetEquippedSoldier() => soldierEquipped;
-    public int GetLastScene() => lastScene;
+
     public GameObject GetPlayerPathObject() => playerPathObject;
     public GameObject GetEnemyPathObject() => enemyPathObject;
     public GameObject GetPlayerFortObject() => playerFortObject;
