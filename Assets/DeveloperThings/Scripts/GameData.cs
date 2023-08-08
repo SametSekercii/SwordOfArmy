@@ -8,12 +8,12 @@ public class GameData
     public float playerMoney;
     public int playerLevel;
     public int playerGoblet;
-    public int currentScene;
+    public int lastScene;
     public bool is0LevelTutorialPlayed;
 
     public GameData()
     {
-        currentScene = 0;
+        lastScene = 0;
         playerMoney = 100;
         playerLevel = 0;
         playerGoblet = 0;

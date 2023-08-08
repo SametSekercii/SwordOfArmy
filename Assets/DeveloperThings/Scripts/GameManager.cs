@@ -5,23 +5,27 @@ using UnityEngine.UI;
 using TMPro;
 using System;
 using UnityEngine.SceneManagement;
+using System.Threading.Tasks;
+
 public class GameManager : UnitySingleton<GameManager>
 {
+
     public enum Winner { Player, Enemy }
     public static GameData gameData;
     public static event Action SetGameData;
     public static event Action LoadGameData;
     public Winner gameWinner;
-    private float playerMoney = 0;
+    private float playerMoney;
     private int playerLevel = 0;
-    private int currentScene;
-    private int playerGoblet = 0;
+    private int lastScene = 0;
+    private int playerGoblet;
     private bool isGameOver = false;
     private bool isGameGoing = true;
     [SerializeField] private int soldierEquipped = 0;
     private int mergedEquipment = 0;
     [SerializeField] private TMP_Text moneyText;
     [SerializeField] private TMP_Text gobletText;
+    [SerializeField] private TMP_Text levelText;
     [SerializeField] private TMP_Text winPanelGobletText;
     [SerializeField] private Transform moneyIconTransform;
     [SerializeField] private Transform gobletIconTransform;
@@ -31,6 +35,7 @@ public class GameManager : UnitySingleton<GameManager>
     [SerializeField] private GameObject enemyPathObject;
     [SerializeField] private GameObject playerFortObject;
     [SerializeField] private GameObject enemyFortObject;
+
     private void OnEnable()
     {
         LoadGameData += LoadGameDatas;
@@ -43,9 +48,9 @@ public class GameManager : UnitySingleton<GameManager>
     private void Start()
     {
         gameData = new GameData();
-        //gameData = SaveSystem.Load(gameData);
+        gameData = SaveSystem.Load(gameData);
         LoadGameData?.Invoke();
-        // SceneManager.LoadScene(currentScene);
+        if (SceneManager.GetActiveScene().buildIndex != lastScene) SceneManager.LoadScene(lastScene);
         isGameOver = false;
         isGameGoing = true;
     }
@@ -55,14 +60,14 @@ public class GameManager : UnitySingleton<GameManager>
         gameData.playerMoney = playerMoney;
         gameData.playerLevel = playerLevel;
         gameData.playerGoblet = playerGoblet;
-        gameData.currentScene = currentScene;
+        gameData.lastScene = lastScene;
     }
     private void LoadGameDatas()
     {
         playerMoney = gameData.playerMoney;
         playerLevel = gameData.playerLevel;
         playerGoblet = gameData.playerGoblet;
-        currentScene = gameData.currentScene;
+        lastScene = gameData.lastScene;
     }
 
     private void Update()
@@ -71,7 +76,9 @@ public class GameManager : UnitySingleton<GameManager>
         SaveSystem.Save(gameData);
         moneyText.text = Mathf.RoundToInt(playerMoney).ToString();
         gobletText.text = playerGoblet.ToString();
-        currentScene = SceneManager.GetActiveScene().buildIndex;
+        levelText.text = "LEVEL" + playerLevel.ToString();
+        lastScene = SceneManager.GetActiveScene().buildIndex;
+
 
     }
 
@@ -97,6 +104,8 @@ public class GameManager : UnitySingleton<GameManager>
         }
         else failPanel.SetActive(true);
     }
+
+
     public void IncreaseLevel() => playerLevel++;
     public void SpendMoney(float value) => playerMoney -= value;
     public float GetMoneyValue() => playerMoney;
@@ -106,6 +115,7 @@ public class GameManager : UnitySingleton<GameManager>
     public void IncreaseEquippedSoldier() => soldierEquipped++;
     public int GetMergedEquipment() => mergedEquipment;
     public int GetEquippedSoldier() => soldierEquipped;
+    public int GetLastScene() => lastScene;
     public GameObject GetPlayerPathObject() => playerPathObject;
     public GameObject GetEnemyPathObject() => enemyPathObject;
     public GameObject GetPlayerFortObject() => playerFortObject;

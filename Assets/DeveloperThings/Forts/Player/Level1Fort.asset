@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: Level1Fort
   m_EditorClassIdentifier: 
   health: 150
-  coolDown: 8
+  coolDown: 3
   id: 1

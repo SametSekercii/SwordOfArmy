@@ -5,7 +5,7 @@ using UnityEngine.UI;
 using TMPro;
 using DG.Tweening;
 
-public class EquipmentSlot : UnitySingleton<EquipmentSlot>
+public class EquipmentSlot : MonoBehaviour
 {
     enum SlotState { filled, empty }
     [SerializeField] private MergeArea mergeArea;

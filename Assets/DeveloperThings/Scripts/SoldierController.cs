@@ -97,7 +97,7 @@ public class SoldierController : MonoBehaviour
                     Debug.DrawRay(eye.position, eye.TransformDirection(Vector3.forward) * 3f, Color.red);
                     if (Physics.Raycast(ray, out RaycastHit hitInfo, 3f))
                     {
-                        
+
 
                         if (transform.CompareTag("PlayerSoldier"))
                         {
@@ -196,7 +196,7 @@ public class SoldierController : MonoBehaviour
 
         }
         damage += itemValue;
-        maxHealth += itemValue + 5;
+        maxHealth += itemValue + 15;
         health = maxHealth;
         healthBar.fillAmount = health / maxHealth;
 
@@ -253,7 +253,20 @@ public class SoldierController : MonoBehaviour
     }
     public void TakeDamage(float damage)
     {
-        AudioManager.Instance.PlaySFX2("HitSoldier");
+        int rand = Random.Range(1, 4);
+        switch (rand)
+        {
+            case 1:
+                AudioManager.Instance.PlaySFX2("HitSoldier1");
+                break;
+            case 2:
+                AudioManager.Instance.PlaySFX2("HitSoldier2");
+                break;
+            case 3:
+                AudioManager.Instance.PlaySFX2("HitSoldier3");
+                break;
+        }
+
         var particle = ObjectPooler.Instance.GetHitParticlesFromPool();
         if (particle != null)
         {

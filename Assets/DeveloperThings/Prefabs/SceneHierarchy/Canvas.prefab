@@ -7763,7 +7763,7 @@ PrefabInstance:
     - target: {fileID: 3573248729400519718, guid: a40566142b5ee5241ad3fa2417642666,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: RestartGame
+      value: FailButton
       objectReference: {fileID: 0}
     - target: {fileID: 3573248729400519718, guid: a40566142b5ee5241ad3fa2417642666,
         type: 3}
@@ -7839,7 +7839,7 @@ PrefabInstance:
     - target: {fileID: 4557760716353473149, guid: 1bfb5dd262f9c6340955d28800674f72,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: RestartGame
+      value: NextLevelButton
       objectReference: {fileID: 0}
     - target: {fileID: 4557760716353473149, guid: 1bfb5dd262f9c6340955d28800674f72,
         type: 3}

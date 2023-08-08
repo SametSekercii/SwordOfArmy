@@ -5,10 +5,33 @@ using UnityEngine.SceneManagement;
 
 public class ButtonManager : MonoBehaviour
 {
-    public void RestartGame()
+
+
+    public void FailButton()
+    {
+        int failedLevelSceneIndex = GameManager.Instance.GetLastScene();
+        SceneManager.LoadScene(failedLevelSceneIndex);
+    }
+    public void NextLevelButton()
     {
 
-        SceneManager.LoadScene(0);
+        int currentLevelSceneIndex = GameManager.Instance.GetLastScene();
+        if (GameManager.Instance.GetPlayerLevel() >= 10)
+        {
+            int rand = Random.Range(1, 9);
+            if (rand == currentLevelSceneIndex)
+            {
+                while (rand == currentLevelSceneIndex)
+                {
+                    rand = Random.Range(1, 9);
+                }
+            }
+            SceneManager.LoadScene(rand);
+        }
+        else SceneManager.LoadScene(currentLevelSceneIndex + 1);
+        GameManager.Instance.IncreaseLevel();
+
+
 
 
     }
