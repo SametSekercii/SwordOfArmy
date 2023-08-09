@@ -40,7 +40,7 @@ public class GameManager : UnitySingleton<GameManager>
 
     private void OnEnable()
     {
-        SetDifficultyTier();
+
         LoadGameData += LoadGameDatas;
         SetGameData += SetGameDatas;
     }
@@ -50,10 +50,11 @@ public class GameManager : UnitySingleton<GameManager>
     }
     private void Start()
     {
-
         gameData = new GameData();
         gameData = SaveSystem.Load(gameData);
         LoadGameData?.Invoke();
+        SetDifficultyTier();
+        Debug.Log(difficultyTier);
         if (SceneManager.GetActiveScene().buildIndex != lastScene) SceneManager.LoadScene(lastScene);
         if (playerMoney < 300)
         {
@@ -84,10 +85,7 @@ public class GameManager : UnitySingleton<GameManager>
         SaveSystem.Save(gameData);
         moneyText.text = Mathf.RoundToInt(playerMoney).ToString();
         gobletText.text = playerGoblet.ToString();
-        //lastScene = SceneManager.GetActiveScene().buildIndex;
         levelText.text = "LEVEL" + playerLevel.ToString();
-
-
 
     }
 
@@ -108,7 +106,7 @@ public class GameManager : UnitySingleton<GameManager>
     private void SetDifficultyTier()
     {
         if (playerLevel < 5) difficultyTier = 1;
-        else if (playerLevel > 5 && playerLevel < 11) difficultyTier = 2;
+        else if (playerLevel >= 5 && playerLevel < 11) difficultyTier = 2;
         else if (playerLevel > 10) difficultyTier = 3;
     }
     IEnumerator EarnMoneyAnimated(float value)
