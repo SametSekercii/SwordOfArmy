@@ -1214,7 +1214,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1196460783
 RectTransform:
   m_ObjectHideFlags: 0
@@ -5258,7 +5258,7 @@ RectTransform:
   m_GameObject: {fileID: 4201245481276367492}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 3, y: 3, z: 3}
+  m_LocalScale: {x: 0, y: 0, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 4201245482318376109}
@@ -5556,10 +5556,10 @@ RectTransform:
   m_Father: {fileID: 3235821593993039069}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 50}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 150.37, y: -40}
+  m_SizeDelta: {x: 110.74, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &964814705132481844
 CanvasRenderer:
@@ -5676,7 +5676,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &7858690037296555798
 RectTransform:
   m_ObjectHideFlags: 0
@@ -7368,7 +7368,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
   m_AnchoredPosition: {x: 80.2, y: -63.2}
-  m_SizeDelta: {x: 0, y: 80}
+  m_SizeDelta: {x: 215.73999, y: 80}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &3460251943215935231
 CanvasRenderer:
@@ -7875,6 +7875,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Goblet
+      objectReference: {fileID: 0}
+    - target: {fileID: 5857975562693283358, guid: 1bfb5dd262f9c6340955d28800674f72,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8996805225590524764, guid: 1bfb5dd262f9c6340955d28800674f72,
         type: 3}

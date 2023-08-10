@@ -102,7 +102,7 @@ public class GameManager : UnitySingleton<GameManager>
             winPanel.SetActive(true);
             playerGoblet += 90;
             winPanelGobletText.text = 90.ToString();
-            WinRewardManager.Instance.StartRewardingGoblet(90);
+            // WinRewardManager.Instance.StartRewardingGoblet(90);
 
         }
         else failPanel.SetActive(true);
