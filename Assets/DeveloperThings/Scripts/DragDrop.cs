@@ -144,6 +144,7 @@ public class DragDrop : MonoBehaviour
         toMerge.SetActive(false);
         GameManager.Instance.IncreaseMergedEquipment();
         AudioManager.Instance.PlaySFX("Merge");
+        Vibrator.Vibrate(50);
 
 
     }

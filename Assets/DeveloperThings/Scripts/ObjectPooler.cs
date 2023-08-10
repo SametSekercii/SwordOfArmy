@@ -43,6 +43,7 @@ public class ObjectPooler : UnitySingleton<ObjectPooler>
     private List<GameObject> mergeEquipmentLvl4Particles = new List<GameObject>();
     private List<GameObject> mergeEquipmentLvl5Particles = new List<GameObject>();
     private List<GameObject> mergeEquipmentLvl6Particles = new List<GameObject>();
+    private List<GameObject> equipParticles = new List<GameObject>();
     private List<GameObject> hitParticles = new List<GameObject>();
     private int amountOfEachParticle = 5;
     [SerializeField] private GameObject buyEquipmentParticlePrefab;
@@ -52,6 +53,8 @@ public class ObjectPooler : UnitySingleton<ObjectPooler>
     [SerializeField] private GameObject mergeEquipmentLvl5ParticlePrefab;
     [SerializeField] private GameObject mergeEquipmentLvl6ParticlePrefab;
     [SerializeField] private GameObject hitParticlePrefab;
+    [SerializeField] private GameObject equipParticlePrefab;
+
 
 
 
@@ -370,6 +373,13 @@ public class ObjectPooler : UnitySingleton<ObjectPooler>
             particle.SetActive(false);
             mergeEquipmentLvl6Particles.Add(particle);
         }
+        for (int i = 0; i < amountOfEachParticle; i++)
+        {
+            var particle = Instantiate(equipParticlePrefab);
+            particle.transform.SetParent(transform);
+            particle.SetActive(false);
+            equipParticles.Add(particle);
+        }
     }
 
     public GameObject GetMergeEffects(int lvl)
@@ -442,6 +452,14 @@ public class ObjectPooler : UnitySingleton<ObjectPooler>
         for (int i = 0; i < amountOfEachParticle; i++)
         {
             if (!hitParticles[i].activeSelf) return hitParticles[i];
+        }
+        return null;
+    }
+    public GameObject GetEquipParticlesFromPool()
+    {
+        for (int i = 0; i < amountOfEachParticle; i++)
+        {
+            if (!equipParticles[i].activeSelf) return equipParticles[i];
         }
         return null;
     }

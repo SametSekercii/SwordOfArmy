@@ -283,6 +283,12 @@ public class FortController : MonoBehaviour
     public void TakeDamage(float damage)
     {
         StartCoroutine("TakeDamageAnimated", damage);
+        if (transform.CompareTag("PlayerFort"))
+        {
+            Vibrator.Vibrate(100);
+            GameManager.Instance.ShakeCamera();
+        }
+
     }
     IEnumerator TakeDamageAnimated(float damage)
     {

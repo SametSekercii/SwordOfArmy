@@ -176,6 +176,14 @@ public class SoldierController : MonoBehaviour
     }
     public void TakeUpArms(string itemName, float itemDamage, float itemHealth)
     {
+        Vibrator.Vibrate(50);
+        var equipParticle = ObjectPooler.Instance.GetEquipParticlesFromPool();
+        if (equipParticle != null)
+        {
+            equipParticle.transform.position = rightArm.transform.position;
+            equipParticle.SetActive(true);
+
+        }
         for (int i = 0; i < transform.childCount; i++)
         {
             if (transform.GetChild(i).CompareTag(itemName))
@@ -231,7 +239,7 @@ public class SoldierController : MonoBehaviour
 
             }
 
-            
+
         }
     }
     public void SetQueueNumber(int value) => queueNumber = value;

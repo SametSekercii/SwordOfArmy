@@ -1100,3 +1100,5 @@ MonoBehaviour:
     type: 3}
   hitParticlePrefab: {fileID: 1746145380865176480, guid: e7fe1f789fab2c148a30740964c31add,
     type: 3}
+  equipParticlePrefab: {fileID: 2159117630687702523, guid: ef2701cb6e400c542aa7ad01e981d01d,
+    type: 3}

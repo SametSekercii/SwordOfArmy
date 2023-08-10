@@ -23,6 +23,9 @@ public class GameManager : UnitySingleton<GameManager>
     private bool isGameOver = false;
     private bool isGameGoing = true;
     private int mergedEquipment = 0;
+    private Vector3 camOriginalPos;
+    private Camera cam;
+    public float shakeAmount = 0.7f;
     [SerializeField] private GameObject[] allItemTypes;
     [SerializeField] private int soldierEquipped = 0;
     [SerializeField] private TMP_Text moneyText;
@@ -40,6 +43,8 @@ public class GameManager : UnitySingleton<GameManager>
 
     private void OnEnable()
     {
+        cam = Camera.main;
+        camOriginalPos = cam.transform.position;
 
         LoadGameData += LoadGameDatas;
         SetGameData += SetGameDatas;
@@ -51,10 +56,9 @@ public class GameManager : UnitySingleton<GameManager>
     private void Start()
     {
         gameData = new GameData();
-        gameData = SaveSystem.Load(gameData);
+        // gameData = SaveSystem.Load(gameData);
         LoadGameData?.Invoke();
         SetDifficultyTier();
-        Debug.Log(difficultyTier);
         if (SceneManager.GetActiveScene().buildIndex != lastScene) SceneManager.LoadScene(lastScene);
         if (playerMoney < 300)
         {
@@ -123,6 +127,29 @@ public class GameManager : UnitySingleton<GameManager>
         moneyText.color = color;
         yield return null;
     }
+    public void ShakeCamera()
+    {
+        StartCoroutine("ShakeCam");
+
+    }
+    IEnumerator ShakeCam()
+    {
+        float shakeDuration = 0.3f;
+        float shakeAmount = 0.1f;
+
+        while (shakeDuration > 0)
+        {
+            cam.transform.localPosition = camOriginalPos + UnityEngine.Random.insideUnitSphere * shakeAmount;
+            shakeDuration -= 0.1f;
+            yield return new WaitForSeconds(0.1f);
+
+
+        }
+        cam.transform.localPosition = camOriginalPos;
+        yield return null;
+
+
+    }
 
     public int GetDifficultyTier() => difficultyTier;
     public Transform GetMoneyIconTransform() => moneyIconTransform;
@@ -143,7 +170,6 @@ public class GameManager : UnitySingleton<GameManager>
     public void IncreaseEquippedSoldier() => soldierEquipped++;
     public int GetMergedEquipment() => mergedEquipment;
     public int GetEquippedSoldier() => soldierEquipped;
-
     public GameObject GetPlayerPathObject() => playerPathObject;
     public GameObject GetEnemyPathObject() => enemyPathObject;
     public GameObject GetPlayerFortObject() => playerFortObject;

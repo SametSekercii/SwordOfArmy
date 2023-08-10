@@ -75,6 +75,7 @@ public class EquipmentSlot : MonoBehaviour
                 particle.transform.position = slotPointTransform.position;
                 particle.SetActive(true);
             }
+            Vibrator.Vibrate(50);
 
 
         }
