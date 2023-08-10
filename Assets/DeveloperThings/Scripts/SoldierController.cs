@@ -72,6 +72,7 @@ public class SoldierController : MonoBehaviour
     {
 
 
+
         while (state != SoldierState.Dead && !GameManager.Instance.IsGameOver())
         {
             if (GameManager.Instance.IsGameGoing())
@@ -176,7 +177,7 @@ public class SoldierController : MonoBehaviour
     }
     public void TakeUpArms(string itemName, float itemDamage, float itemHealth)
     {
-        Vibrator.Vibrate(50);
+        if(transform.CompareTag("PlayerSoldier")) Vibrator.Vibrate(50);
         var equipParticle = ObjectPooler.Instance.GetEquipParticlesFromPool();
         if (equipParticle != null)
         {
@@ -284,6 +285,7 @@ public class SoldierController : MonoBehaviour
 
 
     }
+
     public int GetFortId() => fortId;
 
 }

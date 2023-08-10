@@ -102,9 +102,7 @@ public class DragDrop : MonoBehaviour
 
                     }
                     else RelocateStartPos(toDrag);
-
-
-
+             
                     col.enabled = true;
                     isDrag = false;
                     toDrag = null;

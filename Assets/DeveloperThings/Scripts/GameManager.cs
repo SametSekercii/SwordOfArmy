@@ -21,7 +21,7 @@ public class GameManager : UnitySingleton<GameManager>
     private int lastScene = 0;
     private int playerGoblet;
     private bool isGameOver = false;
-    private bool isGameGoing = true;
+    private bool isGameGoing = true; 
     private int mergedEquipment = 0;
     private Vector3 camOriginalPos;
     private Camera cam;
@@ -40,6 +40,8 @@ public class GameManager : UnitySingleton<GameManager>
     [SerializeField] private GameObject enemyPathObject;
     [SerializeField] private GameObject playerFortObject;
     [SerializeField] private GameObject enemyFortObject;
+
+   
 
     private void OnEnable()
     {
