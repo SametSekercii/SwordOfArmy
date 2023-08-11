@@ -27,10 +27,15 @@ public class TutorialManager : UnitySingleton<TutorialManager>
 
     private void Start()
     {
+        
 
 
         if (GameManager.Instance.GetPlayerLevel() == 0)
         {
+            GameManager.Instance.EarnMoney(slotForFirstBuy.GetPurchaseCost());
+            slotForFirstBuy.BuySlot();
+            GameManager.Instance.EarnMoney(slotForSecondBuy.GetPurchaseCost());
+            slotForSecondBuy.BuySlot();
             for (int i = 0; i < equipmentSlots.Length; i++)
             {
                 equipmentSlots[i].GetComponent<Collider>().enabled = false;
@@ -46,6 +51,7 @@ public class TutorialManager : UnitySingleton<TutorialManager>
 
     private void Start0LevelTutorial()
     {
+        
 
         firstBuyPanel.SetActive(true);
     }

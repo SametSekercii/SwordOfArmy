@@ -995,6 +995,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameWinner: 0
+  shakeAmount: 0.7
+  mergeSlotsState: 
+  mergeSlots: []
   allItemTypes:
   - {fileID: 0}
   - {fileID: 4703616782611093628, guid: 87344c6be348d6d46a6c004ce5c11773, type: 3}

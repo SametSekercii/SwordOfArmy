@@ -13,6 +13,7 @@ public class GameData
 
     public GameData()
     {
+    
         lastScene = 0;
         playerMoney = 100;
         playerLevel = 0;

@@ -6,6 +6,7 @@ using TMPro;
 using System;
 using UnityEngine.SceneManagement;
 using System.Threading.Tasks;
+using System.Linq;
 
 public class GameManager : UnitySingleton<GameManager>
 {
@@ -26,6 +27,7 @@ public class GameManager : UnitySingleton<GameManager>
     private Vector3 camOriginalPos;
     private Camera cam;
     public float shakeAmount = 0.7f;
+    [SerializeField]private List<MergeArea> mergeSlots;
     [SerializeField] private GameObject[] allItemTypes;
     [SerializeField] private int soldierEquipped = 0;
     [SerializeField] private TMP_Text moneyText;
@@ -40,8 +42,10 @@ public class GameManager : UnitySingleton<GameManager>
     [SerializeField] private GameObject enemyPathObject;
     [SerializeField] private GameObject playerFortObject;
     [SerializeField] private GameObject enemyFortObject;
+    MergeArea mergeArea;
 
-   
+
+
 
     private void OnEnable()
     {
@@ -53,23 +57,37 @@ public class GameManager : UnitySingleton<GameManager>
     }
     private void Awake()
     {
+        
+        mergeSlots=new List<MergeArea> ();
+        for (int i = 1; i < 7; i++)
+        {
+            mergeArea = new MergeArea(i);
+            mergeSlots.Add(mergeArea);
+        }
+        LoadJSONDatas();
+
+
         Application.targetFrameRate = 60;
     }
     private void Start()
     {
-        gameData = new GameData();
-        // gameData = SaveSystem.Load(gameData);
-        LoadGameData?.Invoke();
-        SetDifficultyTier();
+        
         if (SceneManager.GetActiveScene().buildIndex != lastScene) SceneManager.LoadScene(lastScene);
         if (playerMoney < 300)
         {
             playerMoney = 300;
         }
+        gameData = new GameData();
+        gameData = SaveSystem.Load(gameData);
+        
+        LoadGameData?.Invoke();
+       
+
+        SetDifficultyTier();
+        
         isGameOver = false;
         isGameGoing = true;
     }
-
     private void SetGameDatas()
     {
         gameData.playerMoney = playerMoney;
@@ -85,10 +103,11 @@ public class GameManager : UnitySingleton<GameManager>
         lastScene = gameData.lastScene;
     }
 
-    private void Update()
+    private void LateUpdate()
     {
         SetGameData?.Invoke();
         SaveSystem.Save(gameData);
+        SavaJSONDatas();
         moneyText.text = Mathf.RoundToInt(playerMoney).ToString();
         gobletText.text = playerGoblet.ToString();
         levelText.text = "LEVEL" + playerLevel.ToString();
@@ -134,6 +153,16 @@ public class GameManager : UnitySingleton<GameManager>
         StartCoroutine("ShakeCam");
 
     }
+    private void SavaJSONDatas()
+    {
+        SaveSystem.SaveToJSON(mergeSlots, "mergeSlots.json");
+
+    }
+    private void LoadJSONDatas()
+    {
+        mergeSlots = SaveSystem.ReadListFromJSON<MergeArea>("mergeSlots.json");
+
+    }
     IEnumerator ShakeCam()
     {
         float shakeDuration = 0.3f;
@@ -152,12 +181,40 @@ public class GameManager : UnitySingleton<GameManager>
 
 
     }
-
     public int GetDifficultyTier() => difficultyTier;
     public Transform GetMoneyIconTransform() => moneyIconTransform;
     public Transform GetGobletIconTransform() => gobletIconTransform;
     public bool IsGameOver() => isGameOver;
     public bool IsGameGoing() => isGameGoing;
+    public MergeArea GetMergeAreas(int id)
+    {
+        for(int i = 0;i<mergeSlots.Count;i++) 
+        {
+            if(mergeSlots[i].id == id) return mergeSlots[i];
+            
+            
+        }
+        return null;
+    
+
+    }
+    public void SetIntoMergeAreas(MergeArea mergeArea)
+    {
+        bool isAlreadyhave=false;
+        for(int i = 0;i<mergeSlots.Count;i++) 
+        {
+            if (mergeSlots.ElementAt(i).id == mergeArea.id)
+            {
+                mergeSlots[i] = mergeArea;
+                isAlreadyhave = true;
+            } 
+        }
+
+        if (!isAlreadyhave)
+        {
+            mergeSlots.Add(mergeArea);
+        }
+    }
     public Winner GetGameWinner() => gameWinner;
     public void SetGameState(bool value) => isGameGoing = value;
     public void SetLastScene(int value) => lastScene = value;

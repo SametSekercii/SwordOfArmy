@@ -8,10 +8,12 @@ using DG.Tweening;
 public class EquipmentSlot : MonoBehaviour
 {
     enum SlotState { filled, empty }
-    [SerializeField] private MergeArea mergeArea;
+    private MergeArea mergeArea;
     private Collider col;
     private Transform slotPointTransform;
-    [SerializeField] private Transform tabletPointTransform;
+    private Transform tabletPointTransform;
+    [SerializeField] private int id;
+    [SerializeField] private bool isSolded;
     private int slotLevel;
     private GameObject equipmentOnSLot;
     private GameObject tabletOnSlot;
@@ -25,10 +27,16 @@ public class EquipmentSlot : MonoBehaviour
     private float changeColorDuration = 0.5f;
 
 
-
+    
 
     void Start()
     {
+     
+        mergeArea = new MergeArea(id);
+        MergeArea _mergeArea = GameManager.Instance.GetMergeAreas(id);
+       // mergeArea.isSolded = GameManager.Instance.mergeSlotsState[id - 1];
+       mergeArea.isSolded=_mergeArea.isSolded;
+        
         slotLevel = mergeArea.areaLevel;
         costText = transform.GetChild(1).GetChild(0).GetComponent<TMP_Text>();
         slotCanvas = transform.GetChild(1).gameObject;
@@ -109,6 +117,7 @@ public class EquipmentSlot : MonoBehaviour
         {
             GameManager.Instance.SpendMoney(purchaseCost);
             mergeArea.isSolded = true;
+            GameManager.Instance.SetIntoMergeAreas(mergeArea);
             CheckSlotState();
         }
         else
@@ -132,6 +141,7 @@ public class EquipmentSlot : MonoBehaviour
             }
 
         }
+        
     }
 
     public bool CheckSlotState()
@@ -221,6 +231,7 @@ public class EquipmentSlot : MonoBehaviour
     }
     public MergeArea GetMergeAreaInfo() => mergeArea;
     public float GetSlotCost() => slotCost;
+    public float GetPurchaseCost() => purchaseCost;
 
 
 
