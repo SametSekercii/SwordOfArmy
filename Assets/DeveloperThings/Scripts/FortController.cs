@@ -49,7 +49,7 @@ public class FortController : MonoBehaviour
         }
         queueSize = 0;
 
-        if (GameManager.Instance.GetPlayerLevel() > 0)
+        if (GameManager.Instance.GetPlayerLevel() > 1)
         {
 
 
@@ -66,6 +66,7 @@ public class FortController : MonoBehaviour
         }
         else
         {
+            
             if (transform.CompareTag("EnemyFort"))
             {
                 StartCoroutine("EnemyFortTutorial");
@@ -73,10 +74,11 @@ public class FortController : MonoBehaviour
             }
             if (transform.CompareTag("PlayerFort"))
             {
-              
+                Debug.Log("PlayerFortTutorialStarting..");
                 StartCoroutine("PlayerFortTutorial");
             }
         }
+        GameManager.Instance.SetGameState(true);
     }
 
     public void UpgradeFort()
@@ -125,7 +127,7 @@ public class FortController : MonoBehaviour
             MoveTheQueue();
 
         }
-        if (GameManager.Instance.GetPlayerLevel() == 0 && transform.CompareTag("PlayerFort"))
+        if (GameManager.Instance.GetPlayerLevel() == 1 && transform.CompareTag("PlayerFort"))
         {
             GameManager.Instance.IncreaseEquippedSoldier();
         }
@@ -375,6 +377,7 @@ public class FortController : MonoBehaviour
         item = items[1].GetComponent<EquipmentController>().item;
         while (!TutorialManager.Instance.GetFirstEquipState())
         {
+          
             yield return null;
         }
         BuyVikingSoldier();

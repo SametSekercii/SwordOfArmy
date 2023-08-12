@@ -32,8 +32,8 @@ public class EquipmentSlot : MonoBehaviour
     void Start()
     {
         mergeArea = new MergeArea(id);
-        MergeArea _mergeArea = GameManager.Instance.GetMergeAreas(id);
-        if (_mergeArea != null) mergeArea.isSolded = _mergeArea.isSolded;
+        mergeArea = GameManager.Instance.GetMergeAreas(id);
+        //if (_mergeArea != null) mergeArea.isSolded = _mergeArea.isSolded;
         slotLevel = mergeArea.areaLevel;
         costText = transform.GetChild(1).GetChild(0).GetComponent<TMP_Text>();
         slotCanvas = transform.GetChild(1).gameObject;

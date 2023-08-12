@@ -30,7 +30,7 @@ public class TutorialManager : UnitySingleton<TutorialManager>
         
 
 
-        if (GameManager.Instance.GetPlayerLevel() == 0)
+        if (GameManager.Instance.GetPlayerLevel() == 1)
         {
             GameManager.Instance.EarnMoney(slotForFirstBuy.GetPurchaseCost());
             slotForFirstBuy.BuySlot();
@@ -149,8 +149,8 @@ public class TutorialManager : UnitySingleton<TutorialManager>
         {
             equipmentSlots[i].GetComponent<Collider>().enabled = true;
         }
-        GameManager.Instance.IncreaseLevel();
         levelCanvas.transform.DOScale(new Vector3(3f, 3f, 3f), 0.3f);
+        is0LevelTutorialPlayed=true;
         yield return null;
 
 
@@ -165,6 +165,7 @@ public class TutorialManager : UnitySingleton<TutorialManager>
     public void SetSecondEquipState(bool value) => isSecondEquipComplete = value;
     public void SetFirstEnemySoldierState(bool value) => isFirstEnemySoldierDied = value;
     public bool GetFirstMergeState() => isFirstMergeComplete;
+    public bool GetIs0LevelTutorialPlayed() => is0LevelTutorialPlayed;
     public bool GetFirstEquipState() => isFirstEquipComplete;
     public bool GetSecondEquipState() => isSecondEquipComplete;
     public bool GetFirstEnemySoldierState() => isFirstEnemySoldierDied;

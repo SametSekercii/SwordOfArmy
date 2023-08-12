@@ -9,23 +9,16 @@ using TMPro;
 
 public class LevelManager : MonoBehaviour
 {
-    public static LevelManager Instance;
+    private int lastLevel = 0;
+
     // [SerializeField] private GameObject loaderCanvas;
     // [SerializeField] private Image loadProgressBar;
 
-    private void Awake()
-    {
-        if (Instance == null)
-        {
-            Instance = this;
-            DontDestroyOnLoad(gameObject);
-        }
-        else
-        {
-            Destroy(gameObject);
-        }
-    }
 
+    private void Start()
+    {
+        loadLastScene();
+    }
     public async void LoadScene(int sceneIndex)
     {
         var scene = SceneManager.LoadSceneAsync(sceneIndex);
@@ -44,6 +37,17 @@ public class LevelManager : MonoBehaviour
         // loaderCanvas.SetActive(false);
 
     }
+
+    private void loadLastScene()
+    {
+        lastLevel = GameManager.Instance.GetPlayerLevel();
+
+        if (lastLevel < 10) SceneManager.LoadScene(lastLevel);
+        else SceneManager.LoadScene(GameManager.Instance.GetLastSceneIndex());
+        
+
+    }
+
 
 
 }

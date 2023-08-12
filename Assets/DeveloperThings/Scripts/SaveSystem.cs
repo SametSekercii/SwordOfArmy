@@ -58,7 +58,7 @@ public class SaveSystem
     public static List<T> ReadListFromJSON<T>(string filename)
     {
         string content = ReadFile(GetPathJSON(filename));
-        //Debug.Log(content);
+        Debug.Log(content);
 
         if(string.IsNullOrEmpty(content) || content =="{}") { return new List<T>(); }
 

@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: Level1EnemyFort
   m_EditorClassIdentifier: 
   health: 600
-  coolDown: 50
+  coolDown: 5.3
   id: 2

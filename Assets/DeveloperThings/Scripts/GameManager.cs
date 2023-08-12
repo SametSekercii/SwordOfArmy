@@ -18,11 +18,11 @@ public class GameManager : UnitySingleton<GameManager>
     public Winner gameWinner;
     private float playerMoney;
     private int difficultyTier;
-    private int playerLevel = 0;
-    [SerializeField]private int lastScene = 0;
+    [SerializeField]private int playerLevel=0;
+    private int lastSceneIndex;
     private int playerGoblet;
     private bool isGameOver = false;
-    private bool isGameGoing = true; 
+    private bool isGameGoing = false; 
     private int mergedEquipment = 0;
     private Vector3 camOriginalPos;
     private Camera cam;
@@ -59,53 +59,56 @@ public class GameManager : UnitySingleton<GameManager>
     {
         CreateListsToSave();
         LoadJSONDatas();
-       
+        
+        
+
 
         Application.targetFrameRate = 60;
     }
     private void Start()
     {
-        if (SceneManager.GetActiveScene().buildIndex != lastScene) SceneManager.LoadScene(lastScene);
-
-
+        lastSceneIndex = SceneManager.GetActiveScene().buildIndex;
+        
+        gameData = new GameData();
+        gameData = SaveSystem.Load(gameData);
+        LoadGameData?.Invoke();
         if (playerMoney < 300)
         {
             playerMoney = 300;
         }
-        gameData = new GameData();
-        gameData = SaveSystem.Load(gameData);
-        LoadGameData?.Invoke();
+
         SetDifficultyTier();
         
         isGameOver = false;
-        isGameGoing = true;
+        isGameGoing = false;
     }
     private void SetGameDatas()
     {
         gameData.playerMoney = playerMoney;
         gameData.playerLevel = playerLevel;
         gameData.playerGoblet = playerGoblet;
-        gameData.lastScene = lastScene;
+       
     }
     private void LoadGameDatas()
     {
         playerMoney = gameData.playerMoney;
         playerLevel = gameData.playerLevel;
         playerGoblet = gameData.playerGoblet;
-        lastScene = gameData.lastScene;
     }
 
     private void Update()
     {
-        SetGameData?.Invoke();
-        Debug.Log(gameData.lastScene);
-        SaveSystem.Save(gameData);
+        Debug.Log(isGameGoing);
+        if(isGameGoing)
+        {
+            SetGameData?.Invoke();
+            SaveSystem.Save(gameData);
+            SavaJSONDatas();
+            moneyText.text = Mathf.RoundToInt(playerMoney).ToString();
+            gobletText.text = playerGoblet.ToString();
+            levelText.text = "LEVEL" + playerLevel.ToString();
 
-        SavaJSONDatas();
-        moneyText.text = Mathf.RoundToInt(playerMoney).ToString();
-        gobletText.text = playerGoblet.ToString();
-        levelText.text = "LEVEL" + playerLevel.ToString();
-
+        }
     }
 
 
@@ -242,15 +245,9 @@ public class GameManager : UnitySingleton<GameManager>
     }
     public Winner GetGameWinner() => gameWinner;
     public void SetGameState(bool value) => isGameGoing = value;
-    public void SetLastScene(int value)
-    {
-        lastScene = value;
-        gameData.lastScene = lastScene;
-    }
-        
-    public int GetLastScene() => lastScene;
     public void IncreaseLevel() => playerLevel++;
     public void SpendMoney(float value) => playerMoney -= value;
+    public int GetLastSceneIndex() => lastSceneIndex;
     public float GetMoneyValue() => playerMoney;
     public void EarnMoney(float value) => playerMoney += value;
     public void EarnMoneyAnim(float value) => StartCoroutine("EarnMoneyAnimated", value);

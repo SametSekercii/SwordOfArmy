@@ -995,7 +995,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameWinner: 0
-  lastScene: 0
+  playerLevel: 0
   shakeAmount: 0.7
   mergeSlots: []
   fortStats: []
@@ -1106,7 +1106,7 @@ MonoBehaviour:
     type: 3}
   hitParticlePrefab: {fileID: 1746145380865176480, guid: e7fe1f789fab2c148a30740964c31add,
     type: 3}
-  equipParticlePrefab: {fileID: 2159117630687702523, guid: ef2701cb6e400c542aa7ad01e981d01d,
+  equipParticlePrefab: {fileID: 7879680995695780547, guid: 3e2eb8fd03ed0ca4cb32d4c68ad6ad73,
     type: 3}
   upgradeFortParticlePrefab: {fileID: 2149152978931604320, guid: 6ab6f3ee4ccbd6644aa51f3150db5d98,
     type: 3}

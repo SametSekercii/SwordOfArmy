@@ -133,7 +133,7 @@ public class SoldierController : MonoBehaviour
                     {
                         if (transform.CompareTag("EnemySoldier"))
                         {
-                            if (GameManager.Instance.GetPlayerLevel() == 0)
+                            if (GameManager.Instance.GetPlayerLevel() == 1 && !TutorialManager.Instance.GetIs0LevelTutorialPlayed())
                             {
                                 Ray rayTutorial = new Ray(eye.position, eye.TransformDirection(Vector3.forward));
                                 Debug.DrawRay(eye.position, eye.TransformDirection(Vector3.forward) * 3f, Color.red);
