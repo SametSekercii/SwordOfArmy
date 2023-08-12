@@ -995,9 +995,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameWinner: 0
+  lastScene: 0
   shakeAmount: 0.7
-  mergeSlotsState: 
   mergeSlots: []
+  fortStats: []
   allItemTypes:
   - {fileID: 0}
   - {fileID: 4703616782611093628, guid: 87344c6be348d6d46a6c004ce5c11773, type: 3}
@@ -1089,6 +1090,8 @@ MonoBehaviour:
     type: 3}
   animatedMoneyPrefab: {fileID: 6189285449146377980, guid: 8b208525a9d735a43a7527a72243ab93,
     type: 3}
+  fortUpgradePopUPrefab: {fileID: 6189285449146377980, guid: f8a824c12999b8d4988e149e554e2d1a,
+    type: 3}
   buyEquipmentParticlePrefab: {fileID: 187180, guid: 1ed56f4c486ff6141a344e5e5714e1b9,
     type: 3}
   mergeEquipmentLvl2ParticlePrefab: {fileID: 161470, guid: 9fcebea2794b44246b84eeef88f15f90,
@@ -1104,4 +1107,6 @@ MonoBehaviour:
   hitParticlePrefab: {fileID: 1746145380865176480, guid: e7fe1f789fab2c148a30740964c31add,
     type: 3}
   equipParticlePrefab: {fileID: 2159117630687702523, guid: ef2701cb6e400c542aa7ad01e981d01d,
+    type: 3}
+  upgradeFortParticlePrefab: {fileID: 2149152978931604320, guid: 6ab6f3ee4ccbd6644aa51f3150db5d98,
     type: 3}

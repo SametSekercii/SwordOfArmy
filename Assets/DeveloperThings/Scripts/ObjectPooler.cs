@@ -32,9 +32,12 @@ public class ObjectPooler : UnitySingleton<ObjectPooler>
     [SerializeField] private GameObject level5TabletPrefab;
     [SerializeField] private GameObject level6TabletPrefab;
     /////////////////////////////////////
+   
     private List<GameObject> moneyPopUps = new List<GameObject>();
-    private int amountOfMoney = 5;
+    private List<GameObject> fortUpgradePopUps = new List<GameObject>();
+    private int amountOfPopUps = 5;
     [SerializeField] private GameObject animatedMoneyPrefab;
+    [SerializeField] private GameObject fortUpgradePopUPrefab;
 
     /////////////////////////////////////
     private List<GameObject> buyEquipmentParticles = new List<GameObject>();
@@ -45,6 +48,7 @@ public class ObjectPooler : UnitySingleton<ObjectPooler>
     private List<GameObject> mergeEquipmentLvl6Particles = new List<GameObject>();
     private List<GameObject> equipParticles = new List<GameObject>();
     private List<GameObject> hitParticles = new List<GameObject>();
+    private List<GameObject> upgradeFortParticles = new List<GameObject>();
     private int amountOfEachParticle = 5;
     [SerializeField] private GameObject buyEquipmentParticlePrefab;
     [SerializeField] private GameObject mergeEquipmentLvl2ParticlePrefab;
@@ -54,6 +58,7 @@ public class ObjectPooler : UnitySingleton<ObjectPooler>
     [SerializeField] private GameObject mergeEquipmentLvl6ParticlePrefab;
     [SerializeField] private GameObject hitParticlePrefab;
     [SerializeField] private GameObject equipParticlePrefab;
+    [SerializeField] private GameObject upgradeFortParticlePrefab;
 
 
 
@@ -62,7 +67,7 @@ public class ObjectPooler : UnitySingleton<ObjectPooler>
     {
         CreateAllEquipmentPool();
         CreateTabletsPool();
-        CreateMoneyPopUpPool();
+        CreateAllPopUpPool();
         CreateAllParticlePool();
     }
 
@@ -298,23 +303,38 @@ public class ObjectPooler : UnitySingleton<ObjectPooler>
     }
 
     #endregion
-    #region  Money PopUp Pool
-    private void CreateMoneyPopUpPool()
+    #region  PopUp Pool
+    private void CreateAllPopUpPool()
     {
-        for (int i = 0; i < amountOfMoney; i++)
+        for (int i = 0; i < amountOfPopUps; i++)
         {
-            var money = Instantiate(animatedMoneyPrefab);
-            money.transform.SetParent(transform);
-            money.SetActive(false);
-            moneyPopUps.Add(money);
+            var popUp = Instantiate(animatedMoneyPrefab);
+            popUp.transform.SetParent(transform);
+            popUp.SetActive(false);
+            moneyPopUps.Add(popUp);
+        }
+        for (int i = 0; i < amountOfPopUps; i++)
+        {
+            var popUp = Instantiate(fortUpgradePopUPrefab);
+            popUp.transform.SetParent(transform);
+            popUp.SetActive(false);
+            fortUpgradePopUps.Add(popUp);
         }
     }
 
     public GameObject GetMoneyPopUp()
     {
-        for (int i = 0; i < amountOfMoney; i++)
+        for (int i = 0; i < amountOfPopUps; i++)
         {
             if (!moneyPopUps[i].activeSelf) return moneyPopUps[i];
+        }
+        return null;
+    }
+    public GameObject GetFortUpgradePopUp()
+    {
+        for (int i = 0; i < amountOfPopUps; i++)
+        {
+            if (!fortUpgradePopUps[i].activeSelf) return fortUpgradePopUps[i];
         }
         return null;
     }
@@ -379,6 +399,13 @@ public class ObjectPooler : UnitySingleton<ObjectPooler>
             particle.transform.SetParent(transform);
             particle.SetActive(false);
             equipParticles.Add(particle);
+        }
+        for (int i = 0; i < amountOfEachParticle; i++)
+        {
+            var particle = Instantiate(upgradeFortParticlePrefab);
+            particle.transform.SetParent(transform);
+            particle.SetActive(false);
+            upgradeFortParticles.Add(particle);
         }
     }
 
@@ -460,6 +487,14 @@ public class ObjectPooler : UnitySingleton<ObjectPooler>
         for (int i = 0; i < amountOfEachParticle; i++)
         {
             if (!equipParticles[i].activeSelf) return equipParticles[i];
+        }
+        return null;
+    }
+    public GameObject GetUpgradeFortParticlesFromPool()
+    {
+        for (int i = 0; i < amountOfEachParticle; i++)
+        {
+            if (!upgradeFortParticles[i].activeSelf) return upgradeFortParticles[i];
         }
         return null;
     }

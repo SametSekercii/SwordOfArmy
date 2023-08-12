@@ -1627,8 +1627,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dd67c04e957c4524da899ada15d52b1e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mergeArea: {fileID: 11400000, guid: 13a92c60c89d57a47add49ffd29a0b9a, type: 2}
-  tabletPointTransform: {fileID: 0}
+  id: 0
+  isSolded: 0
 --- !u!1 &2218681020948240226
 GameObject:
   m_ObjectHideFlags: 0
@@ -2057,8 +2057,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dd67c04e957c4524da899ada15d52b1e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mergeArea: {fileID: 11400000, guid: 6ee1c964b17643d468fc2173a61baaf8, type: 2}
-  tabletPointTransform: {fileID: 0}
+  id: 0
+  isSolded: 0
 --- !u!1 &2218681021102597936
 GameObject:
   m_ObjectHideFlags: 0
@@ -2473,8 +2473,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dd67c04e957c4524da899ada15d52b1e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mergeArea: {fileID: 11400000, guid: 52567c49e914d984c81e315fddb805ed, type: 2}
-  tabletPointTransform: {fileID: 0}
+  id: 0
+  isSolded: 0
 --- !u!1 &2218681021385746375
 GameObject:
   m_ObjectHideFlags: 0
@@ -4134,8 +4134,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dd67c04e957c4524da899ada15d52b1e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mergeArea: {fileID: 11400000, guid: 4ed87d434f36d984a9289a598548c1a8, type: 2}
-  tabletPointTransform: {fileID: 0}
+  id: 0
+  isSolded: 0
 --- !u!1 &2218681022255272373
 GameObject:
   m_ObjectHideFlags: 0
@@ -4282,8 +4282,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dd67c04e957c4524da899ada15d52b1e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mergeArea: {fileID: 11400000, guid: c2a2943d3c8460a428f82e3c917bf931, type: 2}
-  tabletPointTransform: {fileID: 0}
+  id: 0
+  isSolded: 0
 --- !u!1 &2218681022278178811
 GameObject:
   m_ObjectHideFlags: 0
@@ -5308,8 +5308,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dd67c04e957c4524da899ada15d52b1e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mergeArea: {fileID: 11400000, guid: 915723092b5ccaf41b84884d4433694d, type: 2}
-  tabletPointTransform: {fileID: 0}
+  id: 0
+  isSolded: 0
 --- !u!1 &6840639196844905414
 GameObject:
   m_ObjectHideFlags: 0

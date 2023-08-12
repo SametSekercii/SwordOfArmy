@@ -43,7 +43,7 @@ public class SaveSystem
 
     public static void SaveToJSON<T>(List<T> toSave,string filename)
     {
-        Debug.Log(GetPathJSON(filename));
+        //Debug.Log(GetPathJSON(filename));
         string content = JsonHelper.ToJson<T>(toSave.ToArray());
         WriteFile(GetPathJSON(filename), content);
 
@@ -58,7 +58,7 @@ public class SaveSystem
     public static List<T> ReadListFromJSON<T>(string filename)
     {
         string content = ReadFile(GetPathJSON(filename));
-        Debug.Log(content);
+        //Debug.Log(content);
 
         if(string.IsNullOrEmpty(content) || content =="{}") { return new List<T>(); }
 

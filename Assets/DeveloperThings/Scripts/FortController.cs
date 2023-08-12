@@ -13,9 +13,12 @@ public class FortController : MonoBehaviour
     [SerializeField] private Transform[] queuePoints;
     [SerializeField] private GameObject[] soldiersInQueue;
     [SerializeField] private GameObject[] rayFireElements;
+    [SerializeField] private Transform upgradeEffectTransform;
     private int maxQueueSize;
     private int queueSize;
     public Fort fort;
+    private FortStats stats;
+    [SerializeField]private int level;
     private float health;
     private float coolDown;
     public Image healthBar;
@@ -26,6 +29,12 @@ public class FortController : MonoBehaviour
 
     private void Start()
     {
+        stats = new FortStats(fort.id);
+        FortStats _stats = GameManager.Instance.GetFortStats(fort.id);
+        if (stats != null) stats = _stats;
+        level=stats.level;
+        if(transform.CompareTag("PlayerFort"))upgradeEffectTransform = transform.GetChild(6).transform;
+
         SetDifficultyCounter();
         transform.GetComponent<MeshRenderer>().enabled = false;
         coolDown = fort.coolDown;
@@ -64,14 +73,33 @@ public class FortController : MonoBehaviour
             }
             if (transform.CompareTag("PlayerFort"))
             {
+              
                 StartCoroutine("PlayerFortTutorial");
             }
-
         }
+    }
 
-
-
-
+    public void UpgradeFort()
+    {
+        level += 1;
+        stats.level = level;
+        var upgradeEffect = ObjectPooler.Instance.GetUpgradeFortParticlesFromPool();
+        if(upgradeEffect != null)
+        {
+            upgradeEffect.transform.position = upgradeEffectTransform.position;
+            upgradeEffect.SetActive(true);
+        }
+        var upgradePopUp = ObjectPooler.Instance.GetFortUpgradePopUp();
+        if(upgradePopUp != null)
+        {
+            upgradePopUp.transform.position = new Vector3(upgradeEffectTransform.position.x, upgradeEffectTransform.position.y+8, upgradeEffectTransform.position.z);
+            upgradePopUp.SetActive(true);
+            Vector3 targetPos =new Vector3 (upgradePopUp.transform.position.x, upgradePopUp.transform.position.y+5, upgradePopUp.transform.position.z);
+            upgradePopUp.transform.DOMove(targetPos,0.7f).OnComplete(() =>
+            {
+                upgradePopUp.SetActive(false);
+            });
+        }
     }
 
     public void BuyVikingSoldier()
@@ -103,6 +131,7 @@ public class FortController : MonoBehaviour
         }
 
     }
+
     private void MoveTheQueue()
     {
 

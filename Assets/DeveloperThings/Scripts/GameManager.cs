@@ -19,7 +19,7 @@ public class GameManager : UnitySingleton<GameManager>
     private float playerMoney;
     private int difficultyTier;
     private int playerLevel = 0;
-    private int lastScene = 0;
+    [SerializeField]private int lastScene = 0;
     private int playerGoblet;
     private bool isGameOver = false;
     private bool isGameGoing = true; 
@@ -27,7 +27,8 @@ public class GameManager : UnitySingleton<GameManager>
     private Vector3 camOriginalPos;
     private Camera cam;
     public float shakeAmount = 0.7f;
-    [SerializeField]private List<MergeArea> mergeSlots;
+    [SerializeField] private List<MergeArea> mergeSlots;
+    [SerializeField] private List<FortStats> fortStats;
     [SerializeField] private GameObject[] allItemTypes;
     [SerializeField] private int soldierEquipped = 0;
     [SerializeField] private TMP_Text moneyText;
@@ -42,7 +43,7 @@ public class GameManager : UnitySingleton<GameManager>
     [SerializeField] private GameObject enemyPathObject;
     [SerializeField] private GameObject playerFortObject;
     [SerializeField] private GameObject enemyFortObject;
-    MergeArea mergeArea;
+   
 
 
 
@@ -51,38 +52,29 @@ public class GameManager : UnitySingleton<GameManager>
     {
         cam = Camera.main;
         camOriginalPos = cam.transform.position;
-
         LoadGameData += LoadGameDatas;
         SetGameData += SetGameDatas;
     }
     private void Awake()
     {
-        
-        mergeSlots=new List<MergeArea> ();
-        for (int i = 1; i < 7; i++)
-        {
-            mergeArea = new MergeArea(i);
-            mergeSlots.Add(mergeArea);
-        }
+        CreateListsToSave();
         LoadJSONDatas();
-
+       
 
         Application.targetFrameRate = 60;
     }
     private void Start()
     {
-        
         if (SceneManager.GetActiveScene().buildIndex != lastScene) SceneManager.LoadScene(lastScene);
+
+
         if (playerMoney < 300)
         {
             playerMoney = 300;
         }
         gameData = new GameData();
         gameData = SaveSystem.Load(gameData);
-        
         LoadGameData?.Invoke();
-       
-
         SetDifficultyTier();
         
         isGameOver = false;
@@ -103,10 +95,12 @@ public class GameManager : UnitySingleton<GameManager>
         lastScene = gameData.lastScene;
     }
 
-    private void LateUpdate()
+    private void Update()
     {
         SetGameData?.Invoke();
+        Debug.Log(gameData.lastScene);
         SaveSystem.Save(gameData);
+
         SavaJSONDatas();
         moneyText.text = Mathf.RoundToInt(playerMoney).ToString();
         gobletText.text = playerGoblet.ToString();
@@ -156,11 +150,13 @@ public class GameManager : UnitySingleton<GameManager>
     private void SavaJSONDatas()
     {
         SaveSystem.SaveToJSON(mergeSlots, "mergeSlots.json");
+        SaveSystem.SaveToJSON(fortStats, "fortStats.json");
 
     }
     private void LoadJSONDatas()
     {
         mergeSlots = SaveSystem.ReadListFromJSON<MergeArea>("mergeSlots.json");
+        fortStats = SaveSystem.ReadListFromJSON<FortStats>("fortStats.json");
 
     }
     IEnumerator ShakeCam()
@@ -198,6 +194,18 @@ public class GameManager : UnitySingleton<GameManager>
     
 
     }
+    public FortStats GetFortStats(int id)
+    {
+        for (int i = 0; i < fortStats.Count; i++)
+        {
+            if (fortStats[i].id == id) return fortStats[i];
+
+
+        }
+        return null;
+
+
+    }
     public void SetIntoMergeAreas(MergeArea mergeArea)
     {
         bool isAlreadyhave=false;
@@ -215,9 +223,31 @@ public class GameManager : UnitySingleton<GameManager>
             mergeSlots.Add(mergeArea);
         }
     }
+    public void SetIntoFortStatsTheFort(FortStats fortStat)
+    {
+        bool isAlreadyhave = false;
+        for (int i = 0; i < fortStats.Count; i++)
+        {
+            if (fortStats.ElementAt(i).id == fortStat.id)
+            {
+                fortStats[i] = fortStat;
+                isAlreadyhave = true;
+            }
+        }
+
+        if (!isAlreadyhave)
+        {
+            fortStats.Add(fortStat);
+        }
+    }
     public Winner GetGameWinner() => gameWinner;
     public void SetGameState(bool value) => isGameGoing = value;
-    public void SetLastScene(int value) => lastScene = value;
+    public void SetLastScene(int value)
+    {
+        lastScene = value;
+        gameData.lastScene = lastScene;
+    }
+        
     public int GetLastScene() => lastScene;
     public void IncreaseLevel() => playerLevel++;
     public void SpendMoney(float value) => playerMoney -= value;
@@ -234,6 +264,22 @@ public class GameManager : UnitySingleton<GameManager>
     public GameObject GetPlayerFortObject() => playerFortObject;
     public GameObject GetEnemyFortObject() => enemyFortObject;
     public GameObject[] GetAllItemTypes() => allItemTypes;
+    private void CreateListsToSave()
+    {
+        mergeSlots = new List<MergeArea>();
+        for (int i = 1; i < 7; i++)
+        {
+            MergeArea mergeArea = new MergeArea(i);
+            mergeSlots.Add(mergeArea);
+        }
+        fortStats = new List<FortStats>();
+        for (int i = 1; i < 3; i++)
+        {
+            FortStats fortStat = new FortStats(i);
+            fortStats.Add(fortStat);
+        }
+
+    }
     public void unlimitedmoney()
     {
         playerMoney = 999999999;

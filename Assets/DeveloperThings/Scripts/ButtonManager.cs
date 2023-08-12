@@ -14,7 +14,17 @@ public class ButtonManager : MonoBehaviour
     }
     public void NextLevelButton()
     {
+        StartCoroutine(_NextLevelButton());
 
+        
+
+
+
+
+    }
+
+    IEnumerator _NextLevelButton()
+    {
         int currentLevelSceneIndex = SceneManager.GetActiveScene().buildIndex;
         if (GameManager.Instance.GetPlayerLevel() >= 10)
         {
@@ -27,24 +37,29 @@ public class ButtonManager : MonoBehaviour
                 }
             }
 
-
-            SceneManager.LoadScene(rand);
             GameManager.Instance.SetLastScene(SceneManager.GetSceneByBuildIndex(rand).buildIndex);
+            Debug.Log(GameManager.Instance.GetLastScene());
+            yield return new WaitForSeconds(2f);
+            Debug.Log("rand");
+            SceneManager.LoadScene(rand);
+            
+
 
 
         }
         else
         {
 
-
-            SceneManager.LoadScene(currentLevelSceneIndex + 1);
             GameManager.Instance.SetLastScene(SceneManager.GetSceneByBuildIndex(currentLevelSceneIndex + 1).buildIndex);
+            Debug.Log(GameManager.Instance.GetLastScene());
+            yield return new WaitForSeconds(2f);
+           
+            SceneManager.LoadScene(currentLevelSceneIndex + 1);
+
 
         }
         GameManager.Instance.IncreaseLevel();
-
-
-
+        yield return null;
 
     }
 

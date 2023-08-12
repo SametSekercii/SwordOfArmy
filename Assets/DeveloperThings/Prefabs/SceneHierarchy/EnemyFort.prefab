@@ -51803,7 +51803,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3815665632966974764}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -52303,7 +52303,9 @@ MonoBehaviour:
   - {fileID: 1585442825}
   - {fileID: 1258130864}
   - {fileID: 647407670}
+  upgradeEffectTransform: {fileID: 0}
   fort: {fileID: 11400000, guid: f2afcffd7447ea941bac94ce06796e90, type: 2}
+  level: 0
   healthBar: {fileID: 2523635596996712627}
   coolDownBar: {fileID: 0}
 --- !u!65 &8294977149853411310

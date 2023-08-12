@@ -168,7 +168,7 @@ public class SoldierController : MonoBehaviour
             moveSpeed = 0;
             anim.SetInteger("moveSpeed", moveSpeed);
             anim.SetBool("isAttacking", false);
-            Debug.Log("seviniyor");
+            //Debug.Log("victoryEmote");
         }
         else Destroy(gameObject);
 
@@ -177,14 +177,19 @@ public class SoldierController : MonoBehaviour
     }
     public void TakeUpArms(string itemName, float itemDamage, float itemHealth)
     {
-        if(transform.CompareTag("PlayerSoldier")) Vibrator.Vibrate(50);
-        var equipParticle = ObjectPooler.Instance.GetEquipParticlesFromPool();
-        if (equipParticle != null)
+        if (transform.CompareTag("PlayerSoldier"))
         {
-            equipParticle.transform.position = rightArm.transform.position;
-            equipParticle.SetActive(true);
+            Vibrator.Vibrate(50);
+            var equipParticle = ObjectPooler.Instance.GetEquipParticlesFromPool();
+            if (equipParticle != null)
+            {
+                equipParticle.transform.position = rightArm.transform.position;
+                equipParticle.SetActive(true);
 
+            }
         }
+        
+        
         for (int i = 0; i < transform.childCount; i++)
         {
             if (transform.GetChild(i).CompareTag(itemName))
