@@ -4,6 +4,7 @@ using UnityEngine;
 using DG.Tweening;
 using UnityEngine.UI;
 using RayFire;
+using TMPro;
 
 public class FortController : MonoBehaviour
 {
@@ -14,13 +15,22 @@ public class FortController : MonoBehaviour
     [SerializeField] private GameObject[] soldiersInQueue;
     [SerializeField] private GameObject[] rayFireElements;
     [SerializeField] private Transform upgradeEffectTransform;
+    private TMP_Text upgradeCostText;
+    private GameObject upgradeMoneyIcon;
+    private Button upgradeButton;
+    private float changeColorDuration = 0.5f;
     private int maxQueueSize;
     private int queueSize;
+    private float upgradeCost=0;
+    private float healthUpgradeAmount = 200f;
+    private float coolDownUpgradeAmount = 0.3f;
     public Fort fort;
     private FortStats stats;
-    [SerializeField]private int level;
-    private float health;
-    private float coolDown;
+    [SerializeField] private int level;
+    private int maxLevel = 3;
+
+    [SerializeField]private float health;
+    [SerializeField]private float coolDown;
     public Image healthBar;
     public Image coolDownBar;
     private int equippedCounter;
@@ -29,16 +39,34 @@ public class FortController : MonoBehaviour
 
     private void Start()
     {
+        
         stats = new FortStats(fort.id);
         FortStats _stats = GameManager.Instance.GetFortStats(fort.id);
         if (stats != null) stats = _stats;
         level=stats.level;
-        if(transform.CompareTag("PlayerFort"))upgradeEffectTransform = transform.GetChild(6).transform;
+        upgradeCost = SetUpgradeCost();
+        if (transform.CompareTag("PlayerFort"))
+        {
+            upgradeEffectTransform = transform.GetChild(6).transform;
+            upgradeCostText = transform.GetChild(5).GetChild(0).GetChild(0).GetComponent<TMP_Text>();
+            upgradeButton = transform.GetChild(5).GetChild(0).GetComponent<Button>();
+            upgradeCostText.text=upgradeCost.ToString();
+            upgradeMoneyIcon = transform.GetChild(5).GetChild(1).gameObject;
+            if (level == maxLevel)
+            {
+                upgradeCostText.text = "MAX LEVEL";
+                upgradeButton.enabled = false;
+                upgradeMoneyIcon.SetActive(false);
+
+
+            }
+
+        } 
 
         SetDifficultyCounter();
         transform.GetComponent<MeshRenderer>().enabled = false;
-        coolDown = fort.coolDown;
-        health = fort.health;
+        coolDown = SetCoolDown();
+        health = SetHealth();
         healthBar.fillAmount = health / fort.health;
         maxQueueSize = transform.GetChild(0).childCount;
         soldiersInQueue = new GameObject[maxQueueSize];
@@ -83,25 +111,70 @@ public class FortController : MonoBehaviour
 
     public void UpgradeFort()
     {
-        level += 1;
-        stats.level = level;
+        if(GameManager.Instance.GetMoneyValue()>=upgradeCost && level<maxLevel)
+        {
+            level += 1;
+            stats.level = level;
+            UpgradeFortEffects();
+            GameManager.Instance.SpendMoney(upgradeCost);
+            upgradeCost = SetUpgradeCost();
+            upgradeCostText.text = upgradeCost.ToString();
+            if(level==maxLevel)
+            {
+                upgradeCostText.text = "MAX LEVEL";
+                upgradeButton.enabled = false;
+                upgradeMoneyIcon.SetActive(false);
+            }
+            coolDown = SetCoolDown();
+            health = SetHealth();
+        }
+        else
+        {
+            for (int i = 0; i < transform.GetChild(5).childCount; i++)
+            {
+                if (transform.GetChild(5).GetChild(i).GetComponent<Image>() != null)
+                {
+                    Image image;
+                    image = transform.GetChild(5).GetChild(i).GetComponent<Image>();
+                    image.DOColor(Color.red, changeColorDuration).OnComplete(() => { image.DOColor(Color.white, changeColorDuration); });
+
+
+                }
+                if (transform.GetChild(5).GetChild(i).GetComponent<TMP_Text>() != null)
+                {
+                    TMP_Text text;
+                    text = transform.GetChild(5).GetChild(i).GetComponent<TMP_Text>();
+                    text.DOColor(Color.red, changeColorDuration).OnComplete(() => { text.DOColor(Color.white, changeColorDuration); });
+
+                }
+            }
+        }
+
+    }
+    private float SetUpgradeCost()=> (level * 8000) + 5000;
+    private float SetCoolDown()=> fort.coolDown - level * coolDownUpgradeAmount;
+    private float SetHealth()=> fort.health + level * healthUpgradeAmount;
+
+    private void UpgradeFortEffects()
+    {
         var upgradeEffect = ObjectPooler.Instance.GetUpgradeFortParticlesFromPool();
-        if(upgradeEffect != null)
+        if (upgradeEffect != null)
         {
             upgradeEffect.transform.position = upgradeEffectTransform.position;
             upgradeEffect.SetActive(true);
         }
         var upgradePopUp = ObjectPooler.Instance.GetFortUpgradePopUp();
-        if(upgradePopUp != null)
+        if (upgradePopUp != null)
         {
-            upgradePopUp.transform.position = new Vector3(upgradeEffectTransform.position.x, upgradeEffectTransform.position.y+8, upgradeEffectTransform.position.z);
+            upgradePopUp.transform.position = new Vector3(upgradeEffectTransform.position.x, upgradeEffectTransform.position.y + 8, upgradeEffectTransform.position.z);
             upgradePopUp.SetActive(true);
-            Vector3 targetPos =new Vector3 (upgradePopUp.transform.position.x, upgradePopUp.transform.position.y+5, upgradePopUp.transform.position.z);
-            upgradePopUp.transform.DOMove(targetPos,0.7f).OnComplete(() =>
+            Vector3 targetPos = new Vector3(upgradePopUp.transform.position.x, upgradePopUp.transform.position.y + 5, upgradePopUp.transform.position.z);
+            upgradePopUp.transform.DOMove(targetPos, 0.7f).OnComplete(() =>
             {
                 upgradePopUp.SetActive(false);
             });
         }
+
     }
 
     public void BuyVikingSoldier()
@@ -295,17 +368,18 @@ public class FortController : MonoBehaviour
             if (GameManager.Instance.IsGameGoing())
             {
                 float timer = coolDown;
+                float maxCooldown = coolDown;
                 if (queueSize < maxQueueSize)
                 {
                     while (timer > 0)
                     {
-                        coolDownBar.fillAmount = timer / coolDown;
+                        coolDownBar.fillAmount = timer / maxCooldown;
                         yield return new WaitForSeconds(0.05f);
                         timer -= 0.05f;
                     }
                     BuyVikingSoldier();
                 }
-                else coolDownBar.fillAmount = timer / coolDown;
+                else coolDownBar.fillAmount = timer / maxCooldown;
 
             }
             yield return null;

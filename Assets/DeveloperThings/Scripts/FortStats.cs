@@ -10,7 +10,7 @@ public class FortStats
 
     public FortStats(int id) 
     {
-        level = 1;
+        level = 0;
         this.id = id;
     }
     

@@ -16,7 +16,7 @@ public class GameData
     {
         playerLevel = 1;
         lastSceneIndex = 0;
-        playerMoney = 100;
+        playerMoney = 0;
         playerGoblet = 0;
     }
 
