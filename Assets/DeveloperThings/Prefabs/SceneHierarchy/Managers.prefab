@@ -1110,3 +1110,5 @@ MonoBehaviour:
     type: 3}
   upgradeFortParticlePrefab: {fileID: 2149152978931604320, guid: 6ab6f3ee4ccbd6644aa51f3150db5d98,
     type: 3}
+  deadEffectParticlePrefab: {fileID: 183222, guid: 9fac145823581e74089cdd444b6311c8,
+    type: 3}

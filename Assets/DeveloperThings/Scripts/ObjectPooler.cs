@@ -49,6 +49,7 @@ public class ObjectPooler : UnitySingleton<ObjectPooler>
     private List<GameObject> equipParticles = new List<GameObject>();
     private List<GameObject> hitParticles = new List<GameObject>();
     private List<GameObject> upgradeFortParticles = new List<GameObject>();
+    private List<GameObject> deadEffectParticles = new List<GameObject>();
     private int amountOfEachParticle = 5;
     [SerializeField] private GameObject buyEquipmentParticlePrefab;
     [SerializeField] private GameObject mergeEquipmentLvl2ParticlePrefab;
@@ -59,10 +60,7 @@ public class ObjectPooler : UnitySingleton<ObjectPooler>
     [SerializeField] private GameObject hitParticlePrefab;
     [SerializeField] private GameObject equipParticlePrefab;
     [SerializeField] private GameObject upgradeFortParticlePrefab;
-
-
-
-
+    [SerializeField] private GameObject deadEffectParticlePrefab;
     void Awake()
     {
         CreateAllEquipmentPool();
@@ -407,6 +405,13 @@ public class ObjectPooler : UnitySingleton<ObjectPooler>
             particle.SetActive(false);
             upgradeFortParticles.Add(particle);
         }
+        for (int i = 0; i < amountOfEachParticle; i++)
+        {
+            var particle = Instantiate(deadEffectParticlePrefab);
+            particle.transform.SetParent(transform);
+            particle.SetActive(false);
+            deadEffectParticles.Add(particle);
+        }
     }
 
     public GameObject GetMergeEffects(int lvl)
@@ -434,6 +439,7 @@ public class ObjectPooler : UnitySingleton<ObjectPooler>
         }
         return null;
     }
+
     public GameObject GetMergeLvl3EquipmentParticlesFromPool()
     {
         for (int i = 0; i < amountOfEachParticle; i++)
@@ -495,6 +501,14 @@ public class ObjectPooler : UnitySingleton<ObjectPooler>
         for (int i = 0; i < amountOfEachParticle; i++)
         {
             if (!upgradeFortParticles[i].activeSelf) return upgradeFortParticles[i];
+        }
+        return null;
+    }
+    public GameObject GetDeadEffectParticlesFromPool()
+    {
+        for (int i = 0; i < amountOfEachParticle; i++)
+        {
+            if (!deadEffectParticles[i].activeSelf) return deadEffectParticles[i];
         }
         return null;
     }

@@ -281,6 +281,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameWinner: 0
+  playerLevel: 0
   shakeAmount: 0.7
   mergeSlots: []
   fortStats: []

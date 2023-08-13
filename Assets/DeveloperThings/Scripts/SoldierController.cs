@@ -141,14 +141,24 @@ public class SoldierController : MonoBehaviour
                                 {
                                     Destroy(hitInfoTutorial.transform.gameObject);
                                 }
-
                                 TutorialManager.Instance.SetFirstEnemySoldierState(true);
+                                var deadEffect2 = ObjectPooler.Instance.GetDeadEffectParticlesFromPool();
+                                if (deadEffect2 != null)
+                                {
+                                    deadEffect2.transform.position = transform.position;
+                                    deadEffect2.SetActive(true);
 
-
+                                }
                             }
-
                         }
-
+                        var deadEffect = ObjectPooler.Instance.GetDeadEffectParticlesFromPool();
+                        if (deadEffect != null)
+                        {
+                            Debug.Log("Deadeffect");
+                            deadEffect.transform.position = new Vector3(transform.position.x, transform.position.y+5, transform.position.z);
+                            deadEffect.SetActive(true);
+                        
+                        }
                         Destroy(gameObject);
                         yield return null;
                     }

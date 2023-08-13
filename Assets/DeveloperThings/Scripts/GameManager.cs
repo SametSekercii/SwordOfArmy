@@ -58,7 +58,7 @@ public class GameManager : UnitySingleton<GameManager>
     private void Awake()
     {
         CreateListsToSave();
-        //LoadJSONDatas();
+        LoadJSONDatas();
         Application.targetFrameRate = 60;
     }
     private void Start()
@@ -66,7 +66,7 @@ public class GameManager : UnitySingleton<GameManager>
         lastSceneIndex = SceneManager.GetActiveScene().buildIndex;
         
         gameData = new GameData();
-        //gameData = SaveSystem.Load(gameData);
+        gameData = SaveSystem.Load(gameData);
         LoadGameData?.Invoke();
         if (playerMoney < 300)
         {
@@ -94,7 +94,6 @@ public class GameManager : UnitySingleton<GameManager>
 
     private void Update()
     {
-        Debug.Log(isGameGoing);
         if(isGameGoing)
         {
             SetGameData?.Invoke();
