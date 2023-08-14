@@ -65,8 +65,8 @@ public class GameManager : UnitySingleton<GameManager>
     {
         lastSceneIndex = SceneManager.GetActiveScene().buildIndex;
         
-        gameData = new GameData();
-        gameData = SaveSystem.Load(gameData);
+       gameData = new GameData();
+       gameData = SaveSystem.Load(gameData);
         LoadGameData?.Invoke();
         if (playerMoney < 300)
         {
@@ -153,8 +153,13 @@ public class GameManager : UnitySingleton<GameManager>
     }
     private void LoadJSONDatas()
     {
-        mergeSlots = SaveSystem.ReadListFromJSON<MergeArea>("mergeSlots.json");
-        fortStats = SaveSystem.ReadListFromJSON<FortStats>("fortStats.json");
+        
+        if(SaveSystem.GetPathJSON("mergeSlots.json")!=null)
+        {
+            mergeSlots = SaveSystem.ReadListFromJSON<MergeArea>("mergeSlots.json");
+            fortStats = SaveSystem.ReadListFromJSON<FortStats>("fortStats.json");
+
+        }
 
     }
     IEnumerator ShakeCam()

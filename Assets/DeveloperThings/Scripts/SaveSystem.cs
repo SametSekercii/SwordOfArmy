@@ -35,7 +35,7 @@ public class SaveSystem
 
     private static string getPath()
     {
-        return Application.persistentDataPath + "/data.qnd";
+        return Application.persistentDataPath + Path.DirectorySeparatorChar + "data.qnd";
     }
     #endregion
 
@@ -78,9 +78,9 @@ public class SaveSystem
 
 
     }
-    private static string GetPathJSON(string filename)
+    public static string GetPathJSON(string filename)
     {
-        return Application.persistentDataPath +"/"+filename;
+        return Application.persistentDataPath + Path.DirectorySeparatorChar +filename;
     }
     private static void WriteFile(string path,string content)
     {
