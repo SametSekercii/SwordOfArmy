@@ -127,6 +127,7 @@ public class FortController : MonoBehaviour
             }
             coolDown = SetCoolDown();
             health = SetHealth();
+            healthBar.fillAmount = health / fort.health;
         }
         else
         {
