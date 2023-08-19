@@ -60,7 +60,7 @@ public class SaveSystem
         string content = ReadFile(GetPathJSON(filename));
         Debug.Log(content);
 
-        if(string.IsNullOrEmpty(content) || content =="{}") { return new List<T>(); }
+        if(string.IsNullOrEmpty(content) || content =="{}") { return null; }
 
         List<T> res = JsonHelper.FromJson<T>(content).ToList();
         return res;
@@ -80,7 +80,7 @@ public class SaveSystem
     }
     public static string GetPathJSON(string filename)
     {
-        return Application.persistentDataPath + Path.DirectorySeparatorChar +filename;
+        return Application.persistentDataPath + "/" +filename;
     }
     private static void WriteFile(string path,string content)
     {
@@ -101,7 +101,7 @@ public class SaveSystem
         else
         {
             Debug.Log("Kayýt Dosyasý Yok");
-            return "";
+            return null;
         }
 
     }

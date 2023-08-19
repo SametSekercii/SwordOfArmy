@@ -27,8 +27,8 @@ public class GameManager : UnitySingleton<GameManager>
     private Vector3 camOriginalPos;
     private Camera cam;
     public float shakeAmount = 0.7f;
-    [SerializeField] private List<MergeArea> mergeSlots;
-    [SerializeField] private List<FortStats> fortStats;
+    [SerializeField] private List<MergeArea> mergeSlots= new List<MergeArea>();
+    [SerializeField] private List<FortStats> fortStats= new List<FortStats>();
     [SerializeField] private GameObject[] allItemTypes;
     [SerializeField] private int soldierEquipped = 0;
     [SerializeField] private TMP_Text moneyText;
@@ -63,8 +63,7 @@ public class GameManager : UnitySingleton<GameManager>
     }
     private void Start()
     {
-        lastSceneIndex = SceneManager.GetActiveScene().buildIndex;
-        
+       lastSceneIndex = SceneManager.GetActiveScene().buildIndex; 
        gameData = new GameData();
        gameData = SaveSystem.Load(gameData);
         LoadGameData?.Invoke();
@@ -154,12 +153,18 @@ public class GameManager : UnitySingleton<GameManager>
     private void LoadJSONDatas()
     {
         
-        if(SaveSystem.GetPathJSON("mergeSlots.json")!=null)
+        if(SaveSystem.ReadListFromJSON<MergeArea>("mergeSlots.json")!=null)
         {
+
             mergeSlots = SaveSystem.ReadListFromJSON<MergeArea>("mergeSlots.json");
             fortStats = SaveSystem.ReadListFromJSON<FortStats>("fortStats.json");
 
         }
+        else 
+        {
+            Debug.Log("First Open");
+        }
+        
 
     }
     IEnumerator ShakeCam()
@@ -189,7 +194,7 @@ public class GameManager : UnitySingleton<GameManager>
     {
         for(int i = 0;i<mergeSlots.Count;i++) 
         {
-            if(mergeSlots[i].id == id) return mergeSlots[i];
+            if(mergeSlots.ElementAt(i).id == id) return mergeSlots.ElementAt(i);
             
             
         }
@@ -201,7 +206,7 @@ public class GameManager : UnitySingleton<GameManager>
     {
         for (int i = 0; i < fortStats.Count; i++)
         {
-            if (fortStats[i].id == id) return fortStats[i];
+            if (fortStats.ElementAt(i).id == id) return fortStats.ElementAt(i);
 
 
         }
@@ -211,9 +216,11 @@ public class GameManager : UnitySingleton<GameManager>
     }
     public void SetIntoMergeAreas(MergeArea mergeArea)
     {
+        Debug.Log(mergeArea.id);
         bool isAlreadyhave=false;
         for(int i = 0;i<mergeSlots.Count;i++) 
         {
+
             if (mergeSlots.ElementAt(i).id == mergeArea.id)
             {
                 mergeSlots[i] = mergeArea;
@@ -231,11 +238,13 @@ public class GameManager : UnitySingleton<GameManager>
         bool isAlreadyhave = false;
         for (int i = 0; i < fortStats.Count; i++)
         {
+            
             if (fortStats.ElementAt(i).id == fortStat.id)
             {
                 fortStats[i] = fortStat;
                 isAlreadyhave = true;
             }
+            
         }
 
         if (!isAlreadyhave)
@@ -263,13 +272,14 @@ public class GameManager : UnitySingleton<GameManager>
     public GameObject[] GetAllItemTypes() => allItemTypes;
     private void CreateListsToSave()
     {
-        mergeSlots = new List<MergeArea>();
+        //mergeSlots = new List<MergeArea>();
         for (int i = 1; i < 7; i++)
         {
+         
             MergeArea mergeArea = new MergeArea(i);
             mergeSlots.Add(mergeArea);
         }
-        fortStats = new List<FortStats>();
+        //fortStats = new List<FortStats>();
         for (int i = 1; i < 3; i++)
         {
             FortStats fortStat = new FortStats(i);

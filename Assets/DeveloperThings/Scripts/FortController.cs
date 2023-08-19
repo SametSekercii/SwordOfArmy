@@ -294,7 +294,7 @@ public class FortController : MonoBehaviour
 
                 if (equippedCounter > 0)
                 {
-                    int rand = Random.Range(2, 5);
+                    int rand = Random.Range(1, 4);
                     item = items[rand].GetComponent<EquipmentController>().item;
                     EquipSoldier(item.itemName, item.damage, item.health);
                     yield return null;
@@ -303,7 +303,7 @@ public class FortController : MonoBehaviour
                 }
                 else
                 {
-                    item = items[4].GetComponent<EquipmentController>().item;
+                    item = items[3].GetComponent<EquipmentController>().item;
                     EquipSoldier(item.itemName, item.damage, item.health);
                     yield return null;
                     equippedCounter = equippedCounterMax;
@@ -316,7 +316,7 @@ public class FortController : MonoBehaviour
 
                 if (equippedCounter > 0)
                 {
-                    int rand = Random.Range(3, 6);
+                    int rand = Random.Range(2, 5);
                     item = items[rand].GetComponent<EquipmentController>().item;
                     EquipSoldier(item.itemName, item.damage, item.health);
                     yield return null;
