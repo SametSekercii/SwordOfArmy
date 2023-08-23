@@ -16,5 +16,8 @@ MonoBehaviour:
   id: 1
   itemLevel: 1
   itemName: Level1Equipment
-  damage: 50
-  health: 0
+  playerDamage: 10
+  playerHealth: 80
+  enemyDamage: 10
+  enemyHealth: 60
+  gainMoneyValue: 5

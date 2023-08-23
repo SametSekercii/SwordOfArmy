@@ -59,14 +59,18 @@ public class GameManager : UnitySingleton<GameManager>
     {
         CreateListsToSave();
         LoadJSONDatas();
+        
         Application.targetFrameRate = 60;
     }
     private void Start()
     {
-       lastSceneIndex = SceneManager.GetActiveScene().buildIndex; 
-       gameData = new GameData();
-       gameData = SaveSystem.Load(gameData);
+       lastSceneIndex = SceneManager.GetActiveScene().buildIndex;
+        gameData = new GameData();
+        gameData = SaveSystem.Load(gameData);
         LoadGameData?.Invoke();
+        //gameData.lastSceneIndex = lastSceneIndex;
+        Debug.Log(lastSceneIndex);
+       
         if (playerMoney < 300)
         {
             playerMoney = 300;
@@ -82,13 +86,16 @@ public class GameManager : UnitySingleton<GameManager>
         gameData.playerMoney = playerMoney;
         gameData.playerLevel = playerLevel;
         gameData.playerGoblet = playerGoblet;
-       
+        gameData.lastSceneIndex = lastSceneIndex;
+
+
     }
     private void LoadGameDatas()
     {
         playerMoney = gameData.playerMoney;
         playerLevel = gameData.playerLevel;
         playerGoblet = gameData.playerGoblet;
+        lastSceneIndex=gameData.lastSceneIndex;
     }
 
     private void Update()

@@ -34,6 +34,7 @@ public class EquipmentSlot : MonoBehaviour
         mergeArea = new MergeArea(id);
         mergeArea = GameManager.Instance.GetMergeAreas(id);
         slotLevel = mergeArea.areaLevel;
+        purchaseCost = mergeArea.purchaseCost;
         costText = transform.GetChild(1).GetChild(0).GetComponent<TMP_Text>();
         slotCanvas = transform.GetChild(1).gameObject;
         purchaseCostText = transform.GetChild(2).GetChild(0).GetComponent<TMP_Text>();
@@ -41,7 +42,7 @@ public class EquipmentSlot : MonoBehaviour
         tabletPointTransform = transform.GetChild(4);
         col = transform.GetComponent<Collider>();
         slotPointTransform = transform.GetChild(0).transform;
-        slotCost = slotLevel * 150;
+        slotCost = 10;
         costText.text = slotCost.ToString();
         purchaseCostText.text = purchaseCost.ToString();
         if (mergeArea.isSolded)

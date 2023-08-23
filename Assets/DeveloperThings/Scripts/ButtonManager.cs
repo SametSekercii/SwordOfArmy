@@ -14,8 +14,18 @@ public class ButtonManager : MonoBehaviour
     }
     public void NextLevelButton()
     {
-        GameManager.Instance.IncreaseLevel();
-        SceneManager.LoadScene(GameManager.Instance.GetPlayerLevel());
+        if(GameManager.Instance.GetPlayerLevel()>=10)
+        {
+            GameManager.Instance.IncreaseLevel();
+            SceneManager.LoadScene(Random.Range(2,11));
+        }
+        else
+        {
+            GameManager.Instance.IncreaseLevel();
+            SceneManager.LoadScene(GameManager.Instance.GetPlayerLevel());
+
+        }
+        
 
 
 

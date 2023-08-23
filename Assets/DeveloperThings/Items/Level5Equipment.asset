@@ -16,5 +16,8 @@ MonoBehaviour:
   id: 5
   itemLevel: 5
   itemName: Level5Equipment
-  damage: 200
-  health: 225
+  playerDamage: 24
+  playerHealth: 195
+  enemyDamage: 24
+  enemyHealth: 124
+  gainMoneyValue: 15

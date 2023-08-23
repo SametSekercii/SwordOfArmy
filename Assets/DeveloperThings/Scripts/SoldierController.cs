@@ -185,24 +185,29 @@ public class SoldierController : MonoBehaviour
         yield return null;
 
     }
-    public void TakeUpArms(string itemName, float itemDamage, float itemHealth)
+    public void TakeUpArms(Item _item)
     {
         if (transform.CompareTag("PlayerSoldier"))
         {
-            Vibrator.Vibrate(50);
-            var equipParticle = ObjectPooler.Instance.GetEquipParticlesFromPool();
-            if (equipParticle != null)
-            {
-                equipParticle.transform.position = rightArm.transform.position;
-                equipParticle.SetActive(true);
+            equipParticle();
+            damage += _item.playerDamage;
+            maxHealth += _item.playerHealth;
 
-            }
+
         }
-        
-        
+        else
+        {
+            damage += _item.enemyDamage;
+            maxHealth += _item.enemyHealth;
+
+        }
+        gainMoneyValue = _item.gainMoneyValue;
+        health = maxHealth;
+        healthBar.fillAmount = health / maxHealth;
+        state = SoldierState.inWar;
         for (int i = 0; i < transform.childCount; i++)
         {
-            if (transform.GetChild(i).CompareTag(itemName))
+            if (transform.GetChild(i).CompareTag(_item.itemName))
             {
                 transform.GetChild(i).gameObject.SetActive(true);
                 equippedArmor = transform.GetChild(i).gameObject;
@@ -212,19 +217,13 @@ public class SoldierController : MonoBehaviour
         }
         for (int i = 0; i < rightArm.childCount; i++)
         {
-            if (rightArm.GetChild(i).CompareTag(itemName))
+            if (rightArm.GetChild(i).CompareTag(_item.itemName))
             {
                 rightArm.GetChild(i).gameObject.SetActive(true);
                 equippedSword = transform.GetChild(i).gameObject;
             }
 
         }
-        damage += itemDamage;
-        gainMoneyValue = damage * 4f;
-        maxHealth += itemHealth;
-        health = maxHealth;
-        healthBar.fillAmount = health / maxHealth;
-        state = SoldierState.inWar;
 
     }
     public void GiveDamage()
@@ -257,6 +256,18 @@ public class SoldierController : MonoBehaviour
 
 
         }
+    }
+    private void equipParticle()
+    {
+        Vibrator.Vibrate(50);
+        var equipParticle = ObjectPooler.Instance.GetEquipParticlesFromPool();
+        if (equipParticle != null)
+        {
+            equipParticle.transform.position = rightArm.transform.position;
+            equipParticle.SetActive(true);
+
+        }
+
     }
     public void SetQueueNumber(int value) => queueNumber = value;
     public void IncreaseQueueNumber() => queueNumber++;

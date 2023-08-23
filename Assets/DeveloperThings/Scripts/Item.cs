@@ -8,8 +8,11 @@ public class Item : ScriptableObject
     public int id;
     public int itemLevel;
     public string itemName;
-    public float damage;
-    public float health;
+    public float playerDamage;
+    public float playerHealth;
+    public float enemyDamage;
+    public float enemyHealth;
+    public float gainMoneyValue;
     public enum ItemType
     {
         Weapon,

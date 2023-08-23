@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using System;
 using TMPro;
 
+
 public class LevelManager : MonoBehaviour
 {
     private int lastLevel = 0;
@@ -42,8 +43,13 @@ public class LevelManager : MonoBehaviour
     {
         lastLevel = GameManager.Instance.GetPlayerLevel();
 
-        if (lastLevel < 10) SceneManager.LoadScene(lastLevel);
-        else SceneManager.LoadScene(GameManager.Instance.GetLastSceneIndex());
+        if (lastLevel <= 10) SceneManager.LoadScene(lastLevel);
+        else
+        {
+            //SceneManager.LoadScene(GameManager.Instance.GetLastSceneIndex());
+            SceneManager.LoadScene(UnityEngine.Random.Range(2, 11));
+
+        } 
         
 
     }
