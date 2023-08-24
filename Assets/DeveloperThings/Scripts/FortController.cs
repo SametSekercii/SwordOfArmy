@@ -39,7 +39,6 @@ public class FortController : MonoBehaviour
 
     private void Start()
     {
-        
         stats = new FortStats(fort.id);
         FortStats _stats = GameManager.Instance.GetFortStats(fort.id);
         if (stats != null) stats = _stats;
@@ -57,12 +56,8 @@ public class FortController : MonoBehaviour
                 upgradeCostText.text = "MAX LEVEL";
                 upgradeButton.enabled = false;
                 upgradeMoneyIcon.SetActive(false);
-
-
             }
-
         } 
-
         SetDifficultyCounter();
         transform.GetComponent<MeshRenderer>().enabled = false;
         coolDown = SetCoolDown();
@@ -81,7 +76,6 @@ public class FortController : MonoBehaviour
             queuePoints[i] = transform.GetChild(0).GetChild(i);
         }
         queueSize = 0;
-
         if (GameManager.Instance.GetPlayerLevel() > 1)
         {
 
