@@ -118,8 +118,8 @@ public class GameManager : UnitySingleton<GameManager>
         if (gameWinner == Winner.Player)
         {
             winPanel.SetActive(true);
-            winPanelGobletText.text = (50 * playerLevel).ToString();
-            WinRewardManager.Instance.StartRewardingGoblet(50 * playerLevel);
+            winPanelGobletText.text = (100 * playerLevel).ToString();
+            WinRewardManager.Instance.StartRewardingGoblet(100 * playerLevel);
 
         }
         else failPanel.SetActive(true);
