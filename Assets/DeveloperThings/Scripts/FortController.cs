@@ -460,7 +460,7 @@ public class FortController : MonoBehaviour
             yield return new WaitForSeconds(0.03f);
 
         }
-        AudioManager.Instance.PlaySFX("HitFort");
+        //AudioManager.Instance.PlaySFX("HitFort");
         var particle = ObjectPooler.Instance.GetHitParticlesFromPool();
         if (particle != null)
         {

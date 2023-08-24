@@ -16,8 +16,8 @@ MonoBehaviour:
   id: 4
   itemLevel: 4
   itemName: Level4Equipment
-  playerDamage: 20
+  playerDamage: 29
   playerHealth: 156
-  enemyDamage: 20
+  enemyDamage: 29
   enemyHealth: 104
   gainMoneyValue: 12

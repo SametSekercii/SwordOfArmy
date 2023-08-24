@@ -104,6 +104,20 @@ public class SoldierController : MonoBehaviour
                         {
                             if (hitInfo.transform.CompareTag("EnemySoldier") || hitInfo.transform.CompareTag("EnemyFort"))
                             {
+                                if(hitInfo.transform.CompareTag("EnemyFort"))
+                                {
+                                    var deadEffect = ObjectPooler.Instance.GetDeadEffectParticlesFromPool();
+                                    if (deadEffect != null)
+                                    {
+                                        Debug.Log("Deadeffect");
+                                        deadEffect.transform.position = new Vector3(transform.position.x, transform.position.y + 5, transform.position.z);
+                                        deadEffect.SetActive(true);
+
+                                    }
+                                    GiveDamage();
+                                    Destroy(gameObject);
+
+                                }
                                 moveSpeed = 0;
 
 
@@ -116,6 +130,20 @@ public class SoldierController : MonoBehaviour
                         {
                             if (hitInfo.transform.CompareTag("PlayerSoldier") || hitInfo.transform.CompareTag("PlayerFort"))
                             {
+                                if (hitInfo.transform.CompareTag("PlayerFort"))
+                                {
+                                    var deadEffect = ObjectPooler.Instance.GetDeadEffectParticlesFromPool();
+                                    if (deadEffect != null)
+                                    {
+                                        Debug.Log("Deadeffect");
+                                        deadEffect.transform.position = new Vector3(transform.position.x, transform.position.y + 5, transform.position.z);
+                                        deadEffect.SetActive(true);
+
+                                    }
+                                    GiveDamage();
+                                    Destroy(gameObject);
+
+                                }
                                 moveSpeed = 0;
 
 
@@ -234,6 +262,7 @@ public class SoldierController : MonoBehaviour
             if (enemyFromForward.GetComponent<FortController>() != null)
             {
                 enemyFromForward.GetComponent<FortController>().TakeDamage(damage);
+                
 
             }
             if (enemyFromForward.GetComponent<SoldierController>() != null)

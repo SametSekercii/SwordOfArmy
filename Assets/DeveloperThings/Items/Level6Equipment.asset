@@ -16,8 +16,8 @@ MonoBehaviour:
   id: 6
   itemLevel: 6
   itemName: Level6Equipment
-  playerDamage: 31
+  playerDamage: 46
   playerHealth: 244
-  enemyDamage: 31
+  enemyDamage: 46
   enemyHealth: 149
   gainMoneyValue: 20
