@@ -16,8 +16,8 @@ MonoBehaviour:
   id: 3
   itemLevel: 3
   itemName: Level3Equipment
-  playerDamage: 23
-  playerHealth: 125
+  playerDamage: 28
+  playerHealth: 141
   enemyDamage: 23
   enemyHealth: 86
-  gainMoneyValue: 15
+  gainMoneyValue: 20

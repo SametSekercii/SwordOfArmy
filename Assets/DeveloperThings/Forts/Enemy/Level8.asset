@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: Level8
   m_EditorClassIdentifier: 
   health: 240
-  coolDown: 9
+  coolDown: 10
   id: 2
