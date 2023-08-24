@@ -71,9 +71,9 @@ public class GameManager : UnitySingleton<GameManager>
         //gameData.lastSceneIndex = lastSceneIndex;
         Debug.Log(lastSceneIndex);
        
-        if (playerMoney < 300)
+        if (playerMoney < 40)
         {
-            playerMoney = 300;
+            playerMoney = 40;
         }
 
         SetDifficultyTier();
@@ -106,7 +106,6 @@ public class GameManager : UnitySingleton<GameManager>
             SaveSystem.Save(gameData);
             SavaJSONDatas();
             moneyText.text = Mathf.RoundToInt(playerMoney).ToString();
-            gobletText.text = playerGoblet.ToString();
             levelText.text = "LEVEL" + playerLevel.ToString();
 
         }
@@ -119,9 +118,8 @@ public class GameManager : UnitySingleton<GameManager>
         if (gameWinner == Winner.Player)
         {
             winPanel.SetActive(true);
-            playerGoblet += 90;
-            winPanelGobletText.text = 90.ToString();
-            // WinRewardManager.Instance.StartRewardingGoblet(90);
+            winPanelGobletText.text = (50 * playerLevel).ToString();
+            WinRewardManager.Instance.StartRewardingGoblet(50 * playerLevel);
 
         }
         else failPanel.SetActive(true);

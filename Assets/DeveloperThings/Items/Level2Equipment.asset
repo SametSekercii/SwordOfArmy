@@ -20,4 +20,4 @@ MonoBehaviour:
   playerHealth: 100
   enemyDamage: 19
   enemyHealth: 72
-  gainMoneyValue: 7
+  gainMoneyValue: 12

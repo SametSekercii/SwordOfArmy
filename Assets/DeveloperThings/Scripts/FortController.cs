@@ -69,7 +69,7 @@ public class FortController : MonoBehaviour
         health = SetHealth();
         if(GameManager.Instance.GetPlayerLevel()>10&&transform.CompareTag("EnemyFort"))
         {
-            coolDown = 6;
+            coolDown = 8;
             health=300;
         }
         healthBar.fillAmount = health / fort.health;
@@ -355,9 +355,7 @@ public class FortController : MonoBehaviour
     {
         GameObject[] items = GameManager.Instance.GetAllItemTypes();
         Item item=null;
-
         int playerLevel = GameManager.Instance.GetPlayerLevel();
-        Debug.Log(playerLevel);
         if (playerLevel == 1 || playerLevel==2)
         {
 

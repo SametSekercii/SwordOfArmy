@@ -275,15 +275,26 @@ public class SoldierController : MonoBehaviour
         if (transform.CompareTag("PlayerSoldier"))
         {
             var moneyPopUp = ObjectPooler.Instance.GetMoneyPopUp();
-            if (moneyPopUp != null)
+            if (enemyFromForward.GetComponent<FortController>() != null)
             {
-                moneyPopUp.transform.position = moneyPopUpSpots[Random.Range(0, 1)].position;
-                moneyPopUp.SetActive(true);
-                moneyPopUp.GetComponent<MoneyMove>().SetMoneyText(gainMoneyValue);
+                if (moneyPopUp != null)
+                {
+                    moneyPopUp.transform.position = moneyPopUpSpots[Random.Range(0, 2)].position;
+                    moneyPopUp.SetActive(true);
+                    moneyPopUp.GetComponent<MoneyMove>().SetMoneyText(gainMoneyValue*3);
+
+                }
 
             }
-
-
+            if (enemyFromForward.GetComponent<SoldierController>() != null)
+            {
+                if (moneyPopUp != null)
+                {
+                    moneyPopUp.transform.position = moneyPopUpSpots[Random.Range(0, 2)].position;
+                    moneyPopUp.SetActive(true);
+                    moneyPopUp.GetComponent<MoneyMove>().SetMoneyText(gainMoneyValue);
+                }
+            }
         }
     }
     private void equipParticle()
