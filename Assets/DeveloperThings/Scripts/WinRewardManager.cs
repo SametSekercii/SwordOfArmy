@@ -29,7 +29,7 @@ public class WinRewardManager : UnitySingleton<WinRewardManager>
 
     IEnumerator RewardGoblet(int rewardedGobletAmount)
     {
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(0.5f);
         for (int i = 0; i < gobletPopUpAmount; i++)
         {
             gobletPopUps[i].SetActive(true);

@@ -26,7 +26,7 @@ public class GobletMove : MonoBehaviour
     IEnumerator StartMove()
     {
         transform.DOScale(new Vector3(0.8f, 0.8f, 0.8f), 1.5f);
-        yield return new WaitForSeconds(0.6f);
+        yield return new WaitForSeconds(0.5f);
         transform.DOMove(moneyIconTransform.position, 1.2f).OnComplete(() =>
         {
             transform.DOScale(startedScale, 0.5f);
