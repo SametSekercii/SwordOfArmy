@@ -274,6 +274,7 @@ public class SoldierController : MonoBehaviour
         }
         if (transform.CompareTag("PlayerSoldier"))
         {
+            Vibrator.Vibrate(20);
             var moneyPopUp = ObjectPooler.Instance.GetMoneyPopUp();
             if (enemyFromForward.GetComponent<FortController>() != null)
             {

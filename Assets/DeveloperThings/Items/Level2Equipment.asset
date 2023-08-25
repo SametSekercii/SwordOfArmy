@@ -16,7 +16,7 @@ MonoBehaviour:
   id: 2
   itemLevel: 2
   itemName: Level2Equipment
-  playerDamage: 23
+  playerDamage: 25
   playerHealth: 113
   enemyDamage: 19
   enemyHealth: 72
