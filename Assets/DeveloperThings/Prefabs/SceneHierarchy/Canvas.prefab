@@ -5860,7 +5860,7 @@ GameObject:
   - component: {fileID: 7163294082204646446}
   - component: {fileID: 7163294082204646445}
   m_Layer: 0
-  m_Name: Icon_Trophy
+  m_Name: Icon_Money
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6054,7 +6054,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 1
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 0, y: 0, z: 0, w: 0}
+  m_margin: {x: 0, y: 0, z: -53.06801, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
@@ -6902,8 +6902,8 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 9015756598435988600}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 409}
-  m_LocalScale: {x: 1.6303724, y: 1.6303724, z: 1.6303724}
+  m_LocalPosition: {x: 0, y: 0, z: 421.19}
+  m_LocalScale: {x: 1.9761745, y: 1.9761745, z: 1.9761745}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 9015756598451103692}
@@ -6912,7 +6912,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 29, y: 41}
+  m_AnchoredPosition: {x: 75.73901, y: 60.373047}
   m_SizeDelta: {x: 201.69995, y: 85.36011}
   m_Pivot: {x: 1, y: 1}
 --- !u!114 &9015756598435988606
@@ -7914,7 +7914,7 @@ PrefabInstance:
     - target: {fileID: 8996805225590524764, guid: 1bfb5dd262f9c6340955d28800674f72,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -70.849
+      value: -97
       objectReference: {fileID: 0}
     - target: {fileID: 8996805225655727588, guid: 1bfb5dd262f9c6340955d28800674f72,
         type: 3}
