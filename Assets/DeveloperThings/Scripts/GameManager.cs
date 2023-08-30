@@ -80,7 +80,9 @@ public class GameManager : UnitySingleton<GameManager>
         
         isGameOver = false;
         isGameGoing = false;
+        YsoCorp.GameUtils.YCManager.instance.OnGameStarted(playerLevel);
     }
+
     private void SetGameDatas()
     {
         gameData.playerMoney = playerMoney;
@@ -120,9 +122,14 @@ public class GameManager : UnitySingleton<GameManager>
             winPanel.SetActive(true);
             winPanelGobletText.text = (100 * playerLevel).ToString();
             WinRewardManager.Instance.StartRewardingGoblet(100 * playerLevel);
-
+            YsoCorp.GameUtils.YCManager.instance.OnGameFinished(true);
         }
-        else failPanel.SetActive(true);
+        else
+        {
+            YsoCorp.GameUtils.YCManager.instance.OnGameFinished(false);
+            failPanel.SetActive(true);
+
+        } 
     }
     private void SetDifficultyTier()
     {
